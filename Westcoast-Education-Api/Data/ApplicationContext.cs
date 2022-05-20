@@ -19,6 +19,23 @@ namespace Westcoast_Education_Api.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Category>()
+                .HasMany(c => c.Teachers)
+                .WithMany(t => t.Categories)
+                .UsingEntity<CategoryTeachers>
+                (ct => ct.HasOne<Teacher>().WithMany(),
+                ct => ct.HasOne<Category>().WithMany());
+
+            builder.Entity<Course>()
+            .HasMany(c => c.Students)
+            .WithMany(c => c.Courses)
+            .UsingEntity<CourseStudents>
+            (cs => cs.HasOne<Student>().WithMany(),
+            cs => cs.HasOne<Course>().WithMany())
+            .Property(cs => cs.EnrollmentDate)
+            .HasDefaultValueSql("getdate()");
+
         }
     }
 }
