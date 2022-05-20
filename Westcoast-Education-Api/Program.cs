@@ -1,6 +1,42 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Westcoast_Education_Api.Data;
+using Westcoast_Education_Api.Helpers;
+using Westcoast_Education_Api.Repositories.impl;
+using Westcoast_Education_Api.Repositories.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// builder.Services.AddDbContext<ApplicationContext>(options =>
+//     options.UseSqlite(builder.Configuration.GetConnectionString("sqlite"))
+// );
+
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlserver"))
+);
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationContext>();
+
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+// builder.Services.AddCors(options =>
+// {
+//   options.AddPolicy("WestcoastCors",
+//     policy =>
+//     {
+//       policy.AllowAnyHeader();
+//       policy.AllowAnyMethod();
+//       policy.WithOrigins(
+//         "http://127.0.0.1:5500",
+//         "http://localhost:3000");
+//     }
+//   );
+// });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

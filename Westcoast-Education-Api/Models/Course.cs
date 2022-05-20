@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Westcoast_Education_Api.Models
 {
     public class Course
@@ -15,8 +10,10 @@ namespace Westcoast_Education_Api.Models
         public string? Details { get; set; }
         public int CategoryId { get; set; }
         public int TeacherId { get; set; }
-
-
+        public int StudentId { get; set; }
+        public Category? Category { get; set; }
+        public virtual List<Teacher>? Teachers { get; set; } = new List<Teacher>();
+        public virtual List<Student>? Students { get; set; } = new List<Student>();
 
     }
 }

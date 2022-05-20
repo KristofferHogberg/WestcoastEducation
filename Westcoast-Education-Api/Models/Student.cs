@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-
 namespace Westcoast_Education_Api.Models
 {
     public class Student
@@ -11,6 +5,7 @@ namespace Westcoast_Education_Api.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
+        public virtual List<Course>? Courses { get; set; } = new List<Course>();
 
     }
 }

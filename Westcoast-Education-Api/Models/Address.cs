@@ -8,7 +8,6 @@ namespace Westcoast_Education_Api.Models
         public string? City { get; set; }
         public string? ZipCode { get; set; }
         public string? Country { get; set; }
-
         public ApplicationUser? ApplicationUser { get; set; }
     }
 }
