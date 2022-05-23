@@ -46,5 +46,24 @@ namespace Westcoast_Education_Api.Controllers
             }
 
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCourseAsync(int id)
+        {
+            try
+            {
+                await _repository.DeleteCourseAsync(id);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return NoContent();
+                }
+                return StatusCode(500, "Something went wrong");
+            }
+            catch (Exception Ex)
+            {
+                return StatusCode(500, Ex.Message);
+            }
+        }
     }
 }

@@ -69,6 +69,18 @@ namespace Westcoast_Education_Api.Repositories.impl
             return coursesList;
         }
 
+        public async Task DeleteCourseAsync(int id)
+        {
+            var response = await _context.Courses.FindAsync(id);
+
+            if (response is null)
+            {
+                throw new Exception("We could not find a course with id: {id}");
+            }
+
+            _context.Courses.Remove(response);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;

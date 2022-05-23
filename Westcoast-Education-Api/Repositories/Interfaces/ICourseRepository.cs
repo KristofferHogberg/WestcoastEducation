@@ -6,6 +6,7 @@ namespace Westcoast_Education_Api.Repositories.Interfaces
     {
         public Task<List<CourseViewModel>> ListAllCoursesAsync();
         public Task AddCourseAsync(PostCourseViewModel model);
+        public Task DeleteCourseAsync(int id);
         public Task<bool> SaveAllAsync();
     }
 }
