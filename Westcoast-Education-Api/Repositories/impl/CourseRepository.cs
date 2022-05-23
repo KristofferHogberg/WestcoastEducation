@@ -22,29 +22,7 @@ namespace Westcoast_Education_Api.Repositories.impl
             _mapper = mapper;
         }
 
-        public async Task AddCourseAsync(PostCourseViewModel model)
-        {
-            // TODO implement AutoMapper
-            var courseToAdd = new Course
-            {
-                CourseNo = model.CourseNo,
-                Title = model.Title,
-                Length = model.Length,
-                Description = model.Description,
-                Details = model.Details,
-                CategoryId = model.CategoryId,
-                TeacherId = model.TeacherId
-            };
-
-            if (courseToAdd is null)
-            {
-                throw new Exception($"Could not add course: {model.Title} to the system");
-            }
-
-            await _context.Courses.AddAsync(courseToAdd);
-        }
-
-        public async Task<List<CourseViewModel>> ListAllCoursesAsync()
+        public async Task<List<CourseViewModel>> GetAllCoursesAsync()
         {
             //TODO implement AutoMapper 
             var response = await _context.Courses.ToListAsync();
@@ -67,6 +45,28 @@ namespace Westcoast_Education_Api.Repositories.impl
             }
 
             return coursesList;
+        }
+
+        public async Task AddCourseAsync(PostCourseViewModel model)
+        {
+            // TODO implement AutoMapper
+            var courseToAdd = new Course
+            {
+                CourseNo = model.CourseNo,
+                Title = model.Title,
+                Length = model.Length,
+                Description = model.Description,
+                Details = model.Details,
+                CategoryId = model.CategoryId,
+                TeacherId = model.TeacherId
+            };
+
+            if (courseToAdd is null)
+            {
+                throw new Exception($"Could not add course: {model.Title} to the system");
+            }
+
+            await _context.Courses.AddAsync(courseToAdd);
         }
 
         public async Task DeleteCourseAsync(int id)

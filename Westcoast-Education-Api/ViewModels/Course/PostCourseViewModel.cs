@@ -5,6 +5,7 @@ namespace Westcoast_Education_Api.ViewModels.Course
     public class PostCourseViewModel
     {
         [Required(ErrorMessage = "Course number is required")]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Enter a 4 digit course number")]
         public int CourseNo { get; set; }
         [Required(ErrorMessage = "Course title is required")]
         public string? Title { get; set; }

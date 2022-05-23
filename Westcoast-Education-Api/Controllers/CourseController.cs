@@ -7,7 +7,7 @@ namespace Westcoast_Education_Api.Controllers
 {
     [ApiController]
     [Route("api/v1/courses")]
-    public class CourseController : Controller
+    public class CourseController : ControllerBase
     {
         private readonly ICourseRepository _repository;
         public CourseController(ICourseRepository repository)
@@ -18,7 +18,7 @@ namespace Westcoast_Education_Api.Controllers
         [HttpGet("list")]
         public async Task<ActionResult<List<CourseViewModel>>> ListCoursesAsync()
         {
-            return Ok(await _repository.ListAllCoursesAsync());
+            return Ok(await _repository.GetAllCoursesAsync());
         }
 
         [HttpPost("addcourse")]
@@ -26,6 +26,7 @@ namespace Westcoast_Education_Api.Controllers
         {
             try
             {
+
                 await _repository.AddCourseAsync(model);
 
                 if (await _repository.SaveAllAsync())
