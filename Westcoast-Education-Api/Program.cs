@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Helpers;
+using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.impl;
 using Westcoast_Education_Api.Repositories.Interfaces;
 
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 );
 
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();

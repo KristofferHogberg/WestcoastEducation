@@ -46,7 +46,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CategoryName = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,6 +59,8 @@ namespace Westcoast_Education_Api.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -99,8 +101,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    TeacherId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,6 +145,8 @@ namespace Westcoast_Education_Api.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -164,6 +167,8 @@ namespace Westcoast_Education_Api.Data.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentId = table.Column<int>(type: "int", nullable: true),
                     TeacherId = table.Column<int>(type: "int", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: true),
@@ -375,6 +380,13 @@ namespace Westcoast_Education_Api.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryName",
+                table: "Categories",
+                column: "CategoryName",
+                unique: true,
+                filter: "[CategoryName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CategoryTeachers_TeacherId",
                 table: "CategoryTeachers",
                 column: "TeacherId");
@@ -383,6 +395,12 @@ namespace Westcoast_Education_Api.Data.Migrations
                 name: "IX_Courses_CategoryId",
                 table: "Courses",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_CourseNo",
+                table: "Courses",
+                column: "CourseNo",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseStudents_StudentId",
