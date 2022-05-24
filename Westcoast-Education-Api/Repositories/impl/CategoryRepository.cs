@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
+using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.Interfaces;
 using Westcoast_Education_Api.ViewModels.Category;
 using Westcoast_Education_Api.ViewModels.Course;
@@ -64,9 +65,19 @@ namespace Westcoast_Education_Api.Repositories.impl
         }
 
 
-        public Task AddCategoryAsync(PostCategoryViewModel model)
+        public async Task AddCategoryAsync(PostCategoryViewModel model)
         {
-            throw new NotImplementedException();
+            var categoryToAdd = new Category();
+
+            categoryToAdd.CategoryName = model.CategoryName;
+
+            if (categoryToAdd is null)
+            {
+                throw new Exception($"Could not add category: {model.CategoryName} to the system");
+            }
+
+            await _context.Categories.AddAsync(categoryToAdd);
+
         }
 
         public Task DeleteCategoryAsync(int id)
@@ -74,9 +85,9 @@ namespace Westcoast_Education_Api.Repositories.impl
             throw new NotImplementedException();
         }
 
-        public Task<bool> SaveAllAsync()
+        public async Task<bool> SaveAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

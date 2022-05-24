@@ -26,7 +26,6 @@ namespace Westcoast_Education_Api.Controllers
         {
             try
             {
-
                 await _repository.AddCourseAsync(model);
 
                 if (await _repository.SaveAllAsync())
@@ -45,7 +44,6 @@ namespace Westcoast_Education_Api.Controllers
                 };
                 return StatusCode(500, error);
             }
-
         }
 
         [HttpDelete("{id}")]
