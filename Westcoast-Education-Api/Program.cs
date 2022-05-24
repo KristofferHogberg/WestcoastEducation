@@ -18,7 +18,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 );
 
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();

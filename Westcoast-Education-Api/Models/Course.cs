@@ -9,10 +9,9 @@ namespace Westcoast_Education_Api.Models
         public string? Description { get; set; }
         public string? Details { get; set; }
         public int CategoryId { get; set; }
-        public int TeacherId { get; set; }
         public Category? Category { get; set; }
         public virtual List<Teacher>? Teachers { get; set; } = new List<Teacher>();
-        public virtual List<Student>? Students { get; set; } = new List<Student>();
+        public virtual List<ApplicationUser>? Users { get; set; } = new List<ApplicationUser>();
 
     }
 }

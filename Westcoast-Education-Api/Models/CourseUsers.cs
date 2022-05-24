@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Westcoast_Education_Api.Models
 {
-    public class CourseStudents
+    public class CourseUsers
     {
         public int CourseId { get; set; }
-        public int StudentId { get; set; }
+        public int ApplicationUserId { get; set; }
         public DateTime? EnrollmentDate { get; set; }
     }
 }

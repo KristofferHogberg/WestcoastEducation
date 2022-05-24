@@ -39,8 +39,8 @@ namespace Westcoast_Education_Api.Repositories.impl
                     Length = course.Length,
                     Description = course.Description,
                     Details = course.Details,
-                    CategoryId = course.CategoryId,
-                    TeacherId = course.TeacherId
+                    CategoryId = course.CategoryId
+
                 });
             }
 
@@ -58,7 +58,7 @@ namespace Westcoast_Education_Api.Repositories.impl
                 Description = model.Description,
                 Details = model.Details,
                 CategoryId = model.CategoryId,
-                TeacherId = model.TeacherId
+
             };
 
             if (courseToAdd is null)
