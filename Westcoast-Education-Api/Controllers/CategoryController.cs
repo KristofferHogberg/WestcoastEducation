@@ -29,11 +29,11 @@ namespace Westcoast_Education_Api.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<ActionResult> AddCategory(PostCategoryViewModel model)
+        public async Task<ActionResult> AddCategoryAsync(PostCategoryViewModel model)
         {
             try
             {
-                await _repository.AddCategoryAsync(model);
+                await _repository.CreateCategoryAsync(model);
 
                 if (await _repository.SaveAllAsync())
                 {

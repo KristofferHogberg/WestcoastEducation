@@ -47,7 +47,25 @@ namespace Westcoast_Education_Api.Repositories.impl
             return coursesList;
         }
 
-        public async Task AddCourseAsync(PostCourseViewModel model)
+        public async Task<List<CourseWithCategoryViewModel>> GetCoursesWithCategoryAsync()
+        {
+            //TODO implement AutoMapper 
+            return await _context.Courses.Include(c => c.Category)
+            .Select(c => new CourseWithCategoryViewModel
+            {
+                CourseId = c.Id,
+                CourseNo = c.CourseNo,
+                Title = c.Title,
+                Length = c.Length,
+                Description = c.Description,
+                Details = c.Details,
+                CategoryName = c.Category!.CategoryName
+
+            }).ToListAsync();
+
+        }
+
+        public async Task CreateCourseAsync(PostCourseViewModel model)
         {
 
             // TODO implement AutoMapper

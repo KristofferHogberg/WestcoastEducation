@@ -65,7 +65,7 @@ namespace Westcoast_Education_Api.Repositories.impl
         }
 
 
-        public async Task AddCategoryAsync(PostCategoryViewModel model)
+        public async Task CreateCategoryAsync(PostCategoryViewModel model)
         {
             var categoryToAdd = new Category();
 
