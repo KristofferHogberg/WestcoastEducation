@@ -33,6 +33,7 @@ namespace Westcoast_Education_Api.Controllers
         {
             try
             {
+
                 await _repository.CreateCategoryAsync(model);
 
                 if (await _repository.SaveAllAsync())

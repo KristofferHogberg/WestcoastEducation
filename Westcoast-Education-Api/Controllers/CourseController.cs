@@ -32,6 +32,11 @@ namespace Westcoast_Education_Api.Controllers
         {
             try
             {
+                if (await _repository.ExistByCourseNoAsync(model.CourseNo))
+                {
+                    return BadRequest($"Course with id: {model.CourseNo} allready exist in the system");
+                }
+
                 await _repository.CreateCourseAsync(model);
 
                 if (await _repository.SaveAllAsync())

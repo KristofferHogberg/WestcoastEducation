@@ -85,11 +85,10 @@ namespace Westcoast_Education_Api.Repositories.impl
                 throw new Exception($"Could not add course: {model.Title} to the system");
             }
 
-            if (!_context.Categories.Any(c => c.Id == courseToAdd.CategoryId))
+            if (!await CategoryExist(courseToAdd.CategoryId))
             {
                 throw new Exception($"could not find category with id: {model.CategoryId} in the system");
             }
-
             await _context.Courses.AddAsync(courseToAdd);
         }
 
@@ -105,9 +104,21 @@ namespace Westcoast_Education_Api.Repositories.impl
             _context.Courses.Remove(response);
         }
 
+
+        public async Task<bool> CategoryExist(int id)
+        {
+            return await _context.Categories.AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<bool> ExistByCourseNoAsync(int courseNo)
+        {
+            return await _context.Courses.AnyAsync(cn => cn.CourseNo == courseNo);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }

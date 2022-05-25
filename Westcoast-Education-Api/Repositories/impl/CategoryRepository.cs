@@ -67,9 +67,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task CreateCategoryAsync(PostCategoryViewModel model)
         {
-            var categoryToAdd = new Category();
-
-            categoryToAdd.CategoryName = model.CategoryName;
+            var categoryToAdd = new Category { CategoryName = model.CategoryName };
 
             if (categoryToAdd is null)
             {
@@ -83,6 +81,11 @@ namespace Westcoast_Education_Api.Repositories.impl
         public Task DeleteCategoryAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> ExistById(int id)
+        {
+            return await _context.Courses.AnyAsync(c => c.Id == id);
         }
 
         public async Task<bool> SaveAllAsync()
