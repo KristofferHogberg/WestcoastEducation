@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
@@ -82,6 +78,7 @@ namespace Westcoast_Education_Api.Repositories.impl
                 PhoneNumber = model.PhoneNumber,
             };
 
+            // TODO: Can't add identical addresses.
             var address = await _context.Addresses
             .Where(a => a.Street == model.Street && a.ZipCode == model.ZipCode).SingleOrDefaultAsync();
 
@@ -103,14 +100,23 @@ namespace Westcoast_Education_Api.Repositories.impl
                 ApplicationUser = appUser,
             };
 
-            var categories = new List<Category>();
+            var availableCategories = await _context.Categories.ToArrayAsync();
+            var categoriesToAdd = new List<Category>();
+
             foreach (var category in model.Categories)
             {
-                categories = await _context.Categories
-                .Where(c => c.CategoryName == category.CategoryName).ToListAsync();
+                categoriesToAdd.AddRange(availableCategories
+                .Where(c => c.CategoryName == category.CategoryName).ToList());
             }
 
-            teacherToAdd.Categories = categories;
+            // TODO: verify that category(ies) exist in db.
+
+            // if (!availableCategories.SequenceEqual(categoriesToAdd))
+            // {
+            //     throw new Exception($"Could not find category(ies)");
+            // }
+
+            teacherToAdd.Categories = categoriesToAdd;
 
             await _context.Teachers.AddAsync(teacherToAdd);
         }
