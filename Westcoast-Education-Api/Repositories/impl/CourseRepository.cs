@@ -39,7 +39,6 @@ namespace Westcoast_Education_Api.Repositories.impl
                     Length = course.Length,
                     Description = course.Description,
                     Details = course.Details,
-                    CategoryId = course.CategoryId
 
                 });
             }
@@ -67,7 +66,6 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task CreateCourseAsync(PostCourseViewModel model)
         {
-
             // TODO implement AutoMapper
             var courseToAdd = new Course
             {

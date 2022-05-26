@@ -11,6 +11,7 @@ namespace Westcoast_Education_Api.Data
         public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Course> Courses => Set<Course>();
+        public DbSet<Student> Students => Set<Student>();
         public DbSet<Teacher> Teachers => Set<Teacher>();
         public ApplicationContext(DbContextOptions options) : base(options)
         {
@@ -31,10 +32,10 @@ namespace Westcoast_Education_Api.Data
                 .IsUnique();
 
             builder.Entity<Course>()
-            .HasMany(c => c.Users)
+            .HasMany(c => c.Students)
             .WithMany(c => c.Courses)
-            .UsingEntity<CourseUsers>
-            (cu => cu.HasOne<ApplicationUser>().WithMany(),
+            .UsingEntity<CourseStudents>
+            (cu => cu.HasOne<Student>().WithMany(),
             cu => cu.HasOne<Course>().WithMany())
             .Property(cs => cs.EnrollmentDate)
             .HasDefaultValueSql("getdate()");

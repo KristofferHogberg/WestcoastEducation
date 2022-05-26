@@ -7,11 +7,12 @@ namespace Westcoast_Education_Api.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public int TeacherId { get; set; }
+        public int? StudentId { get; set; }
+        public int? TeacherId { get; set; }
         public int AddressId { get; set; }
-
+        public Student? Student { get; set; }
         public Teacher? Teacher { get; set; }
         public Address? Address { get; set; }
-        public virtual List<Course>? Courses { get; set; } = new List<Course>();
+
     }
 }

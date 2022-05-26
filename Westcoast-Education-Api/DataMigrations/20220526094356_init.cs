@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Westcoast_Education_Api.Data.Migrations
+namespace Westcoast_Education_Api.DataMigrations
 {
     public partial class init : Migration
     {
@@ -54,6 +54,32 @@ namespace Westcoast_Education_Api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teachers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teachers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -99,24 +125,6 @@ namespace Westcoast_Education_Api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teachers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teachers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teachers_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -124,6 +132,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
                     TeacherId = table.Column<int>(type: "int", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -148,6 +157,12 @@ namespace Westcoast_Education_Api.Data.Migrations
                         name: "FK_AspNetUsers_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -177,6 +192,55 @@ namespace Westcoast_Education_Api.Data.Migrations
                     table.ForeignKey(
                         name: "FK_CategoryTeachers_Teachers_TeacherId",
                         column: x => x.TeacherId,
+                        principalTable: "Teachers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseStudents",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseStudents", x => new { x.CourseId, x.StudentId });
+                    table.ForeignKey(
+                        name: "FK_CourseStudents_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseStudents_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseTeacher",
+                columns: table => new
+                {
+                    CoursesId = table.Column<int>(type: "int", nullable: false),
+                    TeachersId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseTeacher", x => new { x.CoursesId, x.TeachersId });
+                    table.ForeignKey(
+                        name: "FK_CourseTeacher_Courses_CoursesId",
+                        column: x => x.CoursesId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseTeacher_Teachers_TeachersId",
+                        column: x => x.TeachersId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -267,31 +331,6 @@ namespace Westcoast_Education_Api.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "CourseUsers",
-                columns: table => new
-                {
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getdate()")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseUsers", x => new { x.ApplicationUserId, x.CourseId });
-                    table.ForeignKey(
-                        name: "FK_CourseUsers_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseUsers_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -331,6 +370,12 @@ namespace Westcoast_Education_Api.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_StudentId",
+                table: "AspNetUsers",
+                column: "StudentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_TeacherId",
                 table: "AspNetUsers",
                 column: "TeacherId",
@@ -367,14 +412,14 @@ namespace Westcoast_Education_Api.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseUsers_CourseId",
-                table: "CourseUsers",
-                column: "CourseId");
+                name: "IX_CourseStudents_StudentId",
+                table: "CourseStudents",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teachers_CourseId",
-                table: "Teachers",
-                column: "CourseId");
+                name: "IX_CourseTeacher_TeachersId",
+                table: "CourseTeacher",
+                column: "TeachersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -398,7 +443,10 @@ namespace Westcoast_Education_Api.Data.Migrations
                 name: "CategoryTeachers");
 
             migrationBuilder.DropTable(
-                name: "CourseUsers");
+                name: "CourseStudents");
+
+            migrationBuilder.DropTable(
+                name: "CourseTeacher");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -407,13 +455,16 @@ namespace Westcoast_Education_Api.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "Teachers");
+                name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Teachers");
 
             migrationBuilder.DropTable(
                 name: "Categories");

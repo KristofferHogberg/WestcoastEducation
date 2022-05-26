@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using Westcoast_Education_Api.Models;
 
-namespace Westcoast_Education_Api.ViewModels.ApplicationUser
+namespace Westcoast_Education_Api.ViewModels.Teacher
 {
-    public class PostApplicationUserViewModel
+    public class PostTeacherViewModel
     {
         [Required]
         public string? FirstName { get; set; }
@@ -26,6 +24,5 @@ namespace Westcoast_Education_Api.ViewModels.ApplicationUser
         public string? ZipCode { get; set; }
         [Required]
         public string? Country { get; set; }
-
     }
 }

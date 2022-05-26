@@ -18,11 +18,19 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 );
 
 
-builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
+builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(
+    options =>
+    {
+        options.User.RequireUniqueEmail = true;
+    }
+)
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+//builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 

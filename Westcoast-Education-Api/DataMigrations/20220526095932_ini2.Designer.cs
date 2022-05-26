@@ -9,11 +9,11 @@ using Westcoast_Education_Api.Data;
 
 #nullable disable
 
-namespace Westcoast_Education_Api.Data.Migrations
+namespace Westcoast_Education_Api.DataMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220524121217_init")]
-    partial class init
+    [Migration("20220526095932_ini2")]
+    partial class ini2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace Westcoast_Education_Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CourseTeacher", b =>
+                {
+                    b.Property<int>("CoursesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeachersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CoursesId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("CourseTeacher");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
@@ -239,7 +254,10 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -262,8 +280,13 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("StudentId")
+                        .IsUnique()
+                        .HasFilter("[StudentId] IS NOT NULL");
+
                     b.HasIndex("TeacherId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[TeacherId] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -339,12 +362,12 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Westcoast_Education_Api.Models.CourseUsers", b =>
+            modelBuilder.Entity("Westcoast_Education_Api.Models.CourseStudents", b =>
                 {
-                    b.Property<int>("ApplicationUserId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("EnrollmentDate")
@@ -352,11 +375,27 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.HasKey("ApplicationUserId", "CourseId");
+                    b.HasKey("CourseId", "StudentId");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("StudentId");
 
-                    b.ToTable("CourseUsers");
+                    b.ToTable("CourseStudents");
+                });
+
+            modelBuilder.Entity("Westcoast_Education_Api.Models.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Westcoast_Education_Api.Models.Teacher", b =>
@@ -367,14 +406,27 @@ namespace Westcoast_Education_Api.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("CourseId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("CourseTeacher", b =>
+                {
+                    b.HasOne("Westcoast_Education_Api.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Westcoast_Education_Api.Models.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -436,13 +488,17 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Westcoast_Education_Api.Models.Student", "Student")
+                        .WithOne("ApplicationUser")
+                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId");
+
                     b.HasOne("Westcoast_Education_Api.Models.Teacher", "Teacher")
                         .WithOne("ApplicationUser")
-                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "TeacherId");
 
                     b.Navigation("Address");
+
+                    b.Navigation("Student");
 
                     b.Navigation("Teacher");
                 });
@@ -473,26 +529,19 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Westcoast_Education_Api.Models.CourseUsers", b =>
+            modelBuilder.Entity("Westcoast_Education_Api.Models.CourseStudents", b =>
                 {
-                    b.HasOne("Westcoast_Education_Api.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Westcoast_Education_Api.Models.Course", null)
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Westcoast_Education_Api.Models.Teacher", b =>
-                {
-                    b.HasOne("Westcoast_Education_Api.Models.Course", null)
-                        .WithMany("Teachers")
-                        .HasForeignKey("CourseId");
+                    b.HasOne("Westcoast_Education_Api.Models.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Westcoast_Education_Api.Models.Address", b =>
@@ -505,9 +554,9 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Navigation("Courses");
                 });
 
-            modelBuilder.Entity("Westcoast_Education_Api.Models.Course", b =>
+            modelBuilder.Entity("Westcoast_Education_Api.Models.Student", b =>
                 {
-                    b.Navigation("Teachers");
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Westcoast_Education_Api.Models.Teacher", b =>

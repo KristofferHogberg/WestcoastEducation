@@ -57,8 +57,6 @@ namespace Westcoast_Education_Api.Repositories.impl
                     Length = c.Length,
                     Description = c.Description,
                     Details = c.Details,
-                    CategoryId = c.CategoryId
-
 
                 }).ToList()
             }).ToListAsync();

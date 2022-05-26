@@ -11,7 +11,7 @@ namespace Westcoast_Education_Api.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public virtual List<Teacher>? Teachers { get; set; } = new List<Teacher>();
-        public virtual List<ApplicationUser>? Users { get; set; } = new List<ApplicationUser>();
+        public virtual List<Student>? Students { get; set; } = new List<Student>();
 
     }
 }
