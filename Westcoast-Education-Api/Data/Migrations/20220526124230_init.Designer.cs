@@ -9,11 +9,11 @@ using Westcoast_Education_Api.Data;
 
 #nullable disable
 
-namespace Westcoast_Education_Api.DataMigrations
+namespace Westcoast_Education_Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220526112602_init5")]
-    partial class init5
+    [Migration("20220526124230_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Westcoast_Education_Api.ViewModels.Category;
+using Westcoast_Education_Api.ViewModels.Course;
 
 namespace Westcoast_Education_Api.ViewModels.Teacher
 {
@@ -24,5 +26,9 @@ namespace Westcoast_Education_Api.ViewModels.Teacher
         public string? ZipCode { get; set; }
         [Required]
         public string? Country { get; set; }
+        public string? CategoryName { get; set; }
+
+        public virtual List<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
+        // public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
     }
 }
