@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
@@ -13,8 +14,10 @@ namespace Westcoast_Education_Api.Repositories.impl
     public class StudentRepository : IStudentRepository
     {
         private readonly ApplicationContext _context;
-        public StudentRepository(ApplicationContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public StudentRepository(ApplicationContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -31,6 +34,7 @@ namespace Westcoast_Education_Api.Repositories.impl
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
+                UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber,
                 Address = new Address
                 {
@@ -47,7 +51,8 @@ namespace Westcoast_Education_Api.Repositories.impl
                 ApplicationUser = user,
             };
 
-            await _context.Students.AddAsync(studentToAdd);
+            await _userManager.CreateAsync(user);
+            //await _context.Students.AddAsync(studentToAdd);
         }
 
         public async Task<bool> SaveAllAsync()

@@ -14,6 +14,7 @@ namespace Westcoast_Education_Api.ViewModels.Student
         public string? LastName { get; set; }
         [Required]
         public string? Email { get; set; }
+        public string? UserName { get; set; }
         [Required]
         public string? PhoneNumber { get; set; }
         [Required]

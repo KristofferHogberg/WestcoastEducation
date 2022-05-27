@@ -18,7 +18,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 );
 
 
-builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(
     options =>
     {
         options.User.RequireUniqueEmail = true;
