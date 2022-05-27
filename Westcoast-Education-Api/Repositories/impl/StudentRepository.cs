@@ -21,7 +21,7 @@ namespace Westcoast_Education_Api.Repositories.impl
             _context = context;
         }
 
-        public async Task CreateStudentAsync(PostStudentViewModel model)
+        public async Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model)
         {
             if (await _context.Students.Include(s => s.ApplicationUser).Where(u => u.ApplicationUser!.Email == model.Email).AnyAsync())
             {
@@ -36,6 +36,13 @@ namespace Westcoast_Education_Api.Repositories.impl
                 Email = model.Email,
                 UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber,
+
+                Student = new Student
+                {
+
+                    Isteacher = model.Isteacher,
+                },
+
                 Address = new Address
                 {
                     Street = model.Street,
@@ -46,13 +53,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             };
 
-            var studentToAdd = new Student
-            {
-                ApplicationUser = user,
-            };
-
-            await _userManager.CreateAsync(user);
-            //await _context.Students.AddAsync(studentToAdd);
+            return await _userManager.CreateAsync(user);
         }
 
         public async Task<bool> SaveAllAsync()

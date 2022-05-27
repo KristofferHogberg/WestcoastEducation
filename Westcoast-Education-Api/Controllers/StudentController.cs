@@ -23,25 +23,20 @@ namespace Westcoast_Education_Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> AddUserAsync(PostStudentViewModel model)
         {
-            try
+
+            var result = await _repository.CreateStudentAsync(model);
+
+            if (result.Succeeded)
             {
-                await _repository.CreateStudentAsync(model);
-
-                if (await _repository.SaveAllAsync())
-                {
-                    return StatusCode(201);
-                }
-
-                return StatusCode(500, "Could not save the user");
+                return StatusCode(201, $"User created: {model.UserName}");
             }
-            catch (Exception Ex)
+            else
             {
-                var error = new ErrorViewModel
+                foreach (var error in result.Errors)
                 {
-                    StatusCode = 500,
-                    StatusText = Ex.Message
-                };
-                return StatusCode(500, error);
+                    ModelState.AddModelError("User registration", error.Description);
+                }
+                return StatusCode(500, ModelState);
             }
         }
     }
