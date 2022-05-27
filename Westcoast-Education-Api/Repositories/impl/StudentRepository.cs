@@ -21,6 +21,26 @@ namespace Westcoast_Education_Api.Repositories.impl
             _context = context;
         }
 
+        public async Task<List<StudentViewModel>> GetAllStudentsAsync()
+        {
+            //TODO implement AutoMapper
+            return await _context.Students.Include(u => u.ApplicationUser).ThenInclude(u => u!.Address)
+            .Select(s => new StudentViewModel
+            {
+                FirstName = s.ApplicationUser!.FirstName,
+                LastName = s.ApplicationUser.LastName,
+                Email = s.ApplicationUser.Email,
+                PhoneNumber = s.ApplicationUser.PhoneNumber,
+
+                Street = s.ApplicationUser.Address!.Street,
+                City = s.ApplicationUser.Address.City,
+                ZipCode = s.ApplicationUser.Address.ZipCode,
+                Country = s.ApplicationUser.Address.Country
+
+            }).ToListAsync();
+
+        }
+
         public async Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model)
         {
             if (await _context.Students.Include(s => s.ApplicationUser).Where(u => u.ApplicationUser!.Email == model.Email).AnyAsync())
@@ -29,7 +49,7 @@ namespace Westcoast_Education_Api.Repositories.impl
                 throw new Exception("User allready exist");
             }
 
-            var user = new ApplicationUser
+            var appUser = new ApplicationUser
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
@@ -39,7 +59,6 @@ namespace Westcoast_Education_Api.Repositories.impl
 
                 Student = new Student
                 {
-
                     Isteacher = model.Isteacher,
                 },
 
@@ -53,8 +72,10 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             };
 
-            return await _userManager.CreateAsync(user);
+            return await _userManager.CreateAsync(appUser);
         }
+
+
 
         public async Task<bool> SaveAllAsync()
         {

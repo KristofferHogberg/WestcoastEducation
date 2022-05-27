@@ -9,6 +9,7 @@ namespace Westcoast_Education_Api.Repositories.Interfaces
 {
     public interface IStudentRepository
     {
+        public Task<List<StudentViewModel>> GetAllStudentsAsync();
         public Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model);
         public Task<bool> SaveAllAsync();
     }

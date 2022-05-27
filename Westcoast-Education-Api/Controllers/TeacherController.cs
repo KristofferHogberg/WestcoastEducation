@@ -26,34 +26,38 @@ namespace Westcoast_Education_Api.Controllers
         }
 
         [HttpGet("categories")]
-        public async Task<ActionResult<List<TeacherViewModel>>> ListTeachersWithCategories()
+        public async Task<ActionResult<List<TeacherViewModel>>> ListTeachersWithCategoriesAsync()
         {
-            return Ok(await _repository.GetTeachersWithcategoriesAsync());
+            return Ok(await _repository.GetTeachersWithCategoriesAsync());
+        }
+
+        [HttpGet("courses")]
+        public async Task<ActionResult<List<TeacherViewModel>>> ListTeachersWithCoursesAsync()
+        {
+            return Ok(await _repository.GetTeachersWithCoursesAsync());
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> AddUserAsync(PostTeacherViewModel model)
         {
-            try
-            {
-                await _repository.CreateTeacherAsync(model);
 
-                if (await _repository.SaveAllAsync())
+            var result = await _repository.CreateTeacherAsync(model);
+
+            if (result.Succeeded)
+            {
+                return StatusCode(201, $"Teacher created: {model.UserName}");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
                 {
-                    return StatusCode(201);
+                    ModelState.AddModelError("User registration", error.Description);
                 }
+                return StatusCode(500, ModelState);
+            }
 
-                return StatusCode(500, "Could not save the user");
-            }
-            catch (Exception Ex)
-            {
-                var error = new ErrorViewModel
-                {
-                    StatusCode = 500,
-                    StatusText = Ex.Message
-                };
-                return StatusCode(500, error);
-            }
         }
     }
+
 }
+
