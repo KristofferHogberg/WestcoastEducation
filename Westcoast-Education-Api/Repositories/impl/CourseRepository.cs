@@ -8,6 +8,7 @@ using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.Interfaces;
 using Westcoast_Education_Api.ViewModels.Course;
+using Westcoast_Education_Api.ViewModels.CourseStudents;
 
 namespace Westcoast_Education_Api.Repositories.impl
 {
@@ -118,5 +119,27 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public Task UpdateCourseAsync(PatchCourseViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task CreateCourseStudentRegistryAsync(int courseNo, int userId)
+        {
+            var course = await _context.Courses.Where(c => c.CourseNo == courseNo).SingleOrDefaultAsync();
+
+            if (course is null)
+            {
+                throw new Exception($"Could not find course: {courseNo}");
+            }
+
+            var registry = new CourseStudents
+            {
+                CourseId = course.Id,
+                StudentId = userId
+            };
+
+            await _context.CourseStudents.AddAsync(registry);
+        }
     }
 }

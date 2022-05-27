@@ -57,6 +57,18 @@ namespace Westcoast_Education_Api.Controllers
             }
         }
 
+        [HttpPost("enroll/{courseNo}/{userId}")]
+        public async Task<ActionResult> EnrollInCourse(int courseNo, int userId)
+        {
+            await _repository.CreateCourseStudentRegistryAsync(courseNo, userId);
+            if (await _repository.SaveAllAsync())
+            {
+                return StatusCode(201);
+
+            }
+            return StatusCode(500, $"Could not enroll in course {courseNo}");
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCourseAsync(int id)
         {

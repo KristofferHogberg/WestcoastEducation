@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.Interfaces;
+using Westcoast_Education_Api.ViewModels.Course;
 using Westcoast_Education_Api.ViewModels.Student;
 
 namespace Westcoast_Education_Api.Repositories.impl
@@ -41,6 +42,16 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         }
 
+        public async Task<List<StudentWithCoursesViewModel>> GetCourseStudentsRegistriesAsync()
+        {
+            return await _context.CourseStudents
+            .Select(s => new StudentWithCoursesViewModel
+            {
+                CourseId = s.CourseId,
+                StudentId = s.StudentId
+
+            }).ToListAsync();
+        }
         public async Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model)
         {
             if (await _context.Students.Include(s => s.ApplicationUser).Where(u => u.ApplicationUser!.Email == model.Email).AnyAsync())
@@ -75,11 +86,11 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _userManager.CreateAsync(appUser);
         }
 
-
-
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+
     }
 }

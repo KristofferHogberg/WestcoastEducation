@@ -13,6 +13,7 @@ namespace Westcoast_Education_Api.Data
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<Student> Students => Set<Student>();
         public DbSet<Teacher> Teachers => Set<Teacher>();
+        public DbSet<CourseStudents> CourseStudents => Set<CourseStudents>();
         public ApplicationContext(DbContextOptions options) : base(options)
         {
         }
