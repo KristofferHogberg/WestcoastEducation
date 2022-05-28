@@ -32,17 +32,25 @@ namespace Westcoast_Education_Api.Data
             builder.Entity<Category>().HasIndex(c => c.CategoryName)
                 .IsUnique();
 
-            builder.Entity<Course>()
-            .HasMany(c => c.Students)
-            .WithMany(c => c.Courses)
-            .UsingEntity<CourseStudents>
-            (cu => cu.HasOne<Student>().WithMany(),
-            cu => cu.HasOne<Course>().WithMany())
-            .Property(cs => cs.EnrollmentDate)
-            .HasDefaultValueSql("getdate()");
+            builder.Entity<CourseStudents>()
+            .HasKey(cs => new { cs.CourseId, cs.StudentId });
 
-            builder.Entity<Course>().HasIndex(c => c.CourseNo)
+
+            // builder.Entity<Course>()
+            // .HasMany(c => c.Students)
+            // .WithMany(c => c.Courses)
+            // .UsingEntity<CourseStudents>
+            // (cu => cu.HasOne<Student>().WithMany(),
+            // cu => cu.HasOne<Course>().WithMany())
+            // .Property(cs => cs.EnrollmentDate)
+            // .HasDefaultValueSql("getdate()");
+
+            builder.Entity<Course>()
+                .HasIndex(c => c.CourseNo)
                 .IsUnique();
+
+
+
 
         }
     }

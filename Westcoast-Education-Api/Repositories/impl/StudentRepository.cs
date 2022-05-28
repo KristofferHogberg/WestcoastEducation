@@ -45,12 +45,19 @@ namespace Westcoast_Education_Api.Repositories.impl
         public async Task<List<StudentWithCoursesViewModel>> GetCourseStudentsRegistriesAsync()
         {
             return await _context.CourseStudents
+            .Include(s => s.Student)
+            .ThenInclude(u => u!.ApplicationUser)
             .Select(s => new StudentWithCoursesViewModel
             {
-                CourseId = s.CourseId,
-                StudentId = s.StudentId
+                CourseNo = s.Course!.CourseNo,
+                Title = s.Course.Title,
+                EnrollmentDate = DateTime.UtcNow,
+                FirstName = s.Student!.ApplicationUser!.FirstName,
+                LastName = s.Student.ApplicationUser.LastName,
+                Email = s.Student.ApplicationUser.Email
 
             }).ToListAsync();
+
         }
         public async Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model)
         {

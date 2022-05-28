@@ -11,5 +11,6 @@ namespace Westcoast_Education_Api.Models
         public bool Isteacher { get; set; } = false;
         public ApplicationUser? ApplicationUser { get; set; }
         public virtual List<Course> Courses { get; set; } = new List<Course>();
+        public virtual List<CourseStudents> CourseStudents { get; set; } = new List<CourseStudents>();
     }
 }
