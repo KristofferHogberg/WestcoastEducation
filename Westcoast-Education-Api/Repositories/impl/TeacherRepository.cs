@@ -25,24 +25,40 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<TeacherViewModel>> GetAllTeachersAsync()
         {
-            var response = await _context.ApplicationUsers.Include(u => u.Address).ToListAsync();
-            var teacherList = new List<TeacherViewModel>();
 
-            foreach (var teacher in response)
-            {
-                teacherList.Add(new TeacherViewModel
-                {
-                    FirstName = teacher.FirstName,
-                    LastName = teacher.LastName,
-                    Email = teacher.Email,
-                    PhoneNumber = teacher.PhoneNumber,
-                    Street = teacher.Address!.Street,
-                    City = teacher.Address.City,
-                    ZipCode = teacher.Address.ZipCode,
-                    Country = teacher.Address.Country
-                });
-            }
-            return teacherList;
+            return await _context.Teachers.Include(u => u.ApplicationUser).ThenInclude(u => u!.Address)
+           .Select(s => new TeacherViewModel
+           {
+               FirstName = s.ApplicationUser!.FirstName,
+               LastName = s.ApplicationUser.LastName,
+               Email = s.ApplicationUser.Email,
+               PhoneNumber = s.ApplicationUser.PhoneNumber,
+
+               Street = s.ApplicationUser.Address!.Street,
+               City = s.ApplicationUser.Address.City,
+               ZipCode = s.ApplicationUser.Address.ZipCode,
+               Country = s.ApplicationUser.Address.Country
+
+           }).ToListAsync();
+
+            // var response = await _context.ApplicationUsers.Include(u => u.Address).ToListAsync();
+            // var teacherList = new List<TeacherViewModel>();
+
+            // foreach (var teacher in response)
+            // {
+            //     teacherList.Add(new TeacherViewModel
+            //     {
+            //         FirstName = teacher.FirstName,
+            //         LastName = teacher.LastName,
+            //         Email = teacher.Email,
+            //         PhoneNumber = teacher.PhoneNumber,
+            //         Street = teacher.Address!.Street,
+            //         City = teacher.Address.City,
+            //         ZipCode = teacher.Address.ZipCode,
+            //         Country = teacher.Address.Country
+            //     });
+            // }
+            // return teacherList;
         }
 
         public async Task<List<TeacherWithCategoriesViewModel>> GetTeachersWithCategoriesAsync()
