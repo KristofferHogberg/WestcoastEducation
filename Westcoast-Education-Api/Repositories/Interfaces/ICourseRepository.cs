@@ -1,4 +1,5 @@
 using Westcoast_Education_Api.ViewModels.Course;
+using Westcoast_Education_Api.ViewModels.CourseStudents;
 
 namespace Westcoast_Education_Api.Repositories.Interfaces
 {
@@ -10,7 +11,7 @@ namespace Westcoast_Education_Api.Repositories.Interfaces
         public Task UpdateCourseAsync(PatchCourseViewModel model);
         public Task DeleteCourseAsync(int id);
         public Task<bool> ExistByCourseNoAsync(int courseNo);
-        public Task CreateCourseStudentRegistryAsync(int courseNo, int studentId);
+        public Task CreateCourseStudentRegistryAsync(PostCourseStudentsViewModel model);
         public Task<bool> SaveAllAsync();
     }
 }

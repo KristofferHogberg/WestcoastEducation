@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Westcoast_Education_Api.ViewModels.CourseStudents
 {
@@ -12,6 +8,8 @@ namespace Westcoast_Education_Api.ViewModels.CourseStudents
         public int StudentId { get; set; }
         [Required]
         public int CourseNo { get; set; }
+        [Required]
+        public string? Email { get; set; }
         public DateTime? EnrollmentDate { get; set; }
     }
 }

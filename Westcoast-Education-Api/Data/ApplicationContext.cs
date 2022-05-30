@@ -34,11 +34,11 @@ namespace Westcoast_Education_Api.Data
 
 
             builder.Entity<Course>()
-       .HasMany(c => c.Students)
-       .WithMany(c => c.Courses)
-       .UsingEntity<CourseStudents>()
-       .Property(d => d.EnrollmentDate)
-       .HasDefaultValue(DateTime.UtcNow);
+                .HasMany(c => c.Students)
+                .WithMany(c => c.Courses)
+                .UsingEntity<CourseStudents>()
+                .Property(d => d.EnrollmentDate)
+                .HasDefaultValue(DateTime.UtcNow);
 
             builder.Entity<Course>()
                 .HasIndex(c => c.CourseNo)

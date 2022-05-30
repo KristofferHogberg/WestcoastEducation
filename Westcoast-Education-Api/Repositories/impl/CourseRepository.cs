@@ -103,7 +103,6 @@ namespace Westcoast_Education_Api.Repositories.impl
             _context.Courses.Remove(response);
         }
 
-
         public async Task<bool> CategoryExist(int id)
         {
             return await _context.Categories.AnyAsync(c => c.Id == id);
@@ -124,20 +123,34 @@ namespace Westcoast_Education_Api.Repositories.impl
             throw new NotImplementedException();
         }
 
-        public async Task CreateCourseStudentRegistryAsync(int courseNo, int userId)
+        public async Task CreateCourseStudentRegistryAsync(PostCourseStudentsViewModel model)
         {
-            var course = await _context.Courses.Where(c => c.CourseNo == courseNo).SingleOrDefaultAsync();
+            // TODO: Implement more efficent verification of registries and duplicate checks?
+
+            var course = await _context.Courses.Where(c => c.CourseNo == model.CourseNo).SingleOrDefaultAsync();
 
             if (course is null)
             {
-                throw new Exception($"Could not find course: {courseNo}");
+                throw new Exception($"Could not find course: {model.CourseNo}");
             }
+
+            var student = await _context.Students.Include(u => u.ApplicationUser).Where(u => u.ApplicationUser!.Email == model.Email).SingleOrDefaultAsync();
+            if (student is null)
+            {
+                throw new Exception($"Could not find student: {model.Email}");
+            }
+
 
             var registry = new CourseStudents
             {
                 CourseId = course.Id,
-                StudentId = userId
+                StudentId = student.Id
             };
+
+            if (await _context.CourseStudents.Where(c => c.CourseId == registry.CourseId && c.StudentId == registry.StudentId).AnyAsync())
+            {
+                throw new Exception($"Student: {model.Email} is allredy enrolled in course: {model.CourseNo}");
+            }
 
             await _context.CourseStudents.AddAsync(registry);
         }

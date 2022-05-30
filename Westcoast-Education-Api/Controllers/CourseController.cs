@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Westcoast_Education_Api.Repositories.Interfaces;
 using Westcoast_Education_Api.ViewModels;
 using Westcoast_Education_Api.ViewModels.Course;
+using Westcoast_Education_Api.ViewModels.CourseStudents;
 
 namespace Westcoast_Education_Api.Controllers
 {
@@ -57,16 +58,16 @@ namespace Westcoast_Education_Api.Controllers
             }
         }
 
-        [HttpPost("enroll/{courseNo}/{userId}")]
-        public async Task<ActionResult> EnrollInCourse(int courseNo, int userId)
+        [HttpPost("enroll")]
+        public async Task<ActionResult> EnrollInCourse(PostCourseStudentsViewModel model)
         {
-            await _repository.CreateCourseStudentRegistryAsync(courseNo, userId);
+            await _repository.CreateCourseStudentRegistryAsync(model);
             if (await _repository.SaveAllAsync())
             {
                 return StatusCode(201);
 
             }
-            return StatusCode(500, $"Could not enroll in course {courseNo}");
+            return StatusCode(500, $"Could not enroll in course {model.CourseNo}");
         }
 
         [HttpDelete("{id}")]
