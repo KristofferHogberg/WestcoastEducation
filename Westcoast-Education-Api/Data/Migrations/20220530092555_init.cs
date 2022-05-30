@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Westcoast_Education_Api.Data.Migrations
 {
-    public partial class test5 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,7 +59,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Isteacher = table.Column<bool>(type: "bit", nullable: false)
+                    IsTeacher = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,36 +195,12 @@ namespace Westcoast_Education_Api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseStudent",
-                columns: table => new
-                {
-                    CoursesId = table.Column<int>(type: "int", nullable: false),
-                    StudentsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseStudent", x => new { x.CoursesId, x.StudentsId });
-                    table.ForeignKey(
-                        name: "FK_CourseStudent_Courses_CoursesId",
-                        column: x => x.CoursesId,
-                        principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseStudent_Students_StudentsId",
-                        column: x => x.StudentsId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CourseStudents",
                 columns: table => new
                 {
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2022, 5, 28, 10, 10, 57, 219, DateTimeKind.Utc).AddTicks(9130))
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2022, 5, 30, 9, 25, 55, 241, DateTimeKind.Utc).AddTicks(8790))
                 },
                 constraints: table =>
                 {
@@ -435,11 +411,6 @@ namespace Westcoast_Education_Api.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseStudent_StudentsId",
-                table: "CourseStudent",
-                column: "StudentsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CourseStudents_StudentId",
                 table: "CourseStudents",
                 column: "StudentId");
@@ -469,9 +440,6 @@ namespace Westcoast_Education_Api.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CategoryTeachers");
-
-            migrationBuilder.DropTable(
-                name: "CourseStudent");
 
             migrationBuilder.DropTable(
                 name: "CourseStudents");

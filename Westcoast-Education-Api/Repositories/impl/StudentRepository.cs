@@ -77,7 +77,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
                 Student = new Student
                 {
-                    Isteacher = model.Isteacher,
+                    IsTeacher = model.Isteacher,
                 },
 
                 Address = new Address

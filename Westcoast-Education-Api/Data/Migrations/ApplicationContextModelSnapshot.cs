@@ -22,21 +22,6 @@ namespace Westcoast_Education_Api.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CourseStudent", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoursesId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("CourseStudent");
-                });
-
             modelBuilder.Entity("CourseTeacher", b =>
                 {
                     b.Property<int>("CoursesId")
@@ -384,7 +369,9 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("EnrollmentDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 5, 30, 9, 25, 55, 241, DateTimeKind.Utc).AddTicks(8790));
 
                     b.HasKey("CourseId", "StudentId");
 
@@ -401,7 +388,7 @@ namespace Westcoast_Education_Api.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Isteacher")
+                    b.Property<bool>("IsTeacher")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -420,21 +407,6 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
-                });
-
-            modelBuilder.Entity("CourseStudent", b =>
-                {
-                    b.HasOne("Westcoast_Education_Api.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Westcoast_Education_Api.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CourseTeacher", b =>
