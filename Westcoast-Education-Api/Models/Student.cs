@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Westcoast_Education_Api.Models
 {
     public class Student

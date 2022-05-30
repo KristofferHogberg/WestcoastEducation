@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Westcoast_Education_Api.Repositories.Interfaces;
-using Westcoast_Education_Api.ViewModels;
 using Westcoast_Education_Api.ViewModels.Student;
 
 namespace Westcoast_Education_Api.Controllers
@@ -49,6 +44,40 @@ namespace Westcoast_Education_Api.Controllers
                     ModelState.AddModelError("User registration", error.Description);
                 }
                 return StatusCode(500, ModelState);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteStudentAsync(int id)
+        {
+            try
+            {
+                await _repository.DeleteStudentAsync(id);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return NoContent();
+                }
+                return StatusCode(500, "Something went wrong");
+
+                // var result = await _repository.DeleteUserAsync(id);
+
+                // if (result.Succeeded)
+                // {
+                //     return StatusCode(201, $"User deleted: {id}");
+                // }
+                // else
+                // {
+                //     foreach (var error in result.Errors)
+                //     {
+                //         ModelState.AddModelError("User registration", error.Description);
+                //     }
+                //     return StatusCode(500, ModelState);
+                // }
+            }
+            catch (Exception Ex)
+            {
+                return StatusCode(500, Ex.Message);
             }
         }
     }

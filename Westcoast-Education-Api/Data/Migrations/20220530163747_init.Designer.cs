@@ -12,7 +12,7 @@ using Westcoast_Education_Api.Data;
 namespace Westcoast_Education_Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220530092555_init")]
+    [Migration("20220530163747_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,6 +255,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StudentId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("TeacherId")
@@ -281,8 +282,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("StudentId")
-                        .IsUnique()
-                        .HasFilter("[StudentId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("TeacherId")
                         .IsUnique()
@@ -373,7 +373,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Property<DateTime?>("EnrollmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 30, 9, 25, 55, 241, DateTimeKind.Utc).AddTicks(8790));
+                        .HasDefaultValue(new DateTime(2022, 5, 30, 16, 37, 47, 315, DateTimeKind.Utc).AddTicks(1540));
 
                     b.HasKey("CourseId", "StudentId");
 
@@ -487,7 +487,9 @@ namespace Westcoast_Education_Api.Data.Migrations
 
                     b.HasOne("Westcoast_Education_Api.Models.Student", "Student")
                         .WithOne("ApplicationUser")
-                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId");
+                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Westcoast_Education_Api.Models.Teacher", "Teacher")
                         .WithOne("ApplicationUser")

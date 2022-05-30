@@ -98,6 +98,32 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task DeleteStudentAsync(int id)
+        {
+
+            var response = await _context.Students.Include(u => u.ApplicationUser)
+            .ThenInclude(a => a!.Address).Where(s => s.ApplicationUser!.StudentId == id).SingleOrDefaultAsync();
+
+            if (response is null)
+            {
+                throw new Exception($"We could not find a student with id: {id}");
+            }
+
+            _context.Students.Remove(response);
+
+        }
+
+        // public async Task<IdentityResult> DeleteUserAsync(int id)
+        // {
+        //     var appUser = await _context.ApplicationUsers.Include(s => s.Student).Where(u => u.StudentId == u.Student!.Id && u.Id == id).SingleOrDefaultAsync();
+
+        //     if (appUser is null)
+        //     {
+        //         throw new Exception($"Could not find user with id: {id}");
+        //     }
+        //     return await _userManager.DeleteAsync(appUser);
+        // }
+
 
     }
 }

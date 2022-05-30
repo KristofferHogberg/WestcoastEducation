@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Westcoast_Education_Api.Data;
 
@@ -11,9 +12,10 @@ using Westcoast_Education_Api.Data;
 namespace Westcoast_Education_Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220530164909_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,7 +373,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Property<DateTime?>("EnrollmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 30, 17, 44, 31, 220, DateTimeKind.Utc).AddTicks(7600));
+                        .HasDefaultValue(new DateTime(2022, 5, 30, 16, 49, 9, 676, DateTimeKind.Utc).AddTicks(5740));
 
                     b.HasKey("CourseId", "StudentId");
 
@@ -485,8 +487,7 @@ namespace Westcoast_Education_Api.Data.Migrations
 
                     b.HasOne("Westcoast_Education_Api.Models.Student", "Student")
                         .WithOne("ApplicationUser")
-                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId");
 
                     b.HasOne("Westcoast_Education_Api.Models.Teacher", "Teacher")
                         .WithOne("ApplicationUser")
@@ -561,7 +562,8 @@ namespace Westcoast_Education_Api.Data.Migrations
 
             modelBuilder.Entity("Westcoast_Education_Api.Models.Student", b =>
                 {
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("ApplicationUser")
+                        .IsRequired();
 
                     b.Navigation("CourseStudents");
                 });

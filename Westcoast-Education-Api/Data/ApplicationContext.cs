@@ -32,7 +32,6 @@ namespace Westcoast_Education_Api.Data
             builder.Entity<Category>().HasIndex(c => c.CategoryName)
                 .IsUnique();
 
-
             builder.Entity<Course>()
                 .HasMany(c => c.Students)
                 .WithMany(c => c.Courses)
@@ -43,6 +42,15 @@ namespace Westcoast_Education_Api.Data
             builder.Entity<Course>()
                 .HasIndex(c => c.CourseNo)
                 .IsUnique();
+
+            builder.Entity<ApplicationUser>()
+            .HasOne(u => u.Student)
+            .WithOne(s => s.ApplicationUser)
+            .OnDelete(DeleteBehavior.Cascade);
+
+
+
+
         }
     }
 }
