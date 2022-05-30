@@ -13,35 +13,16 @@ namespace Westcoast_Education_Api.Data.Migrations
                 name: "FK_AspNetUsers_Students_StudentId",
                 table: "AspNetUsers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_StudentId",
-                table: "AspNetUsers");
-
             migrationBuilder.AlterColumn<DateTime>(
                 name: "EnrollmentDate",
                 table: "CourseStudents",
                 type: "datetime2",
                 nullable: true,
-                defaultValue: new DateTime(2022, 5, 30, 16, 49, 9, 676, DateTimeKind.Utc).AddTicks(5740),
+                defaultValue: new DateTime(2022, 5, 30, 19, 26, 57, 775, DateTimeKind.Utc).AddTicks(2190),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2022, 5, 30, 16, 37, 47, 315, DateTimeKind.Utc).AddTicks(1540));
-
-            migrationBuilder.AlterColumn<int>(
-                name: "StudentId",
-                table: "AspNetUsers",
-                type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_StudentId",
-                table: "AspNetUsers",
-                column: "StudentId",
-                unique: true,
-                filter: "[StudentId] IS NOT NULL");
+                oldDefaultValue: new DateTime(2022, 5, 30, 19, 20, 40, 397, DateTimeKind.Utc).AddTicks(7710));
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUsers_Students_StudentId",
@@ -57,36 +38,16 @@ namespace Westcoast_Education_Api.Data.Migrations
                 name: "FK_AspNetUsers_Students_StudentId",
                 table: "AspNetUsers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_StudentId",
-                table: "AspNetUsers");
-
             migrationBuilder.AlterColumn<DateTime>(
                 name: "EnrollmentDate",
                 table: "CourseStudents",
                 type: "datetime2",
                 nullable: true,
-                defaultValue: new DateTime(2022, 5, 30, 16, 37, 47, 315, DateTimeKind.Utc).AddTicks(1540),
+                defaultValue: new DateTime(2022, 5, 30, 19, 20, 40, 397, DateTimeKind.Utc).AddTicks(7710),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2022, 5, 30, 16, 49, 9, 676, DateTimeKind.Utc).AddTicks(5740));
-
-            migrationBuilder.AlterColumn<int>(
-                name: "StudentId",
-                table: "AspNetUsers",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_StudentId",
-                table: "AspNetUsers",
-                column: "StudentId",
-                unique: true);
+                oldDefaultValue: new DateTime(2022, 5, 30, 19, 26, 57, 775, DateTimeKind.Utc).AddTicks(2190));
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUsers_Students_StudentId",

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Westcoast_Education_Api.Data;
 
@@ -11,9 +12,10 @@ using Westcoast_Education_Api.Data;
 namespace Westcoast_Education_Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220530195526_init6")]
+    partial class init6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,7 +373,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Property<DateTime?>("EnrollmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 30, 20, 13, 4, 691, DateTimeKind.Utc).AddTicks(8970));
+                        .HasDefaultValue(new DateTime(2022, 5, 30, 19, 55, 26, 710, DateTimeKind.Utc).AddTicks(4290));
 
                     b.HasKey("CourseId", "StudentId");
 
@@ -480,17 +482,18 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.HasOne("Westcoast_Education_Api.Models.Address", "Address")
                         .WithOne("ApplicationUser")
                         .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "AddressId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Westcoast_Education_Api.Models.Student", "Student")
                         .WithOne("ApplicationUser")
                         .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Westcoast_Education_Api.Models.Teacher", "Teacher")
                         .WithOne("ApplicationUser")
-                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "TeacherId");
+                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Address");
 

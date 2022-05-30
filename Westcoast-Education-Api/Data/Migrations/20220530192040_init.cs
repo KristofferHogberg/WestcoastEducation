@@ -131,7 +131,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: true),
                     TeacherId = table.Column<int>(type: "int", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -168,7 +168,8 @@ namespace Westcoast_Education_Api.Data.Migrations
                         name: "FK_AspNetUsers_Teachers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,7 +202,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                 {
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2022, 5, 30, 16, 37, 47, 315, DateTimeKind.Utc).AddTicks(1540))
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2022, 5, 30, 19, 20, 40, 397, DateTimeKind.Utc).AddTicks(7710))
                 },
                 constraints: table =>
                 {
@@ -371,7 +372,8 @@ namespace Westcoast_Education_Api.Data.Migrations
                 name: "IX_AspNetUsers_StudentId",
                 table: "AspNetUsers",
                 column: "StudentId",
-                unique: true);
+                unique: true,
+                filter: "[StudentId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_TeacherId",

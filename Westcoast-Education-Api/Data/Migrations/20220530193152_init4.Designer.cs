@@ -12,8 +12,8 @@ using Westcoast_Education_Api.Data;
 namespace Westcoast_Education_Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220530174431_init3")]
-    partial class init3
+    [Migration("20220530193152_init4")]
+    partial class init4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -373,7 +373,7 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.Property<DateTime?>("EnrollmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 30, 17, 44, 31, 220, DateTimeKind.Utc).AddTicks(7600));
+                        .HasDefaultValue(new DateTime(2022, 5, 30, 19, 31, 52, 656, DateTimeKind.Utc).AddTicks(670));
 
                     b.HasKey("CourseId", "StudentId");
 
@@ -482,17 +482,18 @@ namespace Westcoast_Education_Api.Data.Migrations
                     b.HasOne("Westcoast_Education_Api.Models.Address", "Address")
                         .WithOne("ApplicationUser")
                         .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("Westcoast_Education_Api.Models.Student", "Student")
                         .WithOne("ApplicationUser")
                         .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("Westcoast_Education_Api.Models.Teacher", "Teacher")
                         .WithOne("ApplicationUser")
-                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "TeacherId");
+                        .HasForeignKey("Westcoast_Education_Api.Models.ApplicationUser", "TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Address");
 

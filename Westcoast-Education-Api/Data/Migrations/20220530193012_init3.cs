@@ -10,7 +10,7 @@ namespace Westcoast_Education_Api.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Students_StudentId",
+                name: "FK_AspNetUsers_Addresses_AddressId",
                 table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<DateTime>(
@@ -18,25 +18,24 @@ namespace Westcoast_Education_Api.Data.Migrations
                 table: "CourseStudents",
                 type: "datetime2",
                 nullable: true,
-                defaultValue: new DateTime(2022, 5, 30, 17, 44, 31, 220, DateTimeKind.Utc).AddTicks(7600),
+                defaultValue: new DateTime(2022, 5, 30, 19, 30, 12, 605, DateTimeKind.Utc).AddTicks(2800),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2022, 5, 30, 16, 49, 9, 676, DateTimeKind.Utc).AddTicks(5740));
+                oldDefaultValue: new DateTime(2022, 5, 30, 19, 26, 57, 775, DateTimeKind.Utc).AddTicks(2190));
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Students_StudentId",
+                name: "FK_AspNetUsers_Addresses_AddressId",
                 table: "AspNetUsers",
-                column: "StudentId",
-                principalTable: "Students",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "AddressId",
+                principalTable: "Addresses",
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Students_StudentId",
+                name: "FK_AspNetUsers_Addresses_AddressId",
                 table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<DateTime>(
@@ -44,18 +43,19 @@ namespace Westcoast_Education_Api.Data.Migrations
                 table: "CourseStudents",
                 type: "datetime2",
                 nullable: true,
-                defaultValue: new DateTime(2022, 5, 30, 16, 49, 9, 676, DateTimeKind.Utc).AddTicks(5740),
+                defaultValue: new DateTime(2022, 5, 30, 19, 26, 57, 775, DateTimeKind.Utc).AddTicks(2190),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2022, 5, 30, 17, 44, 31, 220, DateTimeKind.Utc).AddTicks(7600));
+                oldDefaultValue: new DateTime(2022, 5, 30, 19, 30, 12, 605, DateTimeKind.Utc).AddTicks(2800));
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Students_StudentId",
+                name: "FK_AspNetUsers_Addresses_AddressId",
                 table: "AspNetUsers",
-                column: "StudentId",
-                principalTable: "Students",
-                principalColumn: "Id");
+                column: "AddressId",
+                principalTable: "Addresses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }

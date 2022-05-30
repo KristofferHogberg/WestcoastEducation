@@ -46,10 +46,23 @@ namespace Westcoast_Education_Api.Data
             builder.Entity<ApplicationUser>()
             .HasOne(u => u.Student)
             .WithOne(s => s.ApplicationUser)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.ClientCascade);
+
+            // foreach (var key in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            // {
+            //     key.DeleteBehavior = DeleteBehavior.Cascade;
+            // }
+
+            //     builder.Entity<ApplicationUser>()
+            //    .HasOne(u => u.Teacher)
+            //    .WithOne(s => s.ApplicationUser)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
 
-
+            builder.Entity<ApplicationUser>()
+           .HasOne(u => u.Address)
+           .WithOne(s => s.ApplicationUser)
+           .OnDelete(DeleteBehavior.ClientCascade);
 
         }
     }

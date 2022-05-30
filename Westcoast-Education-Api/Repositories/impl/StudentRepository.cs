@@ -100,17 +100,26 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task DeleteStudentAsync(int id)
         {
-
             var response = await _context.Students.Include(u => u.ApplicationUser)
-            .ThenInclude(a => a!.Address).Where(s => s.ApplicationUser!.StudentId == id).SingleOrDefaultAsync();
+            .ThenInclude(u => u!.Address)
+
+            .Where(s => s.ApplicationUser!.StudentId == id).SingleOrDefaultAsync();
 
             if (response is null)
             {
                 throw new Exception($"We could not find a student with id: {id}");
             }
 
-            _context.Students.Remove(response);
+            // TODO: Fix real cascade with address
+            var address = response.ApplicationUser!.Address;
 
+            if (address is null)
+            {
+                throw new Exception($"We could not find the address: {response.ApplicationUser.AddressId}");
+            }
+
+            _context.Students.Remove(response);
+            _context.Addresses.Remove(address!);
         }
 
         // public async Task<IdentityResult> DeleteUserAsync(int id)
