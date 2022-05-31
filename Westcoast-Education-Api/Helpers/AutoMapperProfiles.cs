@@ -13,7 +13,11 @@ namespace Westcoast_Education_Api.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Address, AddressViewModel>();
-            CreateMap<Category, CategoryViewModel>();
+            CreateMap<Category, CategoryViewModel>()
+                .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
+            CreateMap<Category, CategoryWithCoursesViewModel>()
+                .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
+
             CreateMap<ApplicationUser, TeacherViewModel>();
             CreateMap<ApplicationUser, TeacherWithCategoriesViewModel>()
                 .ForMember(dest => dest.Categories, options => options.MapFrom(src => src.Teacher!.Categories));

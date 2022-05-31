@@ -1,10 +1,10 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.Interfaces;
 using Westcoast_Education_Api.ViewModels.Category;
-using Westcoast_Education_Api.ViewModels.Course;
 
 namespace Westcoast_Education_Api.Repositories.impl
 {
@@ -21,43 +21,32 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<CategoryViewModel>> GetAllCategoriesAsync()
         {
-            var response = await _context.Categories.ToListAsync();
-            var categoryList = new List<CategoryViewModel>();
-
-            // TODO implement AutoMapper
-            foreach (var category in response)
-            {
-                categoryList.Add(new CategoryViewModel
-                {
-                    CategoryId = category.Id,
-                    CategoryName = category.CategoryName
-                });
-            }
-            return categoryList;
+            return await _context.Categories
+              .ProjectTo<CategoryViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<List<CategoryWithCoursesViewModel>> GetCategoriesWithCoursesAsync()
         {
-            return await _context.Categories.Include(ca => ca.Courses)
-            .Select(c => new CategoryWithCoursesViewModel
-            {
-                CategoryId = c.Id,
-                CategoryName = c.CategoryName,
-                Courses = c.Courses!
 
-                .Select(c => new CourseViewModel
-                {
-                    CourseId = c.Id,
-                    CourseNo = c.CourseNo,
-                    Title = c.Title,
-                    Length = c.Length,
-                    Description = c.Description,
-                    Details = c.Details,
-
-                }).ToList()
-            }).ToListAsync();
+            return await _context.Categories
+                .Include(ca => ca.Courses)
+                .ProjectTo<CategoryWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<CategoryWithCoursesViewModel> GetCategoryWithCoursesAsync(int id)
+        {
+            var category = await _context.Categories
+                .Include(ca => ca.Courses)
+                .Where(c => c.Id == id)
+                .ProjectTo<CategoryWithCoursesViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+
+            if (category is null)
+            {
+                throw new Exception($"Could not find category with id: {id} in the system");
+            }
+
+            return category;
+        }
 
         public async Task CreateCategoryAsync(PostCategoryViewModel model)
         {

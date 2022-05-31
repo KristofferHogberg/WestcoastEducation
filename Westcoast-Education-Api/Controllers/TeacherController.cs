@@ -26,6 +26,12 @@ namespace Westcoast_Education_Api.Controllers
             return Ok(await _repository.GetTeachersWithCategoriesAsync());
         }
 
+        [HttpGet("categories/{id}")]
+        public async Task<ActionResult<List<TeacherViewModel>>> ListTeacherWithCategoriesAsync(int id)
+        {
+            return Ok(await _repository.GetTeacherWithCategoriesAsync(id));
+        }
+
         [HttpGet("courses")]
         public async Task<ActionResult<List<TeacherViewModel>>> ListTeachersWithCoursesAsync()
         {

@@ -28,6 +28,12 @@ namespace Westcoast_Education_Api.Controllers
             return Ok(await _repository.GetCategoriesWithCoursesAsync());
         }
 
+        [HttpGet("courses/{id}")]
+        public async Task<ActionResult> ListCategorysWithCourses(int id)
+        {
+            return Ok(await _repository.GetCategoryWithCoursesAsync(id));
+        }
+
         [HttpPost("add")]
         public async Task<ActionResult> AddCategoryAsync(PostCategoryViewModel model)
         {
