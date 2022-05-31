@@ -40,25 +40,6 @@ namespace Westcoast_Education_Api.Repositories.impl
                Country = s.ApplicationUser.Address.Country
 
            }).ToListAsync();
-
-            // var response = await _context.ApplicationUsers.Include(u => u.Address).ToListAsync();
-            // var teacherList = new List<TeacherViewModel>();
-
-            // foreach (var teacher in response)
-            // {
-            //     teacherList.Add(new TeacherViewModel
-            //     {
-            //         FirstName = teacher.FirstName,
-            //         LastName = teacher.LastName,
-            //         Email = teacher.Email,
-            //         PhoneNumber = teacher.PhoneNumber,
-            //         Street = teacher.Address!.Street,
-            //         City = teacher.Address.City,
-            //         ZipCode = teacher.Address.ZipCode,
-            //         Country = teacher.Address.Country
-            //     });
-            // }
-            // return teacherList;
         }
 
         public async Task<List<TeacherWithCategoriesViewModel>> GetTeachersWithCategoriesAsync()
@@ -122,6 +103,7 @@ namespace Westcoast_Education_Api.Repositories.impl
             };
 
             // TODO: Can't add identical addresses.
+
             var address = await _context.Addresses
             .Where(a => a.Street == model.Street && a.ZipCode == model.ZipCode).SingleOrDefaultAsync();
 
@@ -164,22 +146,48 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             // TODO: verify that category(ies) exist in db.
 
-            // if (!availableCategories.SequenceEqual(categoriesToAdd))
-            // {
-            //     throw new Exception($"Could not find category(ies)");
-            // }
-
-            //teacherToAdd.Categories = categoriesToAdd;
-            //await _context.Teachers.AddAsync(teacherToAdd);
+            if (!await CategoryExistByName(model.CategoryName!))
+            {
+                throw new Exception($"could not find category with id: {model.CategoryName} in the system");
+            }
 
             appUser.Teacher = teacherToAdd;
 
             return await _userManager.CreateAsync(appUser);
         }
 
+        public async Task<bool> CategoryExistByName(string name)
+        {
+            return await _context.Categories.AnyAsync(c => c.CategoryName == name);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task DeleteTeacherAsync(int id)
+        {
+            var response = await _context.Teachers.Include(u => u.ApplicationUser)
+            .ThenInclude(u => u!.Address)
+
+            .Where(s => s.ApplicationUser!.TeacherId == id).SingleOrDefaultAsync();
+
+            if (response is null)
+            {
+                throw new Exception($"We could not find teacher with id: {id}");
+            }
+
+            // TODO: Fix real cascade with address
+            var address = response.ApplicationUser!.Address;
+
+            if (address is null)
+            {
+                throw new Exception($"We could not find the address: {response.ApplicationUser.AddressId}");
+            }
+
+            _context.Teachers.Remove(response);
+            _context.Addresses.Remove(address!);
         }
     }
 }

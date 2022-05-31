@@ -17,6 +17,5 @@ namespace Westcoast_Education_Api.ViewModels.Course
         public string? Details { get; set; }
         [Required(ErrorMessage = "Course category is required")]
         public int CategoryId { get; set; }
-        public int TeacherId { get; set; }
     }
 }

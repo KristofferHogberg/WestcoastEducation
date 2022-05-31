@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
@@ -84,10 +80,15 @@ namespace Westcoast_Education_Api.Repositories.impl
                 throw new Exception($"Could not add course: {model.Title} to the system");
             }
 
-            if (!await CategoryExist(courseToAdd.CategoryId))
+            if (!await CategoryExist(model.CategoryId))
             {
                 throw new Exception($"could not find category with id: {model.CategoryId} in the system");
             }
+
+            // if (!await TeacherExist(model.TeacherId))
+            // {
+            //     throw new Exception($"could not find teacher with id: {model.TeacherId} in the system");
+            // }
             await _context.Courses.AddAsync(courseToAdd);
         }
 
@@ -97,7 +98,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             if (response is null)
             {
-                throw new Exception("We could not find a course with id: {id}");
+                throw new Exception($"We could not find a course with id: {id}");
             }
 
             _context.Courses.Remove(response);
@@ -106,6 +107,11 @@ namespace Westcoast_Education_Api.Repositories.impl
         public async Task<bool> CategoryExist(int id)
         {
             return await _context.Categories.AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<bool> TeacherExist(int id)
+        {
+            return await _context.Teachers.AnyAsync(c => c.Id == id);
         }
 
         public async Task<bool> ExistByCourseNoAsync(int courseNo)
@@ -139,7 +145,6 @@ namespace Westcoast_Education_Api.Repositories.impl
             {
                 throw new Exception($"Could not find student: {model.Email}");
             }
-
 
             var registry = new CourseStudents
             {

@@ -70,7 +70,7 @@ namespace Westcoast_Education_Api.Controllers
             return StatusCode(500, $"Could not enroll in course {model.CourseNo}");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteCourseAsync(int id)
         {
             try

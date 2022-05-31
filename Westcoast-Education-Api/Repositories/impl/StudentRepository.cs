@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.Interfaces;
-using Westcoast_Education_Api.ViewModels.Course;
 using Westcoast_Education_Api.ViewModels.Student;
 
 namespace Westcoast_Education_Api.Repositories.impl
@@ -28,7 +23,8 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _context.Students.Include(u => u.ApplicationUser).ThenInclude(u => u!.Address)
             .Select(s => new StudentViewModel
             {
-                FirstName = s.ApplicationUser!.FirstName,
+                StudentId = s.ApplicationUser!.StudentId,
+                FirstName = s.ApplicationUser.FirstName,
                 LastName = s.ApplicationUser.LastName,
                 Email = s.ApplicationUser.Email,
                 PhoneNumber = s.ApplicationUser.PhoneNumber,
@@ -52,6 +48,7 @@ namespace Westcoast_Education_Api.Repositories.impl
                 CourseNo = s.Course!.CourseNo,
                 Title = s.Course.Title,
                 EnrollmentDate = DateTime.UtcNow,
+                StudentId = s.StudentId,
                 FirstName = s.Student!.ApplicationUser!.FirstName,
                 LastName = s.Student.ApplicationUser.LastName,
                 Email = s.Student.ApplicationUser.Email
@@ -121,18 +118,6 @@ namespace Westcoast_Education_Api.Repositories.impl
             _context.Students.Remove(response);
             _context.Addresses.Remove(address!);
         }
-
-        // public async Task<IdentityResult> DeleteUserAsync(int id)
-        // {
-        //     var appUser = await _context.ApplicationUsers.Include(s => s.Student).Where(u => u.StudentId == u.Student!.Id && u.Id == id).SingleOrDefaultAsync();
-
-        //     if (appUser is null)
-        //     {
-        //         throw new Exception($"Could not find user with id: {id}");
-        //     }
-        //     return await _userManager.DeleteAsync(appUser);
-        // }
-
 
     }
 }

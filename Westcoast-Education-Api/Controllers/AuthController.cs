@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
-using Westcoast_Education_Api.ViewModels.ApplicationUser;
 
 namespace Westcoast_Education_Api.Controllers
 {

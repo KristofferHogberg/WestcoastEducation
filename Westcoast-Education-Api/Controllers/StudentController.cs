@@ -47,7 +47,7 @@ namespace Westcoast_Education_Api.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteStudentAsync(int id)
         {
             try
@@ -59,21 +59,6 @@ namespace Westcoast_Education_Api.Controllers
                     return NoContent();
                 }
                 return StatusCode(500, "Something went wrong");
-
-                // var result = await _repository.DeleteUserAsync(id);
-
-                // if (result.Succeeded)
-                // {
-                //     return StatusCode(201, $"User deleted: {id}");
-                // }
-                // else
-                // {
-                //     foreach (var error in result.Errors)
-                //     {
-                //         ModelState.AddModelError("User registration", error.Description);
-                //     }
-                //     return StatusCode(500, ModelState);
-                // }
             }
             catch (Exception Ex)
             {

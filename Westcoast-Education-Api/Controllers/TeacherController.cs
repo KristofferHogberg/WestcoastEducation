@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Westcoast_Education_Api.Repositories.Interfaces;
-using Westcoast_Education_Api.ViewModels;
 using Westcoast_Education_Api.ViewModels.Teacher;
 
 namespace Westcoast_Education_Api.Controllers
@@ -56,6 +51,25 @@ namespace Westcoast_Education_Api.Controllers
                 return StatusCode(500, ModelState);
             }
 
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteTeachertAsync(int id)
+        {
+            try
+            {
+                await _repository.DeleteTeacherAsync(id);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return NoContent();
+                }
+                return StatusCode(500, "Something went wrong");
+            }
+            catch (Exception Ex)
+            {
+                return StatusCode(500, Ex.Message);
+            }
         }
     }
 
