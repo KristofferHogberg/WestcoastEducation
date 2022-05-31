@@ -15,18 +15,33 @@ namespace Westcoast_Education_Api.Helpers
             CreateMap<Address, AddressViewModel>();
             CreateMap<Category, CategoryViewModel>()
                 .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
+
             CreateMap<Category, CategoryWithCoursesViewModel>()
                 .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
-
-            CreateMap<ApplicationUser, TeacherViewModel>();
-            CreateMap<ApplicationUser, TeacherWithCategoriesViewModel>()
-                .ForMember(dest => dest.Categories, options => options.MapFrom(src => src.Teacher!.Categories));
 
             CreateMap<Course, CourseViewModel>();
             CreateMap<Course, CourseWithCategoryViewModel>();
 
             CreateMap<CourseStudents, StudentWithCoursesViewModel>()
-                .ForMember(dest => dest.CourseNo, options => options.MapFrom(src => src.Course!.CourseNo));
+               .ForMember(dest => dest.EnrollmentDate, options => options.MapFrom(src => src.EnrollmentDate))
+               .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Student!.Courses))
+               .ForMember(dest => dest.Email, options => options.MapFrom(src => src.Student!.ApplicationUser!.Email));
+
+            CreateMap<ApplicationUser, StudentViewModel>();
+            // CreateMap<ApplicationUser, StudentWithCoursesViewModel>()
+            //     .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Student!.Courses));
+            //.ForMember(dest => dest.EnrollmentDate, options => options.MapFrom(src => src.Student!.CourseStudents));
+
+            CreateMap<ApplicationUser, TeacherViewModel>();
+            CreateMap<ApplicationUser, TeacherWithCategoriesViewModel>()
+                .ForMember(dest => dest.Categories, options => options.MapFrom(src => src.Teacher!.Categories));
+
+            CreateMap<ApplicationUser, TeacherWithCoursesViewModel>()
+                .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Teacher!.Courses));
+
+
+
+
 
         }
     }

@@ -61,9 +61,16 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         }
 
-        public Task DeleteCategoryAsync(int id)
+        public async Task DeleteCategoryAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _context.Categories.FindAsync(id);
+
+            if (response is null)
+            {
+                throw new Exception($"We could not find a course with id: {id}");
+            }
+
+            _context.Categories.Remove(response);
         }
 
         public async Task<bool> ExistById(int id)

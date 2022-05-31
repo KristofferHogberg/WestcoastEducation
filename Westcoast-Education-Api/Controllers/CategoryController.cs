@@ -39,7 +39,6 @@ namespace Westcoast_Education_Api.Controllers
         {
             try
             {
-
                 await _repository.CreateCategoryAsync(model);
 
                 if (await _repository.SaveAllAsync())
@@ -56,6 +55,25 @@ namespace Westcoast_Education_Api.Controllers
                     StatusText = Ex.Message
                 };
                 return StatusCode(500, error);
+            }
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteCategoryAsync(int id)
+        {
+            try
+            {
+                await _repository.DeleteCategoryAsync(id);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return NoContent();
+                }
+                return StatusCode(500, "Something went wrong");
+            }
+            catch (Exception Ex)
+            {
+                return StatusCode(500, Ex.Message);
             }
         }
     }

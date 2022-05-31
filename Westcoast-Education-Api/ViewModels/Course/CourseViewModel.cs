@@ -8,6 +8,7 @@ namespace Westcoast_Education_Api.ViewModels.Course
         public string? Length { get; set; }
         public string? Description { get; set; }
         public string? Details { get; set; }
+        public DateTime EnrollmentDate { get; set; }
 
     }
 }

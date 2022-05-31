@@ -59,24 +59,27 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<TeacherWithCoursesViewModel>> GetTeachersWithCoursesAsync()
         {
-            return await _context.Teachers.Include(ca => ca.Courses)
-            .Select(t => new TeacherWithCoursesViewModel
+            return await _context.ApplicationUsers
+               .Include(u => u.Teacher)
+               .ThenInclude(c => c!.Courses)
+               .Where(u => u.TeacherId != null)
+               .ProjectTo<TeacherWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
+        public async Task<TeacherWithCoursesViewModel> GetTeacherWithCoursesAsync(int id)
+        {
+            var teacher = await _context.ApplicationUsers
+               .Include(u => u.Teacher)
+               .ThenInclude(c => c!.Courses)
+               .Where(u => u.TeacherId != null && u.TeacherId == id)
+               .ProjectTo<TeacherWithCoursesViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+
+            if (teacher is null)
             {
-                FirstName = t.ApplicationUser!.FirstName,
-                LastName = t.ApplicationUser.LastName,
-                Courses = t.Courses
+                throw new Exception($"Could not find teacher: {id} in the system");
+            }
 
-                .Select(c => new CourseViewModel
-                {
-                    CourseNo = c.CourseNo,
-                    Title = c.Title,
-                    Length = c.Length,
-                    Description = c.Description,
-                    Details = c.Details
-                }).ToList()
-
-            }).ToListAsync();
-
+            return teacher;
         }
 
         public async Task<IdentityResult> CreateTeacherAsync(PostTeacherViewModel model)

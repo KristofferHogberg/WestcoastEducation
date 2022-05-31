@@ -38,6 +38,13 @@ namespace Westcoast_Education_Api.Controllers
             return Ok(await _repository.GetTeachersWithCoursesAsync());
         }
 
+
+        [HttpGet("courses/{id}")]
+        public async Task<ActionResult<List<TeacherViewModel>>> ListTeacherWithCoursesAsync(int id)
+        {
+            return Ok(await _repository.GetTeacherWithCoursesAsync(id));
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult> AddUserAsync(PostTeacherViewModel model)
         {

@@ -23,47 +23,42 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<StudentViewModel>> GetAllStudentsAsync()
         {
-            //TODO implement AutoMapper
-            return await _context.Students.Include(u => u.ApplicationUser).ThenInclude(u => u!.Address)
-            .Select(s => new StudentViewModel
-            {
-                StudentId = s.ApplicationUser!.StudentId,
-                FirstName = s.ApplicationUser.FirstName,
-                LastName = s.ApplicationUser.LastName,
-                Email = s.ApplicationUser.Email,
-                PhoneNumber = s.ApplicationUser.PhoneNumber,
-
-                Street = s.ApplicationUser.Address!.Street,
-                City = s.ApplicationUser.Address.City,
-                ZipCode = s.ApplicationUser.Address.ZipCode,
-                Country = s.ApplicationUser.Address.Country
-
-            }).ToListAsync();
-
+            return await _context.ApplicationUsers
+                .Include(u => u.Student)
+                .ThenInclude(u => u!.ApplicationUser!.Address)
+                .Where(u => u.StudentId != null)
+                .ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<List<StudentWithCoursesViewModel>> GetCourseStudentsRegistriesAsync()
         {
-
-            // return await _context.CourseStudents
-            //     .Include(s => s.Student)
-            //     .ThenInclude(u => u!.ApplicationUser)
-            //     .ProjectTo<StudentWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+            // return await _context.ApplicationUsers
+            //    .Include(u => u.Student)
+            //    .ThenInclude(c => c!.Courses)
+            //    .Where(u => u.StudentId != null)
+            //    .ProjectTo<StudentWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
             return await _context.CourseStudents
-            .Include(s => s.Student)
-            .ThenInclude(u => u!.ApplicationUser)
-            .Select(s => new StudentWithCoursesViewModel
-            {
-                CourseNo = s.Course!.CourseNo,
-                Title = s.Course.Title,
-                EnrollmentDate = DateTime.UtcNow,
-                StudentId = s.StudentId,
-                FirstName = s.Student!.ApplicationUser!.FirstName,
-                LastName = s.Student.ApplicationUser.LastName,
-                Email = s.Student.ApplicationUser.Email
+                .Include(s => s.Student)
+                .ThenInclude(s => s!.ApplicationUser)
+                //.ThenInclude(u => u!.Courses)
+                .ThenInclude(u => u!.Student!.Courses)
+                .ProjectTo<StudentWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
-            }).ToListAsync();
+            // return await _context.CourseStudents
+            // .Include(s => s.Student)
+            // .ThenInclude(u => u!.ApplicationUser)
+            // .Select(s => new StudentWithCoursesViewModel
+            // {
+            //     CourseNo = s.Course!.CourseNo,
+            //     Title = s.Course.Title,
+            //     EnrollmentDate = DateTime.UtcNow,
+            //     StudentId = s.StudentId,
+            //     FirstName = s.Student!.ApplicationUser!.FirstName,
+            //     LastName = s.Student.ApplicationUser.LastName,
+            //     Email = s.Student.ApplicationUser.Email
+
+            // }).ToListAsync();
 
         }
         public async Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model)
