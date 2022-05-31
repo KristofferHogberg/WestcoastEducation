@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
@@ -11,8 +13,10 @@ namespace Westcoast_Education_Api.Repositories.impl
     {
         private readonly ApplicationContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public StudentRepository(ApplicationContext context, UserManager<ApplicationUser> userManager)
+        private readonly IMapper _mapper;
+        public StudentRepository(ApplicationContext context, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
+            _mapper = mapper;
             _userManager = userManager;
             _context = context;
         }
@@ -40,6 +44,12 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<StudentWithCoursesViewModel>> GetCourseStudentsRegistriesAsync()
         {
+
+            // return await _context.CourseStudents
+            //     .Include(s => s.Student)
+            //     .ThenInclude(u => u!.ApplicationUser)
+            //     .ProjectTo<StudentWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
             return await _context.CourseStudents
             .Include(s => s.Student)
             .ThenInclude(u => u!.ApplicationUser)

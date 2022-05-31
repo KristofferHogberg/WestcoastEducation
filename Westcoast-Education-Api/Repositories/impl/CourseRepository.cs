@@ -1,4 +1,5 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
@@ -21,44 +22,14 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<CourseViewModel>> GetAllCoursesAsync()
         {
-            //TODO implement AutoMapper 
-            var response = await _context.Courses.ToListAsync();
-            var coursesList = new List<CourseViewModel>();
-
-            foreach (var course in response)
-            {
-                coursesList.Add(
-                new CourseViewModel
-                {
-                    CourseId = course.Id,
-                    CourseNo = course.CourseNo,
-                    Title = course.Title,
-                    Length = course.Length,
-                    Description = course.Description,
-                    Details = course.Details,
-
-                });
-            }
-
-            return coursesList;
+            return await _context.Courses.ProjectTo<CourseViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<List<CourseWithCategoryViewModel>> GetCoursesWithCategoryAsync()
         {
-            //TODO implement AutoMapper 
-            return await _context.Courses.Include(c => c.Category)
-            .Select(c => new CourseWithCategoryViewModel
-            {
-                CourseId = c.Id,
-                CourseNo = c.CourseNo,
-                Title = c.Title,
-                Length = c.Length,
-                Description = c.Description,
-                Details = c.Details,
-                CategoryName = c.Category!.CategoryName
-
-            }).ToListAsync();
-
+            return await _context.Courses
+                .Include(c => c.Category)
+                .ProjectTo<CourseWithCategoryViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task CreateCourseAsync(PostCourseViewModel model)

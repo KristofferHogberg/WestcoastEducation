@@ -1,9 +1,11 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Westcoast_Education_Api.Data;
 using Westcoast_Education_Api.Models;
 using Westcoast_Education_Api.Repositories.Interfaces;
+using Westcoast_Education_Api.ViewModels.Address;
 using Westcoast_Education_Api.ViewModels.Category;
 using Westcoast_Education_Api.ViewModels.Course;
 using Westcoast_Education_Api.ViewModels.Teacher;
@@ -25,24 +27,38 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<List<TeacherViewModel>> GetAllTeachersAsync()
         {
+            return await _context.ApplicationUsers
+                .Include(u => u.Teacher)
+                .ThenInclude(u => u!.ApplicationUser!.Address)
+                .ProjectTo<TeacherViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
-            return await _context.Teachers.Include(u => u.ApplicationUser).ThenInclude(u => u!.Address)
-           .Select(s => new TeacherViewModel
-           {
-               FirstName = s.ApplicationUser!.FirstName,
-               LastName = s.ApplicationUser.LastName,
-               Email = s.ApplicationUser.Email,
-               PhoneNumber = s.ApplicationUser.PhoneNumber,
-
-               Street = s.ApplicationUser.Address!.Street,
-               City = s.ApplicationUser.Address.City,
-               ZipCode = s.ApplicationUser.Address.ZipCode,
-               Country = s.ApplicationUser.Address.Country
-
-           }).ToListAsync();
         }
 
         public async Task<List<TeacherWithCategoriesViewModel>> GetTeachersWithCategoriesAsync()
+        {
+            return await _context.ApplicationUsers
+                .Include(u => u.Teacher)
+                .ThenInclude(c => c!.Categories)
+                .ProjectTo<TeacherWithCategoriesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
+
+            // return await _context.Teachers.Include(ca => ca.Categories)
+            // .Select(c => new TeacherWithCategoriesViewModel
+            // {
+            //     FirstName = c.ApplicationUser!.FirstName,
+            //     LastName = c.ApplicationUser.LastName,
+            //     Categories = c.Categories
+
+            //     .Select(c => new CategoryViewModel
+            //     {
+            //         CategoryName = c.CategoryName
+            //     }).ToList()
+
+            // }).ToListAsync();
+
+        }
+
+        public async Task<List<TeacherWithCategoriesViewModel>> GetTeacherWithCategoriesAsync(int id)
         {
             return await _context.Teachers.Include(ca => ca.Categories)
             .Select(c => new TeacherWithCategoriesViewModel
@@ -81,6 +97,8 @@ namespace Westcoast_Education_Api.Repositories.impl
             }).ToListAsync();
 
         }
+
+
 
         public async Task<IdentityResult> CreateTeacherAsync(PostTeacherViewModel model)
         {
