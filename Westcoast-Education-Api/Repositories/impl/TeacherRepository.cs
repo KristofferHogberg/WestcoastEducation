@@ -94,7 +94,6 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             appUser = new ApplicationUser
             {
-
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
@@ -125,6 +124,16 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             foreach (var category in model.Categories)
             {
+                if (!await CategoryExistByNameAsync(category.CategoryName!))
+                {
+                    throw new Exception($"could not find category: {category.CategoryName} in the system");
+                }
+
+                if (categoriesToAdd.Where(c => c.CategoryName == category.CategoryName).Any())
+                {
+                    throw new Exception($"Duplicates not allowed: {category.CategoryName}");
+                }
+
                 categoriesToAdd.AddRange(availableCategories
                 .Where(c => c.CategoryName == category.CategoryName).ToList());
             }
@@ -134,6 +143,15 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             foreach (var course in model.Courses)
             {
+                if (!await CourseExistByNoAsync(course.CourseNo!))
+                {
+                    throw new Exception($"could not find course: {course.CourseNo} in the system");
+                }
+
+                if (coursesToAdd.Where(c => c.CourseNo == course.CourseNo).Any())
+                {
+                    throw new Exception($"Duplicates not allowed: {course.CourseNo}");
+                }
                 coursesToAdd.AddRange(availableCourses
                 .Where(c => c.CourseNo == course.CourseNo).ToList());
             }
@@ -144,23 +162,19 @@ namespace Westcoast_Education_Api.Repositories.impl
                 Courses = coursesToAdd
             };
 
-            // TODO: verify that category(ies) exist in db.
-
-            if (!await CategoryExistByName(model.CategoryName!))
-            {
-                throw new Exception($"could not find category with id: {model.CategoryName} in the system");
-            }
-
             appUser.Teacher = teacherToAdd;
-
             return await _userManager.CreateAsync(appUser);
         }
 
-        public async Task<bool> CategoryExistByName(string name)
+        public async Task<bool> CategoryExistByNameAsync(string name)
         {
             return await _context.Categories.AnyAsync(c => c.CategoryName == name);
         }
 
+        public async Task<bool> CourseExistByNoAsync(int courseNo)
+        {
+            return await _context.Courses.AnyAsync(c => c.CourseNo == courseNo);
+        }
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
