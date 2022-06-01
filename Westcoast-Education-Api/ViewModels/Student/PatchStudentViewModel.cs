@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Westcoast_Education_Api.ViewModels.Address;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Westcoast_Education_Api.ViewModels.Student
 {
-    public class PostStudentViewModel
+    public class PatchStudentViewModel
     {
         [Required]
         public string? FirstName { get; set; }
@@ -24,6 +27,5 @@ namespace Westcoast_Education_Api.ViewModels.Student
         [Required]
         public string? Country { get; set; }
         public bool Isteacher { get; set; } = false;
-
     }
 }

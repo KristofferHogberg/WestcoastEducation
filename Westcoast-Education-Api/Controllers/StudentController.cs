@@ -47,6 +47,27 @@ namespace Westcoast_Education_Api.Controllers
             }
         }
 
+
+        [HttpPatch("update/{id}")]
+        public async Task<ActionResult> UpdateCourseAsync(int id, PatchStudentViewModel model)
+        {
+            try
+            {
+                await _repository.UpdateStudentAsync(id, model);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return NoContent();
+                }
+
+                return StatusCode(500, $"An error occured when trying to update student: {model.Email}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteStudentAsync(int id)
         {

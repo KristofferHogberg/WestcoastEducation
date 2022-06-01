@@ -49,6 +49,9 @@ namespace Westcoast_Education_Api.Helpers
             CreateMap<PostStudentViewModel, Student>();
             CreateMap<PostStudentViewModel, ApplicationUser>();
 
+            CreateMap<PatchStudentViewModel, Address>();
+            CreateMap<PatchStudentViewModel, ApplicationUser>();
+
 
 
 

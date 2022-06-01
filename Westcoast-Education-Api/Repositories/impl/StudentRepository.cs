@@ -29,7 +29,6 @@ namespace Westcoast_Education_Api.Repositories.impl
                 .Where(u => u.StudentId != null)
                 .ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
-
         public async Task<List<StudentWithCoursesViewModel>> GetCourseStudentsRegistriesAsync()
         {
             return await _context.CourseStudents
@@ -54,12 +53,22 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             return await _userManager.CreateAsync(appUser);
         }
-
-        public async Task<bool> SaveAllAsync()
+        public async Task UpdateStudentAsync(int id, PatchStudentViewModel model)
         {
-            return await _context.SaveChangesAsync() > 0;
-        }
+            var appUser = await _context.ApplicationUsers
+                .Include(u => u.Address)
+                .Where(s => s.StudentId == id)
+                .SingleOrDefaultAsync();
 
+            if (appUser is null)
+            {
+                throw new Exception($"Could not create student {model.Email}");
+            }
+
+            _mapper.Map<PatchStudentViewModel, ApplicationUser>(model, appUser);
+            _mapper.Map<PatchStudentViewModel, Address>(model, appUser.Address!);
+            _context.ApplicationUsers.Update(appUser);
+        }
         public async Task DeleteStudentAsync(int id)
         {
             var response = await _context.Students.Include(u => u.ApplicationUser)
@@ -82,6 +91,10 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             _context.Students.Remove(response);
             _context.Addresses.Remove(address!);
+        }
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
     }
