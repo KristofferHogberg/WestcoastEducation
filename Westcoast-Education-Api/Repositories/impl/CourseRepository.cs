@@ -103,7 +103,6 @@ namespace Westcoast_Education_Api.Repositories.impl
         public async Task CreateCourseStudentRegistryAsync(PostCourseStudentsViewModel model)
         {
             // TODO: Implement more efficent verification of registries and duplicate checks?
-
             var course = await _context.Courses.Where(c => c.CourseNo == model.CourseNo).SingleOrDefaultAsync();
 
             if (course is null)
@@ -120,7 +119,8 @@ namespace Westcoast_Education_Api.Repositories.impl
             var registry = new CourseStudents
             {
                 CourseId = course.Id,
-                StudentId = student.Id
+                StudentId = student.Id,
+                EnrollmentDate = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")
             };
 
             if (await _context.CourseStudents.Where(c => c.CourseId == registry.CourseId && c.StudentId == registry.StudentId).AnyAsync())

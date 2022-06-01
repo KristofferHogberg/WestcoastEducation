@@ -8,7 +8,10 @@ namespace Westcoast_Education_Api.ViewModels.Student
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
-        public DateTime EnrollmentDate { get; set; }
-        public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
+
+        public int CourseNo { get; set; }
+        public string? Title { get; set; }
+        public string? EnrollmentDate { get; set; }
+
     }
 }

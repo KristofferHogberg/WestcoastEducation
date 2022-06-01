@@ -13,6 +13,16 @@ namespace Westcoast_Education_Api.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Address, AddressViewModel>();
+
+            CreateMap<ApplicationUser, StudentViewModel>();
+
+            CreateMap<ApplicationUser, TeacherViewModel>();
+            CreateMap<ApplicationUser, TeacherWithCategoriesViewModel>()
+                .ForMember(dest => dest.Categories, options => options.MapFrom(src => src.Teacher!.Categories));
+
+            CreateMap<ApplicationUser, TeacherWithCoursesViewModel>()
+                .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Teacher!.Courses));
+
             CreateMap<Category, CategoryViewModel>()
                 .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
 
@@ -23,21 +33,15 @@ namespace Westcoast_Education_Api.Helpers
             CreateMap<Course, CourseWithCategoryViewModel>();
 
             CreateMap<CourseStudents, StudentWithCoursesViewModel>()
-               .ForMember(dest => dest.EnrollmentDate, options => options.MapFrom(src => src.EnrollmentDate))
-               .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Student!.Courses))
-               .ForMember(dest => dest.Email, options => options.MapFrom(src => src.Student!.ApplicationUser!.Email));
+               .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.Student!.ApplicationUser!.FirstName))
+               .ForMember(dest => dest.LastName, options => options.MapFrom(src => src.Student!.ApplicationUser!.LastName))
+               .ForMember(dest => dest.Email, options => options.MapFrom(src => src.Student!.ApplicationUser!.Email))
+               .ForMember(dest => dest.CourseNo, options => options.MapFrom(src => src.Course!.CourseNo))
+               .ForMember(dest => dest.Title, options => options.MapFrom(src => src.Course!.Title))
+               .ForMember(dest => dest.EnrollmentDate, options => options.MapFrom(src => src.EnrollmentDate));
 
-            CreateMap<ApplicationUser, StudentViewModel>();
-            // CreateMap<ApplicationUser, StudentWithCoursesViewModel>()
-            //     .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Student!.Courses));
-            //.ForMember(dest => dest.EnrollmentDate, options => options.MapFrom(src => src.Student!.CourseStudents));
 
-            CreateMap<ApplicationUser, TeacherViewModel>();
-            CreateMap<ApplicationUser, TeacherWithCategoriesViewModel>()
-                .ForMember(dest => dest.Categories, options => options.MapFrom(src => src.Teacher!.Categories));
 
-            CreateMap<ApplicationUser, TeacherWithCoursesViewModel>()
-                .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Teacher!.Courses));
 
 
 
