@@ -34,17 +34,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task CreateCourseAsync(PostCourseViewModel model)
         {
-            // TODO implement AutoMapper
-            var courseToAdd = new Course
-            {
-                CourseNo = model.CourseNo,
-                Title = model.Title,
-                Length = model.Length,
-                Description = model.Description,
-                Details = model.Details,
-                CategoryId = model.CategoryId,
-
-            };
+            var courseToAdd = _mapper.Map<Course>(model);
 
             if (courseToAdd is null)
             {
@@ -56,48 +46,20 @@ namespace Westcoast_Education_Api.Repositories.impl
                 throw new Exception($"could not find category with id: {model.CategoryId} in the system");
             }
 
-            // if (!await TeacherExist(model.TeacherId))
-            // {
-            //     throw new Exception($"could not find teacher with id: {model.TeacherId} in the system");
-            // }
             await _context.Courses.AddAsync(courseToAdd);
         }
 
-        public async Task DeleteCourseAsync(int id)
+        public async Task UpdateCourseAsync(int id, PatchCourseViewModel model)
         {
-            var response = await _context.Courses.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
 
-            if (response is null)
+            if (course is null)
             {
-                throw new Exception($"We could not find a course with id: {id}");
+                throw new Exception($"We could not find any course with id: {id}");
             }
 
-            _context.Courses.Remove(response);
-        }
-
-        public async Task<bool> CategoryExist(int id)
-        {
-            return await _context.Categories.AnyAsync(c => c.Id == id);
-        }
-
-        public async Task<bool> TeacherExist(int id)
-        {
-            return await _context.Teachers.AnyAsync(c => c.Id == id);
-        }
-
-        public async Task<bool> ExistByCourseNoAsync(int courseNo)
-        {
-            return await _context.Courses.AnyAsync(cn => cn.CourseNo == courseNo);
-        }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public Task UpdateCourseAsync(PatchCourseViewModel model)
-        {
-            throw new NotImplementedException();
+            _mapper.Map<PatchCourseViewModel, Course>(model, course);
+            _context.Courses.Update(course);
         }
 
         public async Task CreateCourseStudentRegistryAsync(PostCourseStudentsViewModel model)
@@ -130,5 +92,37 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             await _context.CourseStudents.AddAsync(registry);
         }
+        public async Task DeleteCourseAsync(int id)
+        {
+            var response = await _context.Courses.FindAsync(id);
+
+            if (response is null)
+            {
+                throw new Exception($"We could not find a course with id: {id}");
+            }
+
+            _context.Courses.Remove(response);
+        }
+
+        public async Task<bool> CategoryExist(int id)
+        {
+            return await _context.Categories.AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<bool> TeacherExist(int id)
+        {
+            return await _context.Teachers.AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<bool> ExistByCourseNoAsync(int courseNo)
+        {
+            return await _context.Courses.AnyAsync(cn => cn.CourseNo == courseNo);
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
     }
 }

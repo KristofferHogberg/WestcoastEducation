@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Westcoast_Education_Api.ViewModels.Address;
 
 namespace Westcoast_Education_Api.ViewModels.Student
 {
@@ -23,5 +24,8 @@ namespace Westcoast_Education_Api.ViewModels.Student
         [Required]
         public string? Country { get; set; }
         public bool Isteacher { get; set; } = false;
+        //public int StudentId { get; set; }
+
+        //public AddressViewModel? Address { get; set; }
     }
 }

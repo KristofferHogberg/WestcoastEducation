@@ -13,7 +13,6 @@ namespace Westcoast_Education_Api.Models
 
         public Student? Student { get; set; }
         public Teacher? Teacher { get; set; }
-        [Required]
         public Address? Address { get; set; }
 
     }

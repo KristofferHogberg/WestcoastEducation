@@ -40,34 +40,17 @@ namespace Westcoast_Education_Api.Repositories.impl
         }
         public async Task<IdentityResult> CreateStudentAsync(PostStudentViewModel model)
         {
-            if (await _context.Students.Include(s => s.ApplicationUser).Where(u => u.ApplicationUser!.Email == model.Email).AnyAsync())
+            var student = _mapper.Map<Student>(model);
+            var address = _mapper.Map<Address>(model);
+            var appUser = _mapper.Map<ApplicationUser>(model);
+
+            appUser.Student = student;
+            appUser.Address = address;
+
+            if (appUser is null)
             {
-                // TODO: fix better message
-                throw new Exception("User allready exist");
+                throw new Exception($"Could not create student {model.Email}");
             }
-
-            var appUser = new ApplicationUser
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.UserName,
-                PhoneNumber = model.PhoneNumber,
-
-                Student = new Student
-                {
-                    IsTeacher = model.Isteacher,
-                },
-
-                Address = new Address
-                {
-                    Street = model.Street,
-                    City = model.City,
-                    ZipCode = model.ZipCode,
-                    Country = model.Country
-                }
-
-            };
 
             return await _userManager.CreateAsync(appUser);
         }

@@ -70,6 +70,26 @@ namespace Westcoast_Education_Api.Controllers
             return StatusCode(500, $"Could not enroll in course {model.CourseNo}");
         }
 
+        [HttpPatch("update/{id}")]
+        public async Task<ActionResult> UpdateCourseAsync(int id, PatchCourseViewModel model)
+        {
+            try
+            {
+                await _repository.UpdateCourseAsync(id, model);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return NoContent();
+                }
+
+                return StatusCode(500, $"An error occured when trying to update course: {model.Title} id: {id}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteCourseAsync(int id)
         {
