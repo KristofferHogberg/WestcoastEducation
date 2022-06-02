@@ -25,9 +25,8 @@ namespace Westcoast_Education_Api.ViewModels.Teacher
         public string? ZipCode { get; set; }
         [Required]
         public string? Country { get; set; }
-        //public string? CategoryName { get; set; }
-
-        public virtual List<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
-        public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
+        [Required]
+        public virtual List<CategoryViewModel>? Categories { get; set; } = new List<CategoryViewModel>();
+        //public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
     }
 }

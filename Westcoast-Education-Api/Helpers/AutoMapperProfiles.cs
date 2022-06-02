@@ -13,7 +13,6 @@ namespace Westcoast_Education_Api.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Address, AddressViewModel>();
-
             CreateMap<ApplicationUser, StudentViewModel>();
 
             CreateMap<ApplicationUser, TeacherViewModel>();
@@ -35,7 +34,6 @@ namespace Westcoast_Education_Api.Helpers
                 .ForMember(dest => dest.CourseId, options => options.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CategoryName, options => options.MapFrom(src => src.Category!.CategoryName));
 
-
             CreateMap<CourseStudents, StudentWithCoursesViewModel>()
                .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.Student!.ApplicationUser!.FirstName))
                .ForMember(dest => dest.LastName, options => options.MapFrom(src => src.Student!.ApplicationUser!.LastName))
@@ -43,6 +41,7 @@ namespace Westcoast_Education_Api.Helpers
                .ForMember(dest => dest.CourseNo, options => options.MapFrom(src => src.Course!.CourseNo))
                .ForMember(dest => dest.Title, options => options.MapFrom(src => src.Course!.Title))
                .ForMember(dest => dest.EnrollmentDate, options => options.MapFrom(src => src.EnrollmentDate));
+
 
             CreateMap<PostCourseViewModel, Course>();
             CreateMap<PatchCourseViewModel, Course>();
@@ -54,15 +53,11 @@ namespace Westcoast_Education_Api.Helpers
             CreateMap<PatchStudentViewModel, Address>();
             CreateMap<PatchStudentViewModel, ApplicationUser>();
 
+            CreateMap<PostTeacherViewModel, Teacher>()
+                .ForMember(dest => dest.Categories, dest => dest.Ignore());
 
-
-
-
-
-
-
-
-
+            CreateMap<PostTeacherViewModel, Address>();
+            CreateMap<PostTeacherViewModel, ApplicationUser>();
 
         }
     }
