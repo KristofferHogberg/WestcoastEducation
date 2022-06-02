@@ -11,6 +11,8 @@ namespace Westcoast_Education_Api.Repositories.Interfaces
         public Task<List<TeacherWithCoursesViewModel>> GetTeachersWithCoursesAsync();
         public Task<TeacherWithCoursesViewModel> GetTeacherWithCoursesAsync(int id);
         public Task<IdentityResult> CreateTeacherAsync(PostTeacherViewModel model);
+        public Task UpdateTeacherAsync(int id, PatchTeacherViewModel model);
+        public Task ConnectToCourse();
         public Task DeleteTeacherAsync(int id);
         public Task<bool> SaveAllAsync();
     }

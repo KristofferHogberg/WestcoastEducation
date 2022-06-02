@@ -84,14 +84,12 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<IdentityResult> CreateTeacherAsync(PostTeacherViewModel model)
         {
-
             var teacher = _mapper.Map<Teacher>(model);
             var address = _mapper.Map<Address>(model);
             var appUser = _mapper.Map<ApplicationUser>(model);
 
             appUser.Teacher = teacher;
             appUser.Address = address;
-
 
             if (appUser is null)
             {
@@ -100,6 +98,11 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             var availableCategories = await _context.Categories.ToListAsync();
             var categoriesToAdd = new List<Category>();
+
+            if (availableCategories is null)
+            {
+                throw new Exception($"Could not create fetch: categories from the database");
+            }
 
             foreach (var category in model.Categories!)
             {
@@ -118,65 +121,51 @@ namespace Westcoast_Education_Api.Repositories.impl
             }
 
             appUser.Teacher.Categories = categoriesToAdd;
-
             return await _userManager.CreateAsync(appUser);
+        }
 
+        public async Task DeleteTeacherAsync(int id)
+        {
+            var response = await _context.Teachers.Include(u => u.ApplicationUser)
+            .ThenInclude(u => u!.Address)
 
+            .Where(s => s.ApplicationUser!.TeacherId == id).SingleOrDefaultAsync();
 
-            // var appUser = await _context.ApplicationUsers.Include(a => a.Address)
-            // .Where(a => a.Email.ToLower() == model.Email!.ToLower()).SingleOrDefaultAsync();
+            if (response is null)
+            {
+                throw new Exception($"We could not find teacher with id: {id}");
+            }
 
-            // if (appUser is not null)
-            // {
-            //     throw new Exception($"User allready exist with email: {model.Email}");
-            // }
+            // TODO: Fix real cascade with address
+            var address = response.ApplicationUser!.Address;
 
-            // appUser = new ApplicationUser
-            // {
-            //     FirstName = model.FirstName,
-            //     LastName = model.LastName,
-            //     Email = model.Email,
-            //     UserName = model.UserName,
-            //     PhoneNumber = model.PhoneNumber,
-            // };
+            if (address is null)
+            {
+                throw new Exception($"We could not find the address: {response.ApplicationUser.AddressId}");
+            }
 
-            // TODO: Can't add identical addresses.
+            _context.Teachers.Remove(response);
+            _context.Addresses.Remove(address!);
+        }
 
-            // var address = await _context.Addresses
-            // .Where(a => a.Street == model.Street && a.ZipCode == model.ZipCode).SingleOrDefaultAsync();
+        public async Task<bool> CategoryExistByNameAsync(string name)
+        {
+            return await _context.Categories.AnyAsync(c => c.CategoryName == name);
+        }
 
-            // if (address is null)
-            // {
-            //     address = new Address
-            //     {
-            //         Street = model.Street,
-            //         City = model.City,
-            //         ZipCode = model.ZipCode,
-            //         Country = model.Country
-            //     };
-            // }
+        public async Task<bool> CourseExistByNoAsync(int courseNo)
+        {
+            return await _context.Courses.AnyAsync(c => c.CourseNo == courseNo);
+        }
 
-            // appUser.Address = address;
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
 
-            // var availableCategories = await _context.Categories.ToListAsync();
-            // var categoriesToAdd = new List<Category>();
-
-            // foreach (var category in model.Categories)
-            // {
-            //     if (!await CategoryExistByNameAsync(category.CategoryName!))
-            //     {
-            //         throw new Exception($"could not find category: {category.CategoryName} in the system");
-            //     }
-
-            //     if (categoriesToAdd.Where(c => c.CategoryName == category.CategoryName).Any())
-            //     {
-            //         throw new Exception($"Duplicates not allowed: {category.CategoryName}");
-            //     }
-
-            //     categoriesToAdd.AddRange(availableCategories
-            //     .Where(c => c.CategoryName == category.CategoryName).ToList());
-            // }
-
+        // TODO: Not implemented
+        public Task ConnectToCourse()
+        {
             // var availableCourses = await _context.Courses.ToListAsync();
             // var coursesToAdd = new List<Course>();
 
@@ -203,47 +192,67 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             // appUser.Teacher = teacherToAdd;
             // return await _userManager.CreateAsync(appUser);
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> CategoryExistByNameAsync(string name)
+        public async Task UpdateTeacherAsync(int id, PatchTeacherViewModel model)
         {
-            return await _context.Categories.AnyAsync(c => c.CategoryName == name);
-        }
+            var appUser = await _context.ApplicationUsers
+               .Include(u => u.Teacher!.Categories)
+               .Include(u => u.Address)
+               .Where(s => s.TeacherId == id)
+               .SingleOrDefaultAsync();
 
-        public async Task<bool> CourseExistByNoAsync(int courseNo)
-        {
-            return await _context.Courses.AnyAsync(c => c.CourseNo == courseNo);
-        }
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task DeleteTeacherAsync(int id)
-        {
-            var response = await _context.Teachers.Include(u => u.ApplicationUser)
-            .ThenInclude(u => u!.Address)
-
-            .Where(s => s.ApplicationUser!.TeacherId == id).SingleOrDefaultAsync();
-
-            if (response is null)
+            if (appUser is null)
             {
-                throw new Exception($"We could not find teacher with id: {id}");
+                throw new Exception($"Could not find student: {model.Email}");
             }
 
-            // TODO: Fix real cascade with address
-            var address = response.ApplicationUser!.Address;
+            _mapper.Map<PatchTeacherViewModel, ApplicationUser>(model, appUser);
+            _mapper.Map<PatchTeacherViewModel, Address>(model, appUser.Address!);
 
-            if (address is null)
+            if (appUser is null)
             {
-                throw new Exception($"We could not find the address: {response.ApplicationUser.AddressId}");
+                throw new Exception($"Could not create teacher: {model.Email}");
             }
 
-            _context.Teachers.Remove(response);
-            _context.Addresses.Remove(address!);
+            var categoriesToAdd = await UpdateTeacherCategoriesAsync(model);
+            appUser.Teacher!.Categories = categoriesToAdd;
+            _context.ApplicationUsers.Update(appUser);
         }
+
+        public async Task<List<Category>> UpdateTeacherCategoriesAsync(PatchTeacherViewModel model)
+        {
+            var availableCategories = await _context.Categories.ToListAsync();
+            var categoriesToAdd = new List<Category>();
+
+            if (availableCategories is null)
+            {
+                throw new Exception($"Could not create fetch: categories from the database");
+            }
+
+            foreach (var category in model.Categories!)
+            {
+                if (!await CategoryExistByNameAsync(category.CategoryName!))
+                {
+                    throw new Exception($"could not find category: {category.CategoryName} in the system");
+                }
+
+                if (categoriesToAdd.Where(c => c.CategoryName == category.CategoryName).Any())
+                {
+                    throw new Exception($"Duplicates not allowed: {category.CategoryName}");
+                }
+
+                categoriesToAdd.AddRange(availableCategories
+                .Where(c => c.CategoryName == category.CategoryName).ToList());
+            }
+            return categoriesToAdd;
+        }
+
     }
+
 }
+
 
 
 

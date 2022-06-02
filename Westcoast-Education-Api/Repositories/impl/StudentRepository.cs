@@ -62,7 +62,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             if (appUser is null)
             {
-                throw new Exception($"Could not create student {model.Email}");
+                throw new Exception($"Could not find student: {model.Email}");
             }
 
             _mapper.Map<PatchStudentViewModel, ApplicationUser>(model, appUser);

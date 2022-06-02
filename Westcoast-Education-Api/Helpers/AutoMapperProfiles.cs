@@ -59,6 +59,11 @@ namespace Westcoast_Education_Api.Helpers
             CreateMap<PostTeacherViewModel, Address>();
             CreateMap<PostTeacherViewModel, ApplicationUser>();
 
+
+            CreateMap<PatchTeacherViewModel, Address>();
+            CreateMap<PatchTeacherViewModel, Category>();
+            CreateMap<PatchTeacherViewModel, ApplicationUser>();
+
         }
     }
 }

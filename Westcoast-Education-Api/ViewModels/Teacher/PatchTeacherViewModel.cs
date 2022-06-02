@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Westcoast_Education_Api.ViewModels.Category;
-using Westcoast_Education_Api.ViewModels.Course;
 
 namespace Westcoast_Education_Api.ViewModels.Teacher
 {
-    public class PostTeacherViewModel
+    public class PatchTeacherViewModel
     {
         [Required]
         public string? FirstName { get; set; }
