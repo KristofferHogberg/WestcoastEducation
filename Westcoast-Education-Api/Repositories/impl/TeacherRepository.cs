@@ -96,6 +96,14 @@ namespace Westcoast_Education_Api.Repositories.impl
                 throw new Exception($"Could not create teacher: {model.Email}");
             }
 
+            var categoriesToAdd = await AddTeacherCategoriesAsync(model);
+
+            appUser.Teacher.Categories = categoriesToAdd;
+            return await _userManager.CreateAsync(appUser);
+        }
+
+        public async Task<List<Category>> AddTeacherCategoriesAsync(PostTeacherViewModel model)
+        {
             var availableCategories = await _context.Categories.ToListAsync();
             var categoriesToAdd = new List<Category>();
 
@@ -119,9 +127,61 @@ namespace Westcoast_Education_Api.Repositories.impl
                 categoriesToAdd.AddRange(availableCategories
                 .Where(c => c.CategoryName == category.CategoryName).ToList());
             }
+            return categoriesToAdd;
+        }
 
-            appUser.Teacher.Categories = categoriesToAdd;
-            return await _userManager.CreateAsync(appUser);
+        public async Task UpdateTeacherAsync(int id, PatchTeacherViewModel model)
+        {
+            var appUser = await _context.ApplicationUsers
+               .Include(u => u.Teacher!.Categories)
+               .Include(u => u.Address)
+               .Where(s => s.TeacherId == id)
+               .SingleOrDefaultAsync();
+
+            if (appUser is null)
+            {
+                throw new Exception($"Could not find student: {model.Email}");
+            }
+
+            _mapper.Map<PatchTeacherViewModel, ApplicationUser>(model, appUser);
+            _mapper.Map<PatchTeacherViewModel, Address>(model, appUser.Address!);
+
+            if (appUser is null)
+            {
+                throw new Exception($"Could not create teacher: {model.Email}");
+            }
+
+            var categoriesToAdd = await UpdateTeacherCategoriesAsync(model);
+            appUser.Teacher!.Categories = categoriesToAdd;
+            _context.ApplicationUsers.Update(appUser);
+        }
+
+        public async Task<List<Category>> UpdateTeacherCategoriesAsync(PatchTeacherViewModel model)
+        {
+            var availableCategories = await _context.Categories.ToListAsync();
+            var categoriesToUpdate = new List<Category>();
+
+            if (availableCategories is null)
+            {
+                throw new Exception($"Could not create fetch: categories from the database");
+            }
+
+            foreach (var category in model.Categories!)
+            {
+                if (!await CategoryExistByNameAsync(category.CategoryName!))
+                {
+                    throw new Exception($"could not find category: {category.CategoryName} in the system");
+                }
+
+                if (categoriesToUpdate.Where(c => c.CategoryName == category.CategoryName).Any())
+                {
+                    throw new Exception($"Duplicates not allowed: {category.CategoryName}");
+                }
+
+                categoriesToUpdate.AddRange(availableCategories
+                .Where(c => c.CategoryName == category.CategoryName).ToList());
+            }
+            return categoriesToUpdate;
         }
 
         public async Task DeleteTeacherAsync(int id)
@@ -193,60 +253,6 @@ namespace Westcoast_Education_Api.Repositories.impl
             // appUser.Teacher = teacherToAdd;
             // return await _userManager.CreateAsync(appUser);
             throw new NotImplementedException();
-        }
-
-        public async Task UpdateTeacherAsync(int id, PatchTeacherViewModel model)
-        {
-            var appUser = await _context.ApplicationUsers
-               .Include(u => u.Teacher!.Categories)
-               .Include(u => u.Address)
-               .Where(s => s.TeacherId == id)
-               .SingleOrDefaultAsync();
-
-            if (appUser is null)
-            {
-                throw new Exception($"Could not find student: {model.Email}");
-            }
-
-            _mapper.Map<PatchTeacherViewModel, ApplicationUser>(model, appUser);
-            _mapper.Map<PatchTeacherViewModel, Address>(model, appUser.Address!);
-
-            if (appUser is null)
-            {
-                throw new Exception($"Could not create teacher: {model.Email}");
-            }
-
-            var categoriesToAdd = await UpdateTeacherCategoriesAsync(model);
-            appUser.Teacher!.Categories = categoriesToAdd;
-            _context.ApplicationUsers.Update(appUser);
-        }
-
-        public async Task<List<Category>> UpdateTeacherCategoriesAsync(PatchTeacherViewModel model)
-        {
-            var availableCategories = await _context.Categories.ToListAsync();
-            var categoriesToAdd = new List<Category>();
-
-            if (availableCategories is null)
-            {
-                throw new Exception($"Could not create fetch: categories from the database");
-            }
-
-            foreach (var category in model.Categories!)
-            {
-                if (!await CategoryExistByNameAsync(category.CategoryName!))
-                {
-                    throw new Exception($"could not find category: {category.CategoryName} in the system");
-                }
-
-                if (categoriesToAdd.Where(c => c.CategoryName == category.CategoryName).Any())
-                {
-                    throw new Exception($"Duplicates not allowed: {category.CategoryName}");
-                }
-
-                categoriesToAdd.AddRange(availableCategories
-                .Where(c => c.CategoryName == category.CategoryName).ToList());
-            }
-            return categoriesToAdd;
         }
 
     }
