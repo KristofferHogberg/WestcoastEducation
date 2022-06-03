@@ -16328,6 +16328,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/Pages/Course.cshtml",
+      "TargetPath": "Pages\\Course.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/Pages/Privacy.cshtml",
       "TargetPath": "Pages\\Privacy.cshtml",
       "FileKind": "mvc"

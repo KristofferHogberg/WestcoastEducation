@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eef5EqafrDehbxjPa42hDNxx0luMeF0h/2qGFMKaOFs=",
+  "Hash": "6+KsVyIStlkEYhfgrSMqH4sXWOTk4CzeAn7+QAEuQK0=",
   "Source": "UserApp",
   "BasePath": "_content/UserApp",
   "Mode": "Default",
@@ -66,6 +66,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
+    },
+    {
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/css/styles.css",
+      "SourceId": "UserApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/",
+      "BasePath": "_content/UserApp",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/styles.css"
+    },
+    {
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/css/utilities.css",
+      "SourceId": "UserApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/",
+      "BasePath": "_content/UserApp",
+      "RelativePath": "css/utilities.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/utilities.css"
     },
     {
       "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/favicon.ico",

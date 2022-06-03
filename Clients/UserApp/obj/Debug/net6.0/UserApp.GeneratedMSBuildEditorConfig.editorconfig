@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/Pages/Course.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

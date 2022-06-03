@@ -1,41 +1,8 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Main";
+    ViewData["Title"] = "Craigs Courses";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Craigs Courses</h1>
-</div>
 
-<h1 class="page-title">Courses</h1>
-<article>
-    <section class="gallery-wrapper">
-        @foreach (var course in Model.Courses)
-        {
-            @* <div class="card" style="width: 400px">
-                <h4>@course.Title</h4>
-                <p>Description: @course.Description | @course.Length</p>
-                <p>Details @course.Details</p>
-                </div> *@
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@course.Title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <p class="card-text">@course.Description | @course.Length</p>
-                    <h6>Description</h6>
-                    <p>@course.Details</p>
-                    <a href="#" class="card-link">Go fuck yourself!</a>
-                    @* <a href="#" class="card-link">You heard me!!!</a> *@
-                </div>
-            </div>
-        }
-
-
-
-
-    </section>
-
-
-
-</article>
+<h1 class="page-title">Welcome</h1>
