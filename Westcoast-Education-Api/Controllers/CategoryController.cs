@@ -29,7 +29,7 @@ namespace Westcoast_Education_Api.Controllers
         }
 
         [HttpGet("courses/{id}")]
-        public async Task<ActionResult> ListCategorysWithCourses(int id)
+        public async Task<ActionResult> ListCategoryWithCoursesAsync(int id)
         {
             return Ok(await _repository.GetCategoryWithCoursesAsync(id));
         }

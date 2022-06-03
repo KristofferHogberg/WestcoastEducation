@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Westcoast_Education_Api.ViewModels.Category;
+using Westcoast_Education_Api.ViewModels.Course;
 
 namespace Westcoast_Education_Api.ViewModels.Teacher
 {
@@ -25,6 +26,6 @@ namespace Westcoast_Education_Api.ViewModels.Teacher
         public string? Country { get; set; }
         [Required]
         public virtual List<CategoryViewModel>? Categories { get; set; } = new List<CategoryViewModel>();
-        //public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
+        public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
     }
 }

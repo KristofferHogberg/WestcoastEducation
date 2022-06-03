@@ -57,6 +57,22 @@ namespace Westcoast_Education_Api.Repositories.impl
             return teacher;
         }
 
+        public async Task<List<TeacherWithCategoriesViewModel>> GetTeachersByCategoryAsync(string categoryName)
+        {
+            var teacher = await _context.ApplicationUsers
+               .Include(u => u.Teacher)
+               .ThenInclude(c => c!.Categories)
+               .Where(u => u.Teacher!.Categories.Any(c => c.CategoryName == categoryName))
+               .ProjectTo<TeacherWithCategoriesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
+            if (teacher.Count() == 0)
+            {
+                throw new Exception($"Could not find teacher: {categoryName} in the system");
+            }
+
+            return teacher;
+        }
+
         public async Task<List<TeacherWithCoursesViewModel>> GetTeachersWithCoursesAsync()
         {
             return await _context.ApplicationUsers
@@ -152,7 +168,9 @@ namespace Westcoast_Education_Api.Repositories.impl
             }
 
             var categoriesToAdd = await UpdateTeacherCategoriesAsync(model);
+            var coursesToAdd = await UpdateTracherToCoursesAsync(model);
             appUser.Teacher!.Categories = categoriesToAdd;
+            appUser.Teacher!.Courses = coursesToAdd;
             _context.ApplicationUsers.Update(appUser);
         }
 
@@ -223,36 +241,31 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _context.SaveChangesAsync() > 0;
         }
 
-        // TODO: Not implemented
-        public Task ConnectToCourse()
+        // TODO: Check for logical errors!
+        public async Task<List<Course>> UpdateTracherToCoursesAsync(PatchTeacherViewModel model)
         {
-            // var availableCourses = await _context.Courses.ToListAsync();
-            // var coursesToAdd = new List<Course>();
+            var availableCourses = await _context.Courses.ToListAsync();
+            var coursesToAdd = new List<Course>();
 
-            // foreach (var course in model.Courses)
-            // {
-            //     if (!await CourseExistByNoAsync(course.CourseNo!))
-            //     {
-            //         throw new Exception($"could not find course: {course.CourseNo} in the system");
-            //     }
+            foreach (var course in model.Courses)
+            {
+                if (!await CourseExistByNoAsync(course.CourseNo!))
+                {
+                    throw new Exception($"could not find course: {course.CourseNo} in the system");
+                }
 
-            //     if (coursesToAdd.Where(c => c.CourseNo == course.CourseNo).Any())
-            //     {
-            //         throw new Exception($"Duplicates not allowed: {course.CourseNo}");
-            //     }
-            //     coursesToAdd.AddRange(availableCourses
-            //     .Where(c => c.CourseNo == course.CourseNo).ToList());
-            // }
-
-            // var teacherToAdd = new Teacher
-            // {
-            //     Categories = categoriesToAdd,
-            //     Courses = coursesToAdd
-            // };
-
-            // appUser.Teacher = teacherToAdd;
-            // return await _userManager.CreateAsync(appUser);
-            throw new NotImplementedException();
+                if (coursesToAdd.Where(c => c.CourseNo == course.CourseNo).Any())
+                {
+                    throw new Exception($"Duplicates not allowed: {course.CourseNo}");
+                }
+                coursesToAdd.AddRange(availableCourses
+                .Where(c => c.CourseNo == course.CourseNo).ToList());
+            }
+            var teacherToAdd = new Teacher
+            {
+                Courses = coursesToAdd
+            };
+            return coursesToAdd;
         }
 
     }
