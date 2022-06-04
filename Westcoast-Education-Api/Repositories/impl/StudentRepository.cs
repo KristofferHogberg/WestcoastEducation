@@ -45,6 +45,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             appUser.Student = student;
             appUser.Address = address;
+            appUser.UserName = model.Email;
 
             if (appUser is null)
             {

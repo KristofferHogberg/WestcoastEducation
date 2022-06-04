@@ -8,14 +8,16 @@ public class Course : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IConfiguration _config;
+    private readonly IHttpClientFactory _client;
 
     [BindProperty]
-    public List<CourseViewModel>? Courses { get; set; }
+    public List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
 
-    public Course(ILogger<IndexModel> logger, IConfiguration config)
+    public Course(ILogger<IndexModel> logger, IConfiguration config, IHttpClientFactory client)
     {
         _logger = logger;
         _config = config;
+        _client = client;
     }
 
     public async Task OnGetAsync()
@@ -23,7 +25,7 @@ public class Course : PageModel
         var baseUrl = _config.GetValue<string>("baseUrl");
         var url = $"{baseUrl}/courses/list";
 
-        using var http = new HttpClient();
+        var http = _client.CreateClient();
         Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(url);
     }
 }

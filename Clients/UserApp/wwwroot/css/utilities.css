@@ -1,9 +1,9 @@
 /* Deklarera variabler för CSS */
 
 :root {
-    --primary-color: #AAC9CE;
-    --secondary-color: #B6B4C2;
-    --primary-text-color: #48404D;
-    --secondary-text-color: #5D7599;
-    --border-color: #C9BBC8;
+    --primary-color: #F3ECE3;
+    --secondary-color: #F3E3C9;
+    --primary-text-color: #F4D9BC;
+    --secondary-text-color: #F3E3C9;
+    --border-color: #F6BCAE;
 }

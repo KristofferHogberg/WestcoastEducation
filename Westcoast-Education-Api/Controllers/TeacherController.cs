@@ -59,7 +59,7 @@ namespace Westcoast_Education_Api.Controllers
 
             if (result.Succeeded)
             {
-                return StatusCode(201, $"Teacher created: {model.UserName}");
+                return StatusCode(201, $"Teacher created: {model.Email}");
             }
             else
             {

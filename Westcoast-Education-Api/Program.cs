@@ -32,19 +32,19 @@ builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
-// builder.Services.AddCors(options =>
-// {
-//   options.AddPolicy("WestcoastCors",
-//     policy =>
-//     {
-//       policy.AllowAnyHeader();
-//       policy.AllowAnyMethod();
-//       policy.WithOrigins(
-//         "http://127.0.0.1:5500",
-//         "http://localhost:3000");
-//     }
-//   );
-// });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("WestcoastCors",
+      policy =>
+      {
+          policy.AllowAnyHeader();
+          policy.AllowAnyMethod();
+          policy.WithOrigins(
+          "https://localhost:7021",
+          "http://localhost:3000");
+      }
+    );
+});
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
@@ -63,6 +63,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("WestcoastCors");
 
 app.UseAuthorization();
 
