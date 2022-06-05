@@ -1,20 +1,20 @@
 @page
 @model UserApp.Pages.Category.Category
 
-<h1 class="page-title">Categories</h1>
-<article>
-    <section class="gallery-wrapper">
-        <section class="gallery-wrapper">
-            @foreach (var category in Model.Categories)
-            {
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
 
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <label>
-                            <a asp-page="CategoryWithCourse" asp-route-ID="@category.CategoryId">@category.CategoryName</a>
-                    </div>
-                </div>
-            }
-        </section>
+<h1 class="page-title">Categories</h1>
+
+
+<article>
+    <section class="course-wrapper">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="course-card">
+                <a asp-page="CategoryWithCourse" asp-route-ID="@category.CategoryId">@category.CategoryName</a>
+            </div>
+        }
     </section>
 </article>

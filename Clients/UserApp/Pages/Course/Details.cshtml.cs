@@ -21,7 +21,7 @@ namespace UserApp.Pages.Course
         public async Task OnGetAsync(int id)
         {
             var http = _client.CreateClient("WestEduApi");
-            DetailsModel = await http.GetFromJsonAsync<DetailsViewModel>(http.BaseAddress + $"/courses/{id}");
+            DetailsModel = await http.GetFromJsonAsync<DetailsViewModel>(http.BaseAddress + $"/courses/category/{id}");
 
             // if (!response.IsSuccessStatusCode)
             // {

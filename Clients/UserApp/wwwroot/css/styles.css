@@ -9,6 +9,10 @@
 }
 
 body,
+a {
+    text-decoration: none;
+}
+
 textarea {
     font-family: 'Joan', sans-serif;
     ;
@@ -18,11 +22,12 @@ textarea {
 }
 
 main {
+    align-items: center;
     padding: 5rem 2rem;
 }
 
 h1 {
-    color: var (--primary-text-color);
+    color: #555F61;
     font-size: xx-large;
     font-style: italic;
 }
@@ -55,7 +60,7 @@ textarea {
 }
 
 #navbar a {
-    color: var (--primary-text-color);
+    color: #555F61;
     padding: 0.8rem 0.5rem;
     margin-right: 0.4rem;
     font-size: 1.2rem;
@@ -75,12 +80,12 @@ textarea {
 
 .page-title {
     text-align: center;
-    color: #48404D;
+    color: #555F61;
     padding: 2rem 0 3rem 0;
 }
 
 .text-primary {
-    color: #48404D;
+    color: #555F61;
 }
 
 .buttons {
@@ -91,8 +96,8 @@ textarea {
 
 .btn {
     display: inline-block;
-    background: #333;
-    color: #D87F81;
+    background: var(--secondary-color);
+    color: #555F61;
     padding: 0.7rem 2rem;
     cursor: pointer;
     text-decoration: none;

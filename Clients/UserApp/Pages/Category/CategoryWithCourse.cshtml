@@ -11,10 +11,10 @@
 
 <h1 class="page-title">Our Courses in @Model.CategoryWithCourses.CategoryName</h1>
 <article>
-    <section class="gallery-wrapper">
+    <section class="course-wrapper">
         @foreach (var course in Model.CategoryWithCourses.Courses)
         {
-            <div class="gallery-card">
+            <div class="course-card">
                 <h4>Course Number: @course.CourseNo</h4>
                 <h4>Title: @course.Title</h4>
                 <h4>Length: @course.Length</h4>

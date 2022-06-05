@@ -46,6 +46,21 @@ namespace Westcoast_Education_Api.Repositories.impl
                 .ProjectTo<CourseWithCategoryViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<CourseWithCategoryViewModel> GetCourseWithCategoryAsync(int id)
+        {
+            var course = await _context.Courses
+                .Include(c => c.Category)
+                .Where(c => c.Id == id)
+                .ProjectTo<CourseWithCategoryViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+
+            if (course is null)
+            {
+                throw new Exception($"Could not find course with id: {id} in the system");
+            }
+
+            return course;
+        }
+
         public async Task CreateCourseAsync(PostCourseViewModel model)
         {
             var courseToAdd = _mapper.Map<Course>(model);

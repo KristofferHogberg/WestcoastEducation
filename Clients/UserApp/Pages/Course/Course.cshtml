@@ -3,14 +3,9 @@
 
 <h1 class="page-title">Courses</h1>
 <article>
-    <section class="gallery-wrapper">
+    <section class="course-wrapper">
         @foreach (var course in Model.Courses)
         {
-            @* <div class="card" style="width: 400px">
-                <h4>@course.Title</h4>
-                <p>Description: @course.Description | @course.Length</p>
-                <p>Details @course.Details</p>
-                </div> *@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">@course.Title</h5>
