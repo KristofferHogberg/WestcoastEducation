@@ -1,7 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient("WestEduApi", httpClient =>
+    httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("baseUrl")));
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

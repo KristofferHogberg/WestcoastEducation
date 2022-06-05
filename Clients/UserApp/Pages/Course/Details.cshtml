@@ -1,0 +1,25 @@
+@page "{id}"
+@model UserApp.Pages.Course.Details
+
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
+@{
+    ViewData["Title"] = $"Course {@Model.DetailsModel.Title}";
+}
+
+<h1 class="page-title">Chosen Course: @Model.DetailsModel.Title</h1>
+<article>
+    <section class="gallery-wrapper">
+
+        <div class="gallery-card">
+            <h4>Course Number: @Model.DetailsModel.CourseNo</h4>
+            <h4>Title: @Model.DetailsModel.Title</h4>
+            <h4>Length: @Model.DetailsModel.Length</h4>
+            <h4>Description: @Model.DetailsModel.Description</h4>
+            <h4>Details: @Model.DetailsModel.Details</h4>
+            <a asp-page="/Category/Category"><button class="btn btn-primary">Back To Categories</button></a>
+        </div>
+    </section>
+</article>

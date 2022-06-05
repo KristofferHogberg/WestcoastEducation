@@ -1,0 +1,27 @@
+@page "{id}"
+@model UserApp.Pages.Category.CategoryWithCourse
+
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
+@{
+    ViewData["Title"] = $"Category: {@Model.CategoryWithCourses.CategoryName}";
+}
+
+<h1 class="page-title">Our Courses in @Model.CategoryWithCourses.CategoryName</h1>
+<article>
+    <section class="gallery-wrapper">
+        @foreach (var course in Model.CategoryWithCourses.Courses)
+        {
+            <div class="gallery-card">
+                <h4>Course Number: @course.CourseNo</h4>
+                <h4>Title: @course.Title</h4>
+                <h4>Length: @course.Length</h4>
+
+                <a asp-page="/Course/Details" asp-route-ID="@course.CourseId">
+                    <button class="btn btn-primary">Pick Me</button></a>
+            </div>
+        }
+    </section>
+</article>

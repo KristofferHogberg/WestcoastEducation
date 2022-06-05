@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6+KsVyIStlkEYhfgrSMqH4sXWOTk4CzeAn7+QAEuQK0=",
+  "Hash": "U0R14+3GIOVAe0n77RX6r+3eIotHcP/9bNXFA3Qk0dk=",
   "Source": "UserApp",
   "BasePath": "_content/UserApp",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/obj/Debug/net6.0/scopedcss/projectbundle/UserApp.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/css/course-page.css",
+      "SourceId": "UserApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/",
+      "BasePath": "_content/UserApp",
+      "RelativePath": "css/course-page.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/course-page.css"
     },
     {
       "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/UserApp/wwwroot/css/site.css",

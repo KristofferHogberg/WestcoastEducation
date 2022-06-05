@@ -41,7 +41,7 @@ builder.Services.AddCors(options =>
           policy.AllowAnyMethod();
           policy.WithOrigins(
           "https://localhost:7021",
-          "http://localhost:3000");
+          "https://localhost:7250");
       }
     );
 });

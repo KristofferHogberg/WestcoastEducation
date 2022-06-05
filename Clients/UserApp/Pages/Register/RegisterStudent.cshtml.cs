@@ -2,20 +2,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UserApp.ViewModels;
 
-namespace UserApp.Pages
+namespace UserApp.Pages.Register
 {
     public class RegisterStudent : PageModel
     {
         private readonly ILogger<RegisterStudent> _logger;
-        private readonly IConfiguration _config;
         private readonly IHttpClientFactory _client;
         [BindProperty]
         public CreateStudentViewModel StudentModel { get; set; }
 
-        public RegisterStudent(ILogger<RegisterStudent> logger, IConfiguration config, IHttpClientFactory client)
+        public RegisterStudent(ILogger<RegisterStudent> logger, IHttpClientFactory client)
         {
             _client = client;
-            _config = config;
             _logger = logger;
         }
 
@@ -25,11 +23,8 @@ namespace UserApp.Pages
 
         public async Task OnPostAsync()
         {
-            var http = _client.CreateClient();
-
-            var baseUrl = _config.GetValue<string>("baseUrl");
-            var url = $"{baseUrl}/students/register";
-            var response = await http.PostAsJsonAsync(url, StudentModel);
+            var http = _client.CreateClient("WestEduApi");
+            var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
 
             if (!response.IsSuccessStatusCode)
             {

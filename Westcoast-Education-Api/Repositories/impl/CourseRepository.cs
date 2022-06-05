@@ -25,6 +25,20 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _context.Courses.ProjectTo<CourseViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<CourseViewModel> GetCourseByIdAsync(int id)
+        {
+            var course = await _context.Courses.Where(c => c.Id == id)
+            .ProjectTo<CourseViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+
+
+            if (course is null)
+            {
+                throw new Exception($"Could not find course: {id} in the system");
+            }
+
+            return course;
+        }
+
         public async Task<List<CourseWithCategoryViewModel>> GetCoursesWithCategoryAsync()
         {
             return await _context.Courses
