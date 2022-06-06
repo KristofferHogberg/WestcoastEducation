@@ -100,13 +100,13 @@ textarea {
     padding: 0.7rem 2rem;
     cursor: pointer;
     text-decoration: none;
-    width: 200px;
+    width: 150px;
     max-width: 300px;
     font-size: 0.8rem;
     margin-top: 0.3rem;
     border: none;
     outline: none !important;
-    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.6);
 }
 
 .btn:hover {
@@ -124,14 +124,14 @@ textarea {
 .form-container {
     max-width: 600px;
     margin: auto;
-    border: #888 solid 1px;
-    border-radius: 10px;
+    border: var(--border-color) solid 1px;
+    border-radius: 2px;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.6);
 }
 
 .form-container h4 {
-    background: cadetblue;
-    color: #f4f4f4;
+    background: var(--primary-color);
+    color: #555f61;
     padding: 0.5rem;
     text-align: center;
 }
