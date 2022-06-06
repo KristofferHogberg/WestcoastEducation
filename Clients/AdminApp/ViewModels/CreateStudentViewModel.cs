@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace UserApp.ViewModels
+namespace AdminApp.ViewModels
 {
     public class CreateStudentViewModel
     {
-
         [Required(ErrorMessage = "Firstname is required")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Lastname is required")]

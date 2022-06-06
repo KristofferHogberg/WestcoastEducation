@@ -1,0 +1,15 @@
+@page "{id}"
+@model AdminApp.Pages.Student.Delete
+
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
+@{
+    ViewData["Title"] = "Delete Student";
+}
+<h1 class="page-title">Student was Deleted!</h1>
+
+<div class="page-button">
+    <a asp-page="Index"><button class="btn">Back to Students</button></a>
+</div>
