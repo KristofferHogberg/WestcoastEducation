@@ -11,6 +11,8 @@ namespace UserApp.ViewModels
         [Required]
         public string Email { get; set; }
         [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
         public string Street { get; set; }
         [Required]
         public string City { get; set; }
