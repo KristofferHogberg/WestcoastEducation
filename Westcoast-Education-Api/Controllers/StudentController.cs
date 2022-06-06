@@ -48,7 +48,7 @@ namespace Westcoast_Education_Api.Controllers
         }
 
 
-        [HttpPatch("update/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateCourseAsync(int id, PatchStudentViewModel model)
         {
             try
