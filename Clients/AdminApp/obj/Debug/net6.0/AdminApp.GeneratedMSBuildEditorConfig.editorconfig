@@ -15,6 +15,22 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Course/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Course/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Course/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Course/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -29,6 +45,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Student/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3R1ZGVudC9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Student/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3R1ZGVudC9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Student/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3R1ZGVudC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Teacher/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Teacher/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/Teacher/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/Pages/_ViewImports.cshtml]

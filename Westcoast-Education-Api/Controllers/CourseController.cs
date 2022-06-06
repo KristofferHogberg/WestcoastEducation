@@ -82,7 +82,7 @@ namespace Westcoast_Education_Api.Controllers
             return StatusCode(500, $"Could not enroll in course {model.CourseNo}");
         }
 
-        [HttpPatch("update/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateCourseAsync(int id, PatchCourseViewModel model)
         {
             try

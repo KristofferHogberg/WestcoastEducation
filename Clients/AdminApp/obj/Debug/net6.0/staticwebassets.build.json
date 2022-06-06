@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HDEPtjcORY23xEsKjmikEqhrf0+YcAPo5tMBQI2yv+8=",
+  "Hash": "be4hB0d3kcwFdtnjk+MycN2v26e0jO2SLjJ/XM3gq+Q=",
   "Source": "AdminApp",
   "BasePath": "_content/AdminApp",
   "Mode": "Default",
@@ -51,12 +51,12 @@
       "OriginalItemSpec": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/obj/Debug/net6.0/scopedcss/projectbundle/AdminApp.bundle.scp.css"
     },
     {
-      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/css/site.css",
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/css/course-page.css",
       "SourceId": "AdminApp",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/",
       "BasePath": "_content/AdminApp",
-      "RelativePath": "css/site.css",
+      "RelativePath": "css/course-page.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,7 +65,41 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/css/site.css"
+      "OriginalItemSpec": "wwwroot/css/course-page.css"
+    },
+    {
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/css/styles.css",
+      "SourceId": "AdminApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/",
+      "BasePath": "_content/AdminApp",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/styles.css"
+    },
+    {
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/css/utilities.css",
+      "SourceId": "AdminApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/",
+      "BasePath": "_content/AdminApp",
+      "RelativePath": "css/utilities.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/utilities.css"
     },
     {
       "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/favicon.ico",

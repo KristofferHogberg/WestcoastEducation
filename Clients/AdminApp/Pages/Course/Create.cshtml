@@ -1,0 +1,45 @@
+@page
+@model AdminApp.Pages.Course.Create
+
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
+<header>
+    <h1 class="page-title">Create New course</h1>
+</header>
+<section class="form-container">
+    <h4>Sign Up</h4>
+    <section class="form-wrapper">
+        <form class="form" method="post">
+            <div class="form-control">
+                <label asp-for="CourseModel.CourseNo"></label>
+                <input asp-for="CourseModel.CourseNo" />
+            </div>
+            <div class="form-control">
+                <label asp-for="CourseModel.Title"></label>
+                <input asp-for="CourseModel.Title" />
+            </div>
+            <div class="form-control">
+                <label asp-for="CourseModel.Length"></label>
+                <input asp-for="CourseModel.Length" />
+            </div>
+            <div class="form-control">
+                <label asp-for="CourseModel.Description"></label>
+                <input asp-for="CourseModel.Description" />
+            </div>
+            <div class="form-control">
+                <label asp-for="CourseModel.Details"></label>
+                <input asp-for="CourseModel.Details" />
+            </div>
+            <div class="form-control">
+                <label asp-for="CourseModel.CategoryId"></label>
+                <input asp-for="CourseModel.CategoryId" />
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="btn">Save</button>
+            </div>
+        </form>
+    </section>
+</section>
