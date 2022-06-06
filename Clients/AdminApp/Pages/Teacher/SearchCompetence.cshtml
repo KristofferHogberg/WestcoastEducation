@@ -1,0 +1,56 @@
+@page
+@model AdminApp.Pages.Teacher.SearchCompetence
+
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
+<h1 class="page-title">Teachers</h1>
+
+
+<div class="page-button">
+    <a asp-page="Create"><button class="btn">Create New Teacher</button></a>
+</div>
+<div class="page-button">
+    <a asp-page="SearchCompetence"><button class="btn">Find Teacher by Skill</button></a>
+</div>
+<article>
+    <section class="course-wrapper">
+        <table class="styled_table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].Categories[0].CategoryName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Teachers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categories[0].CategoryName)
+                        </td>
+                        @* <td>
+                            <a asp-page="Edit" asp-route-id="@item.TeacherId"><button class="btn">Edit</button></a>
+                            <a asp-page="Delete" asp-route-id="@item.TeacherId"><button class="btn">Delete</button></a>
+                            </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</article>

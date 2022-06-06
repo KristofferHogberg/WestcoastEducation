@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdminApp.ViewModels
 {
-    public class CreateTeacherViewModel
+    public class EditStudentViewModel
     {
         [Required]
         public string FirstName { get; set; }
@@ -19,7 +23,5 @@ namespace AdminApp.ViewModels
         public string ZipCode { get; set; }
         [Required]
         public string Country { get; set; }
-        [Required]
-        public virtual List<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
     }
 }

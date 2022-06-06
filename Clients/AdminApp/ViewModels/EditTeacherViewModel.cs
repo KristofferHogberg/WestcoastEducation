@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AdminApp.ViewModels
 {
-    public class CreateTeacherViewModel
+    public class EditTeacherViewModel
     {
         [Required]
         public string FirstName { get; set; }
@@ -21,5 +21,6 @@ namespace AdminApp.ViewModels
         public string Country { get; set; }
         [Required]
         public virtual List<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
+        public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
     }
 }

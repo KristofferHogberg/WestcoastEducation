@@ -4,26 +4,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AdminApp.Pages.Teacher
 {
-    public class Index : PageModel
+    public class SearchCompetence : PageModel
     {
-        private readonly ILogger<Index> _logger;
+        private readonly ILogger<SearchCompetence> _logger;
         private readonly IHttpClientFactory _client;
 
         [BindProperty]
-        public List<TeacherViewModel> Teachers { get; set; }
-        [BindProperty]
-        public CategoryViewModel CategoryModel { get; set; }
+        public List<TeacherWithCategoriesViewModel> Teachers { get; set; }
 
-        public Index(ILogger<Index> logger, IHttpClientFactory client)
+        public SearchCompetence(ILogger<SearchCompetence> logger, IHttpClientFactory client)
         {
             _logger = logger;
             _client = client;
         }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string categoryName)
         {
             var http = _client.CreateClient("WestEduApi");
-            Teachers = await http.GetFromJsonAsync<List<TeacherViewModel>>(http.BaseAddress + $"/teachers/list");
+            Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/Java");
 
             // if (!response.IsSuccessStatusCode)
             // {

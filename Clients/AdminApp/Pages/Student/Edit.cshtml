@@ -1,4 +1,4 @@
-@page
+@page "{id}"
 @model AdminApp.Pages.Student.Edit
 
 @section styles{
@@ -6,11 +6,54 @@
 }
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Student";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<div>
+<h1>@ViewData["Edit Student"]</h1>
 
-</div>
+<header>
+    <h1 class="page-title">Edit Student</h1>
+</header>
+<section class="form-container">
+    <h4>Sign Up</h4>
+    <section class="form-wrapper">
+        <form class="form" method="post">
+            <div class="form-control">
+                <label asp-for="StudentModel.FirstName"></label>
+                <input asp-for="StudentModel.FirstName" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.LastName"></label>
+                <input asp-for="StudentModel.LastName" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.Email"></label>
+                <input asp-for="StudentModel.Email" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.PhoneNumber"></label>
+                <input asp-for="StudentModel.PhoneNumber" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.Street"></label>
+                <input asp-for="StudentModel.Street" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.City"></label>
+                <input asp-for="StudentModel.City" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.ZipCode"></label>
+                <input asp-for="StudentModel.ZipCode" />
+            </div>
+            <div class="form-control">
+                <label asp-for="StudentModel.Country"></label>
+                <input asp-for="StudentModel.Country" />
+            </div>
+            <div class="buttons">
+                <button type="submit" class="btn">Save</button>
+            </div>
+        </form>
+    </section>
+</section>

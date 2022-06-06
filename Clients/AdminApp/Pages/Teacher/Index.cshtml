@@ -9,8 +9,84 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="page-title">Teachers</h1>
 
-<div>
-    <p>Teacher Index</p>
+
+<div class="page-button">
+    <a asp-page="Create"><button class="btn">Create New Teacher</button></a>
 </div>
+<div class="page-button">
+    <a asp-page="SearchCompetence"><button class="btn">Search Competence</button></a>
+</div>
+
+<article>
+    <section class="course-wrapper">
+        <table class="styled_table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].Address.Street)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].Address.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].Address.ZipCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Teachers[0].Address.Country)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Teachers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address.Street)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address.ZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address.Country)
+                        </td>
+
+                        <td>
+                            <a asp-page="Edit" asp-route-id="@item.TeacherId"><button class="btn">Edit</button></a>
+                            <a asp-page="Delete" asp-route-id="@item.TeacherId"><button class="btn">Delete</button></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</article>

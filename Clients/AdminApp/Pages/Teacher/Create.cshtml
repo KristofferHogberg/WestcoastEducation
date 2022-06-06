@@ -5,13 +5,58 @@
 <link rel="stylesheet" href="~/css/course-page.css">
 }
 
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Register Teacher";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Register New Teacher"]</h1>
 
-<div>
-
-</div>
+<header>
+    <h1 class="page-title">Register New Teacher</h1>
+</header>
+<section class="form-container">
+    <h4>Sign Up</h4>
+    <section class="form-wrapper">
+        <form class="form" method="post">
+            <div class="form-control">
+                <label asp-for="TeacherModel.FirstName"></label>
+                <input asp-for="TeacherModel.FirstName" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.LastName"></label>
+                <input asp-for="TeacherModel.LastName" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.Email"></label>
+                <input asp-for="TeacherModel.Email" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.PhoneNumber"></label>
+                <input asp-for="TeacherModel.PhoneNumber" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.Street"></label>
+                <input asp-for="TeacherModel.Street" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.City"></label>
+                <input asp-for="TeacherModel.City" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.ZipCode"></label>
+                <input asp-for="TeacherModel.ZipCode" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.Country"></label>
+                <input asp-for="TeacherModel.Country" />
+            </div>
+            <div class="form-control">
+                <label asp-for="TeacherModel.Categories[0].CategoryName"></label>
+                <input asp-for="TeacherModel.Categories[0].CategoryName" />
+            </div>
+            <div class="buttons">
+                <button type="submit" class="btn">Save</button>
+            </div>
+        </form>
+    </section>
+</section>

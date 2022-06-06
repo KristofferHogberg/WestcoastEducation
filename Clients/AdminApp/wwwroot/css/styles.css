@@ -117,6 +117,8 @@ textarea {
 .page-button {
     display: flex;
     justify-content: center;
+    padding: 0.7rem 2rem;
+    text-decoration: none;
 }
 
 .go-back {
