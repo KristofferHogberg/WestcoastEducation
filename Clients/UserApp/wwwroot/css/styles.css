@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Joan&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Joan&display=swap");
 
 /* Reset */
 
@@ -14,8 +14,7 @@ a {
 }
 
 textarea {
-    font-family: 'Joan', sans-serif;
-    ;
+    font-family: "Joan", sans-serif;
     font-style: normal;
     font-weight: 400;
     background-color: var(--primary-color);
@@ -27,7 +26,7 @@ main {
 }
 
 h1 {
-    color: #555F61;
+    color: #555f61;
     font-size: xx-large;
     font-style: italic;
 }
@@ -60,7 +59,7 @@ textarea {
 }
 
 #navbar a {
-    color: #555F61;
+    color: #555f61;
     padding: 0.8rem 0.5rem;
     margin-right: 0.4rem;
     font-size: 1.2rem;
@@ -80,12 +79,12 @@ textarea {
 
 .page-title {
     text-align: center;
-    color: #555F61;
+    color: #555f61;
     padding: 2rem 0 3rem 0;
 }
 
 .text-primary {
-    color: #555F61;
+    color: #555f61;
 }
 
 .buttons {
@@ -97,7 +96,7 @@ textarea {
 .btn {
     display: inline-block;
     background: var(--secondary-color);
-    color: #555F61;
+    color: #555f61;
     padding: 0.7rem 2rem;
     cursor: pointer;
     text-decoration: none;
@@ -161,4 +160,48 @@ textarea {
 .form-control input,
 textarea {
     width: 250px;
+}
+
+.styled_table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+.styled_table a {
+    text-emphasis: none;
+    color: #555f61;
+}
+
+.styled_table th {
+    text-align: left;
+    padding: 10px;
+}
+
+.styled_table td {
+    background-color: #f3ece3;
+    padding: 10px;
+}
+
+.styled_table tr:hover td {
+    background-color: #f3e3c9;
+    opacity: 0.5;
+    color: #373d3f;
+}
+
+.styled_table tr.alt td {
+    background-color: #f3e3c9;
+}
+
+.styled_table tr.alt:hover td {
+    background-color: #f3e3c9;
+    color: #373d3f;
+}
+
+#altColumn {
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
 }

@@ -22,7 +22,7 @@ namespace UserApp.Pages.Course
         public async Task OnGetAsync()
         {
             var http = _client.CreateClient("WestEduApi");
-            Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/categories/courses/list");
+            Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/list");
 
             // if (!response.IsSuccessStatusCode)
             // {

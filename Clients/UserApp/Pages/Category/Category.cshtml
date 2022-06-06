@@ -10,11 +10,38 @@
 
 <article>
     <section class="course-wrapper">
-        @foreach (var category in Model.Categories)
-        {
+        @* <section class="course-wrapper">
+            @foreach (var category in Model.Categories)
+            {
             <div class="course-card">
-                <a asp-page="CategoryWithCourse" asp-route-ID="@category.CategoryId">@category.CategoryName</a>
+            <a asp-page="CategoryWithCourse" asp-route-ID="@category.CategoryId">@category.CategoryName</a>
             </div>
-        }
+            }
+            </section> *@
+
+        <table class="styled_table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Categories[0].CategoryName)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Categories)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            <a asp-page="CategoryWithCourse" asp-route-id="@item.CategoryId">View Courses</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </section>
 </article>

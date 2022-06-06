@@ -12,7 +12,8 @@
 <h1 class="page-title">Chosen Course: @Model.DetailsModel.Title</h1>
 <article>
     <section class="course-wrapper">
-        <div class="course-card">
+        @* <section class="course-wrapper">
+            <div class="course-card">
             <h4>Course Number: @Model.DetailsModel.CourseNo</h4>
             <h4>Title: @Model.DetailsModel.Title</h4>
             <h4>Length: @Model.DetailsModel.Length</h4>
@@ -20,6 +21,50 @@
             <h4>Details: @Model.DetailsModel.Details</h4>
             <h4>Category: @Model.DetailsModel.CategoryName</h4>
             <a asp-page="/Category/Category"><button class="btn btn-primary">Back To Categories</button></a>
-        </div>
+            </div>
+            </section> *@
+
+
+        <table class="styled_table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DetailsModel.CourseNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DetailsModel.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DetailsModel.Length)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DetailsModel.Details)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.DetailsModel.CourseNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.DetailsModel.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.DetailsModel.Length)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.DetailsModel.Details)
+                    </td>
+                    <td>
+                        @* <a asp-page="./Edit" asp-route-id="@item.CourseId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.CourseId">Details</a> | *@
+                        @* <a asp-page="./Delete" asp-route-id="@item.">Delete</a> *@
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 </article>

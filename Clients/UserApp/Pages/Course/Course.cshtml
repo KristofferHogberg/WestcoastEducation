@@ -1,20 +1,72 @@
 @page
 @model UserApp.Pages.Course.Course
 
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
 <h1 class="page-title">Courses</h1>
 <article>
-    <section class="course-wrapper">
+    @* <section class="course-wrapper">
         @foreach (var course in Model.Courses)
         {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@course.Title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <p class="card-text">@course.Description | @course.Length</p>
-                    <h6>Description</h6>
-                    <p>@course.Details</p>
-                </div>
-            </div>
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">@course.Title</h5>
+        <h6 class="card-subtitle mb-2 text-muted"></h6>
+        <p class="card-text">@course.Description | @course.Length</p>
+        <h6>Description</h6>
+        <p>@course.Details</p>
+        </div>
+        </div>
+
+
         }
-    </section>
+        </section> *@
+
+    <h1>Courses</h1>
+
+    <table class="styled_table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses[0].Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses[0].Length)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Courses[0].Details)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Courses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Length)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Details)
+                    </td>
+                    <td>
+                        @* <a asp-page="./Edit" asp-route-id="@item.CourseId">Edit</a> | *@
+                        <a asp-page="./Details" asp-route-id="@item.CourseId">Details</a>
+                        @* <a asp-page="./Delete" asp-route-id="@item.">Delete</a> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </article>
