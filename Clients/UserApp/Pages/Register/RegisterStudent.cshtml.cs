@@ -21,7 +21,7 @@ namespace UserApp.Pages.Register
         {
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             var http = _client.CreateClient("WestEduApi");
             var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
@@ -31,6 +31,8 @@ namespace UserApp.Pages.Register
                 string reason = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(reason);
             }
+
+            return RedirectToPage("/Index");
 
         }
     }

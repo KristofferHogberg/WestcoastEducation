@@ -16,9 +16,10 @@
     gap: 0.8rem;
     align-items: center;
     justify-content: center;
-    min-width: 200px;
+    min-width: 400px;
     height: auto;
-    background: var (--secondary-color);
+    background: #f3ece3;
+    color: #555f61;
     padding: 1rem 1.5rem;
     border: var(--border-color) solid 1px;
     border-radius: 10px;
@@ -30,7 +31,7 @@
 }
 
 .course-card a {
-    color: #373D3F;
+    color: #373d3f;
     text-decoration: none;
 }
 
