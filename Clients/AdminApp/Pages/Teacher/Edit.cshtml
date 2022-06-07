@@ -14,53 +14,104 @@
 <header>
     <h1 class="page-title">Edit Teacher</h1>
 </header>
+
 <section class="form-container">
-    <h4>Sign Up</h4>
+    <div>
+
+    </div>
+    <h4>Edit Teacher</h4>
     <section class="form-wrapper">
         <form class="form" method="post">
             <div class="form-control">
                 <label asp-for="TeacherModel.FirstName"></label>
-                <input asp-for="TeacherModel.FirstName" />
+                <input asp-for="TeacherModel.FirstName" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.LastName"></label>
-                <input asp-for="TeacherModel.LastName" />
+                <input asp-for="TeacherModel.LastName" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.Email"></label>
-                <input asp-for="TeacherModel.Email" />
+                <input asp-for="TeacherModel.Email" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.PhoneNumber"></label>
-                <input asp-for="TeacherModel.PhoneNumber" />
+                <input asp-for="TeacherModel.PhoneNumber" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.Street"></label>
-                <input asp-for="TeacherModel.Street" />
+                <input asp-for="TeacherModel.Street" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.City"></label>
-                <input asp-for="TeacherModel.City" />
+                <input asp-for="TeacherModel.City" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.ZipCode"></label>
-                <input asp-for="TeacherModel.ZipCode" />
+                <input asp-for="TeacherModel.ZipCode" required />
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.Country"></label>
-                <input asp-for="TeacherModel.Country" />
+                <input asp-for="TeacherModel.Country" required />
             </div>
+            <h4>Choose Categories</h4>
+            <p><em>use ctrl/cmd for multiple selction</em></p>
             <div class="form-control">
-                <label asp-for="TeacherModel.Categories[0].CategoryName"></label>
-                <input asp-for="TeacherModel.Categories[0].CategoryName" />
+                <select asp-for="CategoriesFromForm" multiple class="category_select" size="4">
+                    <option value="Dotnet">.NET</option>
+                    <option value="C">C</option>
+                    <option value="Cplus">C++</option>
+                    <option value="C-Sharp">C#</option>
+                    <option value="CSS">CSS</option>
+                    <option value="Docker">Docker</option>
+                    <option value="HTML">HTML</option>
+                    <option value="Java">Java</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="PHP">PHP</option>
+                    <option value="Python">Python</option>
+                    <option value="React">React</option>
+                    <option value="SQL">SQL</option>
+                </select>
             </div>
-            <div class="form-control">
-                <label asp-for="TeacherModel.Courses[0].CourseNo"></label>
-                <input asp-for="TeacherModel.Courses[0].CourseNo" />
-            </div>
+            //TODO: Implement in own method
+            @* <div class="form-control">
+                <input asp-for="TeacherModel.Courses[0].CourseNo" id="courseNo-input"
+                placeholder="Add Course by CourseNo" />
+                <h4>Available Courses</h4>
+
+                </div>
+                <div>
+                <table class="styled_table_form">
+                <thead>
+                <tr>
+                <th>
+                @Html.DisplayNameFor(model => model.AvailableCourses[0].CourseNo)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.AvailableCourses[0].Title)
+                </th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.AvailableCourses)
+                {
+                <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.CourseNo)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                </tr>
+                }
+                </tbody>
+                </table>
+                </div> *@
             <div class="buttons">
                 <button type="submit" class="btn">Save</button>
             </div>
         </form>
     </section>
+
 </section>

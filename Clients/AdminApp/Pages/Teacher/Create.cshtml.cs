@@ -25,12 +25,11 @@ namespace AdminApp.Pages.Teacher
 
         public async Task<IActionResult> OnPostAsync()
         {
-
             var categories = new List<CategoryViewModel>();
 
             if (CategoriesFromForm is null)
             {
-                return BadRequest("No categories was found");
+                return BadRequest("No categories were found");
             }
 
             foreach (var name in CategoriesFromForm)

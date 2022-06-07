@@ -212,3 +212,43 @@ textarea {
 #altColumn {
     border-left: 1px solid rgba(0, 0, 0, 0.3);
 }
+
+.styled_table_form {
+    /* border-collapse: collapse;
+    margin: 2px 0;
+    padding: 2px;
+    font-size: 0.9em;
+    min-width: 400px;
+    text-align: left;
+    border: 1px solid var(--border-color); */
+    font-family: "Joan", sans-serif;
+    min-width: 400px;
+}
+
+.styled_table_form th {
+    text-align: left;
+    background-color: #f3ece3;
+    color: var(--primary-text-color);
+}
+
+.styled_table_form td {
+    background-color: #f3ece3;
+    color: var(--primary-text-color);
+}
+
+.category_select {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: "Joan", sans-serif;
+    outline: 0;
+    background: var(--primary-color);
+    color: var(--primary-text-color);
+    border: 1px solid var(--border-color);
+    padding: 4px;
+    min-width: 400px;
+}
+
+#courseNo-input {
+    max-width: 200px;
+    align-self: center;
+}
