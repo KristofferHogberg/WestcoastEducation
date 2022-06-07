@@ -10,6 +10,8 @@ namespace AdminApp.Pages.Teacher
         private readonly IHttpClientFactory _client;
         [BindProperty]
         public CreateTeacherViewModel TeacherModel { get; set; }
+        [BindProperty]
+        public List<string> CategoriesFromForm { get; set; }
 
         public Create(ILogger<Create> logger, IHttpClientFactory client)
         {
@@ -23,6 +25,24 @@ namespace AdminApp.Pages.Teacher
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            var categories = new List<CategoryViewModel>();
+
+            if (CategoriesFromForm is null)
+            {
+                return BadRequest("No categories was found");
+            }
+
+            foreach (var name in CategoriesFromForm)
+            {
+                categories.Add(new CategoryViewModel
+                {
+                    CategoryName = name
+                });
+            }
+
+            TeacherModel.Categories = categories;
+
             var http = _client.CreateClient("WestEduApi");
             var response = await http.PostAsJsonAsync(http.BaseAddress + "/teachers/register", TeacherModel);
 

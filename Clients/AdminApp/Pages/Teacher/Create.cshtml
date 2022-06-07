@@ -52,11 +52,43 @@
             </div>
             <div class="form-control">
                 <label asp-for="TeacherModel.Categories[0].CategoryName"></label>
-                <input asp-for="TeacherModel.Categories[0].CategoryName" />
+                <select asp-for="CategoriesFromForm" multiple>
+                    <option value="Dotnet">.NET</option>
+                    <option value="C">C</option>
+                    <option value="Cplus">C++</option>
+                    <option value="C-Sharp">C#</option>
+                    <option value="CSS">CSS</option>
+                    <option value="Docker">Docker</option>
+                    <option value="HTML">HTML</option>
+                    <option value="Java">Java</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="PHP">PHP</option>
+                    <option value="Python">Python</option>
+                    <option value="React">React</option>
+                    <option value="SQL">SQL</option>
+                </select>
             </div>
+            @* <div class="form-control">
+                <label asp-for="TeacherModel.Categories[0].CategoryName"></label>
+                <input asp-for="TeacherModel.Categories[0].CategoryName" />
+                </div> *@
             <div class="buttons">
                 <button type="submit" class="btn">Save</button>
             </div>
         </form>
     </section>
+    @* <form action="#">
+        <label for="lang">Language</label>
+        <select name="languages" id="lang" multiple>
+        <option value="javascript">JavaScript</option>
+        <option value="php">PHP</option>
+        <option value="java">Java</option>
+        <option value="golang">Golang</option>
+        <option value="python">Python</option>
+        <option value="c#">C#</option>
+        <option value="C++">C++</option>
+        <option value="erlang">Erlang</option>
+        </select>
+        <input type="submit" value="Submit" />
+        </form> *@
 </section>

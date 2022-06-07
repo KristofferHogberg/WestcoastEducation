@@ -11,6 +11,7 @@ namespace AdminApp.Pages.Teacher
 
         [BindProperty]
         public List<TeacherWithCategoriesViewModel> Teachers { get; set; }
+        public string comma = " ";
 
         public SearchCompetence(ILogger<SearchCompetence> logger, IHttpClientFactory client)
         {
@@ -20,8 +21,10 @@ namespace AdminApp.Pages.Teacher
 
         public async Task OnGetAsync(string categoryName)
         {
+            var categoriesToAdd = new List<CategoryViewModel>();
+
             var http = _client.CreateClient("WestEduApi");
-            Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/Java");
+            Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/C-Sharp");
 
             // if (!response.IsSuccessStatusCode)
             // {
