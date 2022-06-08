@@ -29,8 +29,8 @@ namespace AdminApp.ViewModels
         [Display(Name = "Enter Country")]
         [Required(ErrorMessage = "Country is required")]
         public string Country { get; set; }
-        //public AddressViewModel Address { get; set; }
+
         public virtual List<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
-        //public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
+        public virtual List<CourseViewModel> Courses { get; set; } = new List<CourseViewModel>();
     }
 }

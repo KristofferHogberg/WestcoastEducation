@@ -8,10 +8,10 @@ namespace AdminApp.Pages.Teacher
     {
         private readonly ILogger<Create> _logger;
         private readonly IHttpClientFactory _client;
+        [BindProperty(SupportsGet = true)]
+        public TeacherViewModel Teacher { get; set; }
         [BindProperty]
-        public EditTeacherViewModel TeacherModel { get; set; }
-        [BindProperty]
-        public AddressViewModel Address { get; set; }
+        public EditTeacherViewModel TeacherToUpdate { get; set; }
         [BindProperty]
         public List<string> CategoriesFromForm { get; set; }
         [BindProperty]
@@ -29,7 +29,7 @@ namespace AdminApp.Pages.Teacher
         {
             var http = _client.CreateClient("WestEduApi");
             AvailableCourses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/list");
-            TeacherModel = await http.GetFromJsonAsync<EditTeacherViewModel>(http.BaseAddress + $"/teachers/{id}");
+            Teacher = await http.GetFromJsonAsync<TeacherViewModel>(http.BaseAddress + $"/teachers/{id}");
 
         }
 
@@ -50,10 +50,22 @@ namespace AdminApp.Pages.Teacher
                 });
             }
 
-            TeacherModel.Categories = categories;
+            // TeacherModel.Address = AddressFromForm;
+            // TeacherModel.Categories = categories;
+
+
+            TeacherToUpdate.FirstName = Teacher.FirstName;
+            TeacherToUpdate.LastName = Teacher.LastName;
+            TeacherToUpdate.Email = Teacher.Email;
+            TeacherToUpdate.PhoneNumber = Teacher.PhoneNumber;
+            TeacherToUpdate.Street = Teacher.Address.Street;
+            TeacherToUpdate.City = Teacher.Address.City;
+            TeacherToUpdate.ZipCode = Teacher.Address.ZipCode;
+            TeacherToUpdate.Country = Teacher.Address.Country;
+            TeacherToUpdate.Categories = categories;
 
             var http = _client.CreateClient("WestEduApi");
-            var response = await http.PutAsJsonAsync(http.BaseAddress + $"/teachers/update/{id}", TeacherModel);
+            var response = await http.PutAsJsonAsync(http.BaseAddress + $"/teachers/update/{id}", TeacherToUpdate);
 
             if (!response.IsSuccessStatusCode)
             {

@@ -4,7 +4,7 @@ namespace AdminApp.ViewModels
 {
     public class AddressViewModel
     {
-        //public int AddresId { get; set; }
+        public int AddresId { get; set; }
         [Display(Name = "Enter Street address")]
         [Required(ErrorMessage = "Street address is required")]
         public string Street { get; set; }
