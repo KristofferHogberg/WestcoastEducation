@@ -11,19 +11,10 @@
 
 <h1 class="page-title">Our Courses in @Model.CategoryWithCourses.CategoryName</h1>
 <article>
+    <div class="page-button">
+        <a asp-page="Category"><button class="btn">Back to Categories</button></a>
+    </div>
     <section class="course-wrapper">
-        @* @foreach (var course in Model.CategoryWithCourses.Courses)
-            {
-            <div class="course-card">
-            <h4>Course Number: @course.CourseNo</h4>
-            <h4>Title: @course.Title</h4>
-            <h4>Length: @course.Length</h4>
-
-            <a asp-page="/Course/Details" asp-route-ID="@course.CourseId">
-            <button class="btn btn-primary">Pick Me</button></a>
-            </div>
-            } *@
-
         <table class="styled_table">
             <thead>
                 <tr>
@@ -53,16 +44,8 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
-                        @* <td>
-                            @Html.DisplayFor(modelItem => item.Length)
-                            </td>
-                            <td>
-                            @Html.DisplayFor(modelItem => item.Details)
-                            </td> *@
                         <td>
-                            @* <a asp-page="./Edit" asp-route-id="@item.CourseId">Edit</a> | *@
-                            <a asp-page="/Course/Details" asp-route-id="@item.CourseId">View Details</a>
-                            @* <a asp-page="./Delete" asp-route-id="@item.">Delete</a> *@
+                            <a asp-page="/Course/Details" asp-route-id="@item.CourseId">Details</a>
                         </td>
                     </tr>
                 }

@@ -1,8 +1,19 @@
 ﻿@page
 @model IndexModel
+
+@section styles{
+<link rel="stylesheet" href="~/css/course-page.css">
+}
+
 @{
     ViewData["Title"] = "Craigs Courses";
 }
 
 
 <h1 class="page-title">Welcome To Craigs Courses</h1>
+
+<section class="course-wrapper">
+    <div class="course-card">
+        <img src="~/img/frontpage.jpg" alt="picture of a classroom">
+    </div>
+</section>

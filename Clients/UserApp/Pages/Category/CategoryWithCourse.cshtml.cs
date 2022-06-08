@@ -23,11 +23,6 @@ namespace UserApp.Pages.Category
             var http = _client.CreateClient("WestEduApi");
             CategoryWithCourses = await http.GetFromJsonAsync<CategoryWithCoursesViewModel>(http.BaseAddress + $"/categories/courses/{id}");
 
-            // if (!response.IsSuccessStatusCode)
-            // {
-            //     string reason = await response.Content.ReadAsStringAsync();
-            //     Console.WriteLine(reason);
-            // }
         }
     }
 }

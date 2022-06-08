@@ -12,9 +12,9 @@
     gap: 0.8rem;
     align-items: center;
     justify-content: center;
-    min-width: 200px;
+    min-width: 40vw;
     height: auto;
-    background: var (--secondary-color);
+    background: var(--secondary-color);
     padding: 1rem 1.5rem;
     border: var(--border-color) solid 1px;
     border-radius: 10px;
@@ -22,7 +22,8 @@
 }
 
 .course-card img {
-    width: 100%;
+    max-width: 45vw;
+    border-radius: 4px;
 }
 
 .course-card a {

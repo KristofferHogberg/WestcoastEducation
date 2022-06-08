@@ -5,20 +5,11 @@
 <link rel="stylesheet" href="~/css/course-page.css">
 }
 
-<h1 class="page-title">Categories</h1>
-
+<h1 class="page-title">Choose a Category</h1>
 
 <article>
-    <section class="course-wrapper">
-        @* <section class="course-wrapper">
-            @foreach (var category in Model.Categories)
-            {
-            <div class="course-card">
-            <a asp-page="CategoryWithCourse" asp-route-ID="@category.CategoryId">@category.CategoryName</a>
-            </div>
-            }
-            </section> *@
 
+    <section class="course-wrapper">
         <table class="styled_table">
             <thead>
                 <tr>
@@ -37,7 +28,7 @@
                             @Html.DisplayFor(modelItem => item.CategoryName)
                         </td>
                         <td>
-                            <a asp-page="CategoryWithCourse" asp-route-id="@item.CategoryId">View Courses</a>
+                            <a asp-page="CategoryWithCourse" asp-route-id="@item.CategoryId">Go to courses</a>
                         </td>
                     </tr>
                 }

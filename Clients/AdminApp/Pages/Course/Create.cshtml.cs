@@ -10,6 +10,11 @@ namespace AdminApp.Pages.Course
         private readonly IHttpClientFactory _client;
         [BindProperty]
         public CreateCourseViewModel CourseModel { get; set; }
+        [BindProperty]
+        public string CategoryFromForm { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public List<CategoryViewModel> Categories { get; set; }
 
         public Create(ILogger<Create> logger, IHttpClientFactory client)
         {
@@ -17,13 +22,27 @@ namespace AdminApp.Pages.Course
             _logger = logger;
         }
 
-        public void OnGetAsync()
+        public void OnGet()
         {
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var http = _client.CreateClient("WestEduApi");
+            Categories = await http.GetFromJsonAsync<List<CategoryViewModel>>(http.BaseAddress + $"/categories/list");
+            if (Categories is null)
+            {
+                return BadRequest();
+            }
+
+            foreach (var category in Categories)
+            {
+                if (CategoryFromForm == category.CategoryName)
+                {
+                    CourseModel.CategoryId = category.CategoryId;
+                }
+            }
+
             var response = await http.PostAsJsonAsync(http.BaseAddress + "/courses/addcourse", CourseModel);
 
             if (!response.IsSuccessStatusCode)

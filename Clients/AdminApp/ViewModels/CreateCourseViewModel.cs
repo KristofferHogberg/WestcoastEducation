@@ -22,5 +22,6 @@ namespace AdminApp.ViewModels
         public string Details { get; set; }
         [Required(ErrorMessage = "Course category id is required")]
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

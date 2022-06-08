@@ -24,11 +24,6 @@ namespace AdminApp.Pages.Course
             var http = _client.CreateClient("WestEduApi");
             Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/category");
 
-            // if (!response.IsSuccessStatusCode)
-            // {
-            //     string reason = await response.Content.ReadAsStringAsync();
-            //     Console.WriteLine(reason);
-            // }
         }
     }
 }

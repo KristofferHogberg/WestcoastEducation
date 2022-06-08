@@ -72,7 +72,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             if (!await CategoryExist(model.CategoryId))
             {
-                throw new Exception($"could not find category with id: {model.CategoryId} in the system");
+                throw new Exception($"could not find category: {model.CategoryId} in the system");
             }
 
             await _context.Courses.AddAsync(courseToAdd);

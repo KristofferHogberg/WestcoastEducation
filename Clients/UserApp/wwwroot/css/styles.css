@@ -114,6 +114,13 @@ textarea {
     box-shadow: 0 0 0 0;
 }
 
+.page-button {
+    display: flex;
+    justify-content: center;
+    padding: 0.7rem 2rem;
+    text-decoration: none;
+}
+
 .go-back {
     font-size: 1.2rem;
     text-decoration: none;
