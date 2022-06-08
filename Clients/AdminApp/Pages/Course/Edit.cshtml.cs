@@ -8,8 +8,10 @@ namespace AdminApp.Pages.Course
     {
         private readonly ILogger<Create> _logger;
         private readonly IHttpClientFactory _client;
+        [BindProperty(SupportsGet = true)]
+        public CourseViewModel Course { get; set; }
         [BindProperty]
-        public EditCourseViewModel CourseModel { get; set; }
+        public EditCourseViewModel CourseToUpdate { get; set; }
 
         public Edit(ILogger<Create> logger, IHttpClientFactory client)
         {
@@ -17,14 +19,28 @@ namespace AdminApp.Pages.Course
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync(int id)
         {
+            var http = _client.CreateClient("WestEduApi");
+            Course = await http.GetFromJsonAsync<CourseViewModel>(http.BaseAddress + $"/courses/{id}");
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
+            if (Course is null)
+            {
+                return BadRequest();
+            }
+
+            CourseToUpdate.CourseNo = Course.CourseNo;
+            CourseToUpdate.Title = Course.Title;
+            CourseToUpdate.Length = Course.Length;
+            CourseToUpdate.Description = Course.Description;
+            CourseToUpdate.Details = Course.Details;
+            CourseToUpdate.CategoryId = Course.CategoryId;
+
             var http = _client.CreateClient("WestEduApi");
-            var response = await http.PutAsJsonAsync(http.BaseAddress + $"/courses/update/{id}", CourseModel);
+            var response = await http.PutAsJsonAsync(http.BaseAddress + $"/courses/update/{id}", CourseToUpdate);
 
             if (!response.IsSuccessStatusCode)
             {
