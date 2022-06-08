@@ -29,6 +29,21 @@ namespace Westcoast_Education_Api.Repositories.impl
                 .Where(u => u.StudentId != null)
                 .ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
+        public async Task<StudentViewModel> GetStudentByIdAsync(int id)
+        {
+            var student = await _context.ApplicationUsers
+                .Include(u => u.Student)
+                .ThenInclude(u => u!.ApplicationUser!.Address)
+                .Where(u => u.StudentId == id)
+                .ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+
+            if (student is null)
+            {
+                throw new Exception($"Could not find student with id: {id}");
+            }
+
+            return student;
+        }
         public async Task<List<StudentWithCoursesViewModel>> GetCourseStudentsRegistriesAsync()
         {
             return await _context.CourseStudents

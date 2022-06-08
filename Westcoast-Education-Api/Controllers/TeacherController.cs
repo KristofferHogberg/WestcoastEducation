@@ -22,7 +22,7 @@ namespace Westcoast_Education_Api.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeacherViewModel>> ListAllTeachers(int id)
+        public async Task<ActionResult<TeacherViewModel>> ListTeacherByIdAsync(int id)
         {
             return Ok(await _repository.GetTeacherByIdAsync(id));
         }

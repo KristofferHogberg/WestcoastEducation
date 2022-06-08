@@ -50,10 +50,6 @@ namespace AdminApp.Pages.Teacher
                 });
             }
 
-            // TeacherModel.Address = AddressFromForm;
-            // TeacherModel.Categories = categories;
-
-
             TeacherToUpdate.FirstName = Teacher.FirstName;
             TeacherToUpdate.LastName = Teacher.LastName;
             TeacherToUpdate.Email = Teacher.Email;
