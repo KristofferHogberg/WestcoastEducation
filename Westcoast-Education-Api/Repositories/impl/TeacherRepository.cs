@@ -81,10 +81,11 @@ namespace Westcoast_Education_Api.Repositories.impl
                .Where(u => u.Teacher!.Categories.Any(c => c.CategoryName == categoryName))
                .ProjectTo<TeacherWithCategoriesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
-            if (teacher.Count() == 0)
-            {
-                throw new Exception($"Could not find teacher: {categoryName} in the system");
-            }
+            //TODO: Check if code below is needed!
+            // if (teacher.Count() == 0)
+            // {
+            //     throw new Exception($"Could not find teacher: {categoryName} in the system");
+            // }
 
             return teacher;
         }

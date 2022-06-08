@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using AdminApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,7 +10,7 @@ namespace AdminApp.Pages.Teacher
         private readonly IHttpClientFactory _client;
 
         [BindProperty]
-        public List<TeacherWithCategoriesViewModel> Teachers { get; set; }
+        public List<TeacherWithCategoriesViewModel> Teachers { get; set; } = new List<TeacherWithCategoriesViewModel>();
         public List<CategoryViewModel> Categories { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; } = string.Empty;
@@ -36,6 +35,13 @@ namespace AdminApp.Pages.Teacher
             {
                 categoryNames.Add(category.CategoryName.ToLower());
             }
+
+            if (Teachers.Count() < 1)
+            {
+                ResponseString = "No Matches";
+
+            }
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 string result = SearchString.TrimStart().TrimEnd().ToLower();
