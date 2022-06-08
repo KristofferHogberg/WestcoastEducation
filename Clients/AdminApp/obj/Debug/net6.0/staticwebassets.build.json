@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "be4hB0d3kcwFdtnjk+MycN2v26e0jO2SLjJ/XM3gq+Q=",
+  "Hash": "uxkyfmluDe7uBvNWszyPUvxuyWKkug9zpmlLxqpc7kY=",
   "Source": "AdminApp",
   "BasePath": "_content/AdminApp",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/img/frontpage.jpg",
+      "SourceId": "AdminApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/",
+      "BasePath": "_content/AdminApp",
+      "RelativePath": "img/frontpage.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/frontpage.jpg"
     },
     {
       "Identity": "/Users/kristofferhogberg/Documents/Development/Projects/School/WestcoastEducation/Clients/AdminApp/wwwroot/js/site.js",

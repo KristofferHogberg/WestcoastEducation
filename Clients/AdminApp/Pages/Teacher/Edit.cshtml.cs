@@ -11,6 +11,8 @@ namespace AdminApp.Pages.Teacher
         [BindProperty]
         public EditTeacherViewModel TeacherModel { get; set; }
         [BindProperty]
+        public AddressViewModel Address { get; set; }
+        [BindProperty]
         public List<string> CategoriesFromForm { get; set; }
         [BindProperty]
         public List<CourseViewModel> AvailableCourses { get; set; }
@@ -23,10 +25,12 @@ namespace AdminApp.Pages.Teacher
             _logger = logger;
         }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int id)
         {
             var http = _client.CreateClient("WestEduApi");
             AvailableCourses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/list");
+            TeacherModel = await http.GetFromJsonAsync<EditTeacherViewModel>(http.BaseAddress + $"/teachers/{id}");
+
         }
 
         public async Task<IActionResult> OnPostAsync(int id)

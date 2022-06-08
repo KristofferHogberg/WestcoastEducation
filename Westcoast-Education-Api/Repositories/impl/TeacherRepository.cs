@@ -32,6 +32,22 @@ namespace Westcoast_Education_Api.Repositories.impl
                 .ProjectTo<TeacherViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<TeacherViewModel> GetTeacherByIdAsync(int id)
+        {
+            var teacher = await _context.ApplicationUsers
+                .Include(u => u.Teacher)
+                .ThenInclude(u => u!.ApplicationUser!.Address)
+                .Where(u => u.TeacherId == id)
+                .ProjectTo<TeacherViewModel>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+
+            if (teacher is null)
+            {
+                throw new Exception($"Could not find teacher: {id} in the system");
+            }
+
+            return teacher;
+        }
+
         public async Task<List<TeacherWithCategoriesViewModel>> GetTeachersWithCategoriesAsync()
         {
             return await _context.ApplicationUsers
