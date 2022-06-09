@@ -148,18 +148,19 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             foreach (var category in model.Categories!)
             {
-                if (!await CategoryExistByNameAsync(category.CategoryName!))
+
+                if (!await CategoryExistByNameAsync(category.CategoryName!.ToUpper()))
                 {
                     throw new Exception($"could not find category: {category.CategoryName} in the system");
                 }
 
-                if (categoriesToAdd.Where(c => c.CategoryName == category.CategoryName).Any())
+                if (categoriesToAdd.Where(c => c.CategoryName == category.CategoryName.ToUpper()).Any())
                 {
                     throw new Exception($"Duplicates not allowed: {category.CategoryName}");
                 }
 
                 categoriesToAdd.AddRange(availableCategories
-                .Where(c => c.CategoryName == category.CategoryName).ToList());
+                .Where(c => c.CategoryName!.ToUpper() == category.CategoryName.ToUpper()).ToList());
             }
             return categoriesToAdd;
         }
@@ -174,7 +175,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             if (appUser is null)
             {
-                throw new Exception($"Could not find student: {model.Email}");
+                throw new Exception($"Could not find teacher: {model.Email}");
             }
 
             _mapper.Map<PatchTeacherViewModel, ApplicationUser>(model, appUser);
@@ -204,18 +205,18 @@ namespace Westcoast_Education_Api.Repositories.impl
 
             foreach (var category in model.Categories!)
             {
-                if (!await CategoryExistByNameAsync(category.CategoryName!))
+                if (!await CategoryExistByNameAsync(category.CategoryName!.ToUpper()))
                 {
                     throw new Exception($"could not find category: {category.CategoryName} in the system");
                 }
 
-                if (categoriesToUpdate.Where(c => c.CategoryName == category.CategoryName).Any())
+                if (categoriesToUpdate.Where(c => c.CategoryName!.ToUpper() == category.CategoryName.ToUpper()).Any())
                 {
                     throw new Exception($"Duplicates not allowed: {category.CategoryName}");
                 }
 
                 categoriesToUpdate.AddRange(availableCategories
-                .Where(c => c.CategoryName == category.CategoryName).ToList());
+                .Where(c => c.CategoryName!.ToUpper() == category.CategoryName.ToUpper()));
             }
             return categoriesToUpdate;
         }
@@ -232,7 +233,7 @@ namespace Westcoast_Education_Api.Repositories.impl
                 throw new Exception($"We could not find teacher with id: {id}");
             }
 
-            // TODO: Fix real cascade with address
+
             var address = response.ApplicationUser!.Address;
 
             if (address is null)
@@ -246,7 +247,7 @@ namespace Westcoast_Education_Api.Repositories.impl
 
         public async Task<bool> CategoryExistByNameAsync(string name)
         {
-            return await _context.Categories.AnyAsync(c => c.CategoryName == name);
+            return await _context.Categories.AnyAsync(c => c.CategoryName!.ToUpper() == name.ToUpper());
         }
 
         public async Task<bool> CourseExistByNoAsync(int courseNo)
@@ -259,13 +260,12 @@ namespace Westcoast_Education_Api.Repositories.impl
             return await _context.SaveChangesAsync() > 0;
         }
 
-        // TODO: Check for logical errors!
         public async Task<List<Course>> UpdateTracherToCoursesAsync(PatchTeacherViewModel model)
         {
             var availableCourses = await _context.Courses.ToListAsync();
             var coursesToAdd = new List<Course>();
 
-            foreach (var course in model.Courses)
+            foreach (var course in model.Courses!)
             {
                 if (!await CourseExistByNoAsync(course.CourseNo!))
                 {
