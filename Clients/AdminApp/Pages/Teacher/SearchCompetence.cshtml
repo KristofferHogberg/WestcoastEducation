@@ -5,28 +5,26 @@
 <link rel="stylesheet" href="~/css/course-page.css">
 }
 
-<section class="form-container">
-    <section class="form-wrapper">
-        <form class="form" method="get">
-            <div class="form-control">
-                <input asp-for="SearchString" placeholder="Search competence" />
-            </div>
-            <div class="buttons">
-                <button type="submit" class="btn">Search</button>
-            </div>
-        </form>
-    </section>
-    <div>
-        @if (ViewData["ErrorMessage"] is not null)
-        {
-            <div class="error_message">@ViewData["ErrorMessage"]</div>
-        }
-    </div>
-</section>
-
-<h1 class="page-title">Teachers With Competences</h1>
-
 <article>
+    <h1 class="page-title">Find teacher by skill Competences</h1>
+    <section class="form-container">
+        <section class="form-wrapper">
+            <form class="form" method="get">
+                <div class="form-control">
+                    <input asp-for="SearchString" placeholder="Search competence" />
+                </div>
+                <div>
+                    @if (ViewData["ErrorMessage"] is not null)
+                    {
+                        <div class="error_message">@ViewData["ErrorMessage"]</div>
+                    }
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="btn">Search</button>
+                </div>
+            </form>
+        </section>
+    </section>
     <section class="course-wrapper">
         <table class="styled_table">
             <thead>
@@ -59,7 +57,7 @@
                                 @foreach (var category in item.Categories)
                                 {
                                     @Html.DisplayFor(modelItem => category.CategoryName)
-                                    @Html.DisplayFor(modelItem => modelItem.comma)
+                                    @Html.DisplayFor(modelItem => modelItem.separator)
                                 }
                             </td>
                         </tr>

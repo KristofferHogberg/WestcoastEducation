@@ -18,7 +18,7 @@ namespace AdminApp.Pages.Teacher
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; } = string.Empty;
         public string Result { get; set; } = string.Empty;
-        public string comma = " | ";
+        public string separator = " ";
 
         public SearchCompetence(ILogger<SearchCompetence> logger, IHttpClientFactory client)
         {
@@ -37,7 +37,6 @@ namespace AdminApp.Pages.Teacher
                 categoryNames.Add(category.CategoryName.ToLower());
             }
 
-
             if (!string.IsNullOrEmpty(SearchString))
             {
                 Result = SearchString.TrimStart().TrimEnd().ToLower();
@@ -46,47 +45,14 @@ namespace AdminApp.Pages.Teacher
                 {
                     ErrorMessage = "No matches";
                 }
-                // else
-                // {
-                //     //ErrorMessage = "";
-                //     // Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/{Result}");
-
-                //     // foreach (var teacher in Teachers)
-                //     // {
-                //     //     if (teacher.Categories.Where(c => c.CategoryName == Result).Any())
-                //     //     {
-                //     //         ErrorMessage = "No matches";
-                //     //     }
-                //     //     else
-                //     //     {
-                //     //         ErrorMessage = "Kalle";
-
-                //     //     }
-                //     // }
-                // }
-
-
-                // foreach (var teacher in Teachers)
-                // {
-                //     if (!teacher.Categories.Where(c => c.CategoryName != Result).Any())
-                //     {
-                //         ErrorMessage = "No matches";
-                //     }
-                //     else
-                //     {
-                //         ErrorMessage = "";
-
-                //     }
-                // }
-
 
                 Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/{Result}");
-            }
-            // else
-            // {
-            //     ErrorMessage = "";
 
-            // }
+                if (Teachers.Count() == 0)
+                {
+                    ErrorMessage = "No matches";
+                }
+            }
         }
     }
 }
