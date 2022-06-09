@@ -12,10 +12,13 @@
 <h1>@ViewData["Register New Teacher"]</h1>
 
 <header>
-    <h1 class="page-title">Register New Teacher</h1>
+    <h1 class="page-title">Add New Teacher</h1>
 </header>
 <section class="form-container">
-    <h4>Sign Up</h4>
+    <h4>Add New Teacher</h4>
+
+    <div class="error_message">@ViewData["ErrorMessage"]</div>
+
     <section class="form-wrapper">
         <form class="form" method="post">
             <div class="form-control">

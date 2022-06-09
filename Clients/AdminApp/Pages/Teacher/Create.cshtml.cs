@@ -8,6 +8,8 @@ namespace AdminApp.Pages.Teacher
     {
         private readonly ILogger<Create> _logger;
         private readonly IHttpClientFactory _client;
+        [ViewData]
+        public string ErrorMessage { get; set; }
         [BindProperty]
         public CreateTeacherViewModel TeacherModel { get; set; }
         [BindProperty]
@@ -29,7 +31,8 @@ namespace AdminApp.Pages.Teacher
 
             if (CategoriesFromForm is null)
             {
-                return BadRequest("No categories were found");
+                ErrorMessage = "Please select a category";
+                return Page();
             }
 
             foreach (var name in CategoriesFromForm)

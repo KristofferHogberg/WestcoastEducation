@@ -8,16 +8,17 @@ namespace AdminApp.Pages.Teacher
     {
         private readonly ILogger<SearchCompetence> _logger;
         private readonly IHttpClientFactory _client;
+        [ViewData]
+        public string ErrorMessage { get; set; } = "";
 
         [BindProperty]
         public List<TeacherWithCategoriesViewModel> Teachers { get; set; } = new List<TeacherWithCategoriesViewModel>();
+
         public List<CategoryViewModel> Categories { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string ResponseString { get; set; } = string.Empty;
-        public string comma = " ";
+        public string Result { get; set; } = string.Empty;
+        public string comma = " | ";
 
         public SearchCompetence(ILogger<SearchCompetence> logger, IHttpClientFactory client)
         {
@@ -36,29 +37,56 @@ namespace AdminApp.Pages.Teacher
                 categoryNames.Add(category.CategoryName.ToLower());
             }
 
-            if (Teachers.Count() < 1)
-            {
-                ResponseString = "No Matches";
-
-            }
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                string result = SearchString.TrimStart().TrimEnd().ToLower();
+                Result = SearchString.TrimStart().TrimEnd().ToLower();
 
-                if (!categoryNames.Contains(result))
+                if (!categoryNames.Contains(Result))
                 {
-                    ResponseString = "No Matches";
+                    ErrorMessage = "No matches";
                 }
-                else
-                {
-                    Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/{result}");
-                }
+                // else
+                // {
+                //     //ErrorMessage = "";
+                //     // Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/{Result}");
+
+                //     // foreach (var teacher in Teachers)
+                //     // {
+                //     //     if (teacher.Categories.Where(c => c.CategoryName == Result).Any())
+                //     //     {
+                //     //         ErrorMessage = "No matches";
+                //     //     }
+                //     //     else
+                //     //     {
+                //     //         ErrorMessage = "Kalle";
+
+                //     //     }
+                //     // }
+                // }
+
+
+                // foreach (var teacher in Teachers)
+                // {
+                //     if (!teacher.Categories.Where(c => c.CategoryName != Result).Any())
+                //     {
+                //         ErrorMessage = "No matches";
+                //     }
+                //     else
+                //     {
+                //         ErrorMessage = "";
+
+                //     }
+                // }
+
+
+                Teachers = await http.GetFromJsonAsync<List<TeacherWithCategoriesViewModel>>(http.BaseAddress + $"/teachers/categories/{Result}");
             }
-            else
-            {
-                ResponseString = "No Matches";
-            }
+            // else
+            // {
+            //     ErrorMessage = "";
+
+            // }
         }
     }
 }

@@ -8,13 +8,14 @@ namespace AdminApp.Pages.Course
     {
         private readonly ILogger<Create> _logger;
         private readonly IHttpClientFactory _client;
+
+        [ViewData]
+        public string ErrorMessage { get; set; }
         [BindProperty]
         public CreateCourseViewModel CourseModel { get; set; }
         [BindProperty]
 
         public List<CourseViewModel> Courses { get; set; }
-        [BindProperty]
-        public string ErrorMessage { get; set; }
         [BindProperty]
         public string CategoryFromForm { get; set; }
 
@@ -27,19 +28,32 @@ namespace AdminApp.Pages.Course
             _logger = logger;
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            var http = _client.CreateClient("WestEduApi");
-            Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/list");
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var http = _client.CreateClient("WestEduApi");
+
+            Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/list");
             Categories = await http.GetFromJsonAsync<List<CategoryViewModel>>(http.BaseAddress + $"/categories/list");
+
+            foreach (var course in Courses)
+            {
+                if (CourseModel.CourseNo == course.CourseNo)
+                {
+                    ErrorMessage = $"Course number: {CourseModel.CourseNo} allredy exist in the system";
+                    return Page();
+                }
+            }
+
+            var test = CourseModel.CourseNo;
+
             if (Categories is null)
             {
-                return BadRequest();
+                ErrorMessage = "Could not fetch categories";
+                return Page();
             }
 
             foreach (var category in Categories)
@@ -47,14 +61,6 @@ namespace AdminApp.Pages.Course
                 if (CategoryFromForm == category.CategoryName)
                 {
                     CourseModel.CategoryId = category.CategoryId;
-                }
-            }
-
-            foreach (var course in Courses)
-            {
-                if (CourseModel.CourseNo == course.CourseNo)
-                {
-                    ViewData[ErrorMessage] = $"Course number {CourseModel.CourseNo} allready exist in the system";
                 }
             }
 

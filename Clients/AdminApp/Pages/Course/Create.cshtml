@@ -10,12 +10,14 @@
 </header>
 <section class="form-container">
     <h4>Add New Course</h4>
+
+    <div class="error_message">@ViewData["ErrorMessage"]</div>
+
     <section class="form-wrapper">
         <form class="form" method="post">
             <div class="form-control">
                 <label asp-for="CourseModel.CourseNo"></label>
                 <input asp-for="CourseModel.CourseNo" required />
-                @ViewData["ErrorMessage"]
             </div>
             <div class="form-control">
                 <label asp-for="CourseModel.Title"></label>

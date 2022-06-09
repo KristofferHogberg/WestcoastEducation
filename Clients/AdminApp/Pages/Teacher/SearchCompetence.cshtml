@@ -17,9 +17,9 @@
         </form>
     </section>
     <div>
-        @if (Model.ResponseString is not null)
+        @if (ViewData["ErrorMessage"] is not null)
         {
-            <h4>@Model.ResponseString</h4>
+            <div class="error_message">@ViewData["ErrorMessage"]</div>
         }
     </div>
 </section>
