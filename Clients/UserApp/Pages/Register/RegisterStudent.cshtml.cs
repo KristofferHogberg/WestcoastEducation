@@ -8,8 +8,13 @@ namespace UserApp.Pages.Register
     {
         private readonly ILogger<RegisterStudent> _logger;
         private readonly IHttpClientFactory _client;
+        [ViewData]
+        public string ErrorMessage { get; set; }
+        [ViewData]
+        public string Verification { get; set; }
         [BindProperty]
         public CreateStudentViewModel StudentModel { get; set; }
+        public List<StudentViewModel> Students { get; set; }
 
         public RegisterStudent(ILogger<RegisterStudent> logger, IHttpClientFactory client)
         {
@@ -21,18 +26,31 @@ namespace UserApp.Pages.Register
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task OnPostAsync()
         {
             var http = _client.CreateClient("WestEduApi");
-            var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
+            Students = await http.GetFromJsonAsync<List<StudentViewModel>>(http.BaseAddress + "/students/list");
 
-            if (!response.IsSuccessStatusCode)
+            foreach (var student in Students)
             {
-                string reason = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(reason);
+                if (student.Email == StudentModel.Email)
+                {
+                    ErrorMessage = $"{StudentModel.Email} allready exist in the system";
+                }
             }
 
-            return RedirectToPage("/Index");
+            var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
+            // if (!response.IsSuccessStatusCode)
+            // {
+            //     string reason = await response.Content.ReadAsStringAsync();
+            //     Console.WriteLine(reason);
+            // }
+
+            if (response.IsSuccessStatusCode)
+            {
+                ErrorMessage = "";
+                Verification = "Succsess, welcome to Kris's Courses!";
+            }
 
         }
     }

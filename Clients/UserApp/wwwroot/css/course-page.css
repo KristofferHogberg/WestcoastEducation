@@ -36,53 +36,6 @@
     text-decoration: none;
 }
 
-
-/* 
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    max-width: 600px;
-    border-radius: 10px;
-    background: #f3f3f3;
-    border: #888 solid 1px;
-    box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.6);
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-
-.modal-container {
-    margin: 2rem;
-}
-
-.modal-container img {
-    width: 100%;
-}
-
-.close-modal {
-    position: absolute;
-    top: 0;
-    right: 6px;
-    font-size: 2rem;
-    border: none;
-    outline: none !important;
-    background: none;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-} */
-
 @media (max-width: 500px) {
     .gallery-wrapper {
         grid-template-columns: repeat(1, 1fr);

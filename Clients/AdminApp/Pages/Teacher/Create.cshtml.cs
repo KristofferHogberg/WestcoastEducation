@@ -10,6 +10,7 @@ namespace AdminApp.Pages.Teacher
         private readonly IHttpClientFactory _client;
         [ViewData]
         public string ErrorMessage { get; set; }
+        public List<TeacherViewModel> Teachers { get; set; }
         [BindProperty]
         public CreateTeacherViewModel TeacherModel { get; set; }
         [BindProperty]
@@ -27,6 +28,18 @@ namespace AdminApp.Pages.Teacher
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var http = _client.CreateClient("WestEduApi");
+            Teachers = await http.GetFromJsonAsync<List<TeacherViewModel>>(http.BaseAddress + "/teachers/list");
+
+            foreach (var student in Teachers)
+            {
+                if (student.Email == TeacherModel.Email)
+                {
+                    ErrorMessage = $"{TeacherModel.Email} allready exist in the system";
+                    return Page();
+                }
+            }
+
             var categories = new List<CategoryViewModel>();
 
             if (CategoriesFromForm is null)
@@ -45,7 +58,6 @@ namespace AdminApp.Pages.Teacher
 
             TeacherModel.Categories = categories;
 
-            var http = _client.CreateClient("WestEduApi");
             var response = await http.PostAsJsonAsync(http.BaseAddress + "/teachers/register", TeacherModel);
 
             if (!response.IsSuccessStatusCode)

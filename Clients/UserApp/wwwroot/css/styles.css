@@ -212,3 +212,25 @@ textarea {
 #altColumn {
     border-left: 1px solid rgba(0, 0, 0, 0.3);
 }
+
+.error_message {
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    font-family: "Joan", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: red;
+    opacity: 0.6;
+}
+
+.succsess_message {
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    font-family: "Joan", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: green;
+    opacity: 0.6;
+}

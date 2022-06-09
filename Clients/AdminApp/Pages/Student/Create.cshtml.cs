@@ -8,8 +8,11 @@ namespace AdminApp.Pages.Student
     {
         private readonly ILogger<Create> _logger;
         private readonly IHttpClientFactory _client;
+        [ViewData]
+        public string ErrorMessage { get; set; }
         [BindProperty]
         public CreateStudentViewModel StudentModel { get; set; }
+        public List<StudentViewModel> Students { get; set; }
 
         public Create(ILogger<Create> logger, IHttpClientFactory client)
         {
@@ -17,15 +20,24 @@ namespace AdminApp.Pages.Student
             _logger = logger;
         }
 
-        public void OnGetAsync()
+        public void OnGet()
         {
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var http = _client.CreateClient("WestEduApi");
-            var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
+            Students = await http.GetFromJsonAsync<List<StudentViewModel>>(http.BaseAddress + "/students/list");
 
+            foreach (var student in Students)
+            {
+                if (student.Email == StudentModel.Email)
+                {
+                    ErrorMessage = $"{StudentModel.Email} allready exist in the system";
+                    return Page();
+                }
+            }
+            var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
             if (!response.IsSuccessStatusCode)
             {
                 string reason = await response.Content.ReadAsStringAsync();
