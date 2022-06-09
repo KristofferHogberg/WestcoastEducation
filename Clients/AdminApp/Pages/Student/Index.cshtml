@@ -1,20 +1,18 @@
 @page
 @model AdminApp.Pages.Student.Index
 
-
 @section styles{
 <link rel="stylesheet" href="~/css/course-page.css">
 }
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Students";
 }
 
-<h1 class="page-title">Students</h1>
-
+<h1 class="page-title">All Students</h1>
 
 <div class="page-button">
-    <a asp-page="Create"><button class="btn">Create New Student</button></a>
+    <a asp-page="Create"><button class="btn">Add New Student</button></a>
 </div>
 <article>
     <section class="course-wrapper">

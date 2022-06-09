@@ -6,7 +6,7 @@
 }
 
 <header>
-    <h1 class="page-title">Create New course</h1>
+    <h1 class="page-title">Add New Course</h1>
 </header>
 <section class="form-container">
     <h4>Add New Course</h4>
@@ -15,6 +15,7 @@
             <div class="form-control">
                 <label asp-for="CourseModel.CourseNo"></label>
                 <input asp-for="CourseModel.CourseNo" required />
+                @ViewData["ErrorMessage"]
             </div>
             <div class="form-control">
                 <label asp-for="CourseModel.Title"></label>
@@ -32,10 +33,6 @@
                 <label asp-for="CourseModel.Details"></label>
                 <input asp-for="CourseModel.Details" required />
             </div>
-
-            @* TODO: Change Addcategory in API to work with Category Name *@
-
-
             <h4>Choose Category</h4>
             <div class="form-control">
                 <select asp-for="CategoryFromForm" class="category_select" size="4">
@@ -54,12 +51,6 @@
                     <option value="SQL">SQL</option>
                 </select>
             </div>
-
-            @* <div class="form-control">
-                <label asp-for="CourseModel.CategoryId"></label>
-                <input asp-for="CourseModel.CategoryId" required />
-                </div> *@
-
             <div class="buttons">
                 <button type="submit" class="btn">Save</button>
             </div>

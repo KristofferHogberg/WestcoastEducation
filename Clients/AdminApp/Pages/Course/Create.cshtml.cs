@@ -11,6 +11,11 @@ namespace AdminApp.Pages.Course
         [BindProperty]
         public CreateCourseViewModel CourseModel { get; set; }
         [BindProperty]
+
+        public List<CourseViewModel> Courses { get; set; }
+        [BindProperty]
+        public string ErrorMessage { get; set; }
+        [BindProperty]
         public string CategoryFromForm { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -22,8 +27,10 @@ namespace AdminApp.Pages.Course
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            var http = _client.CreateClient("WestEduApi");
+            Courses = await http.GetFromJsonAsync<List<CourseViewModel>>(http.BaseAddress + $"/courses/list");
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -40,6 +47,14 @@ namespace AdminApp.Pages.Course
                 if (CategoryFromForm == category.CategoryName)
                 {
                     CourseModel.CategoryId = category.CategoryId;
+                }
+            }
+
+            foreach (var course in Courses)
+            {
+                if (CourseModel.CourseNo == course.CourseNo)
+                {
+                    ViewData[ErrorMessage] = $"Course number {CourseModel.CourseNo} allready exist in the system";
                 }
             }
 
