@@ -11,7 +11,7 @@ using Westcoast_Education_Api.Data;
 namespace Westcoast_Education_Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220609160523_init")]
+    [Migration("20220609195344_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
