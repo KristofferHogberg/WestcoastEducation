@@ -48,8 +48,6 @@ namespace AdminApp.Pages.Course
                 }
             }
 
-            var test = CourseModel.CourseNo;
-
             if (Categories is null)
             {
                 ErrorMessage = "Could not fetch categories";

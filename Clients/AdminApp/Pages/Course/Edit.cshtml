@@ -14,32 +14,51 @@
 </header>
 <section class="form-container">
     <h4>Edit Course</h4>
+    <div class="error_message">@ViewData["ErrorMessage"]</div>
     <section class="form-wrapper">
         <form class="form" method="post">
             <div class="form-control">
-                <label asp-for="Course.CourseNo"></label>
-                <input asp-for="Course.CourseNo" required />
+                <label asp-for="CourseModel.CourseNo"></label>
+                <input asp-for="CourseModel.CourseNo" required />
             </div>
             <div class="form-control">
-                <label asp-for="Course.Title"></label>
-                <input asp-for="Course.Title" required />
+                <label asp-for="CourseModel.Title"></label>
+                <input asp-for="CourseModel.Title" required />
             </div>
             <div class="form-control">
-                <label asp-for="Course.Length"></label>
-                <input asp-for="Course.Length" required />
+                <label asp-for="CourseModel.Length"></label>
+                <input asp-for="CourseModel.Length" required />
             </div>
             <div class="form-control">
-                <label asp-for="Course.Description"></label>
-                <input asp-for="Course.Description" required />
+                <label asp-for="CourseModel.Description"></label>
+                <input asp-for="CourseModel.Description" required />
             </div>
             <div class="form-control">
-                <label asp-for="Course.Details"></label>
-                <input asp-for="Course.Details" required />
+                <label asp-for="CourseModel.Details"></label>
+                <input asp-for="CourseModel.Details" required />
             </div>
+            <h4>Choose Category</h4>
             <div class="form-control">
-                <label asp-for="Course.CategoryId"></label>
-                <input asp-for="Course.CategoryId" required />
+                <select asp-for="CategoryFromForm" class="category_select" size="4">
+                    <option value="Dotnet">.NET</option>
+                    <option value="C">C</option>
+                    <option value="Cplus">C++</option>
+                    <option value="C-Sharp">C#</option>
+                    <option value="CSS">CSS</option>
+                    <option value="Docker">Docker</option>
+                    <option value="HTML">HTML</option>
+                    <option value="Java">Java</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="PHP">PHP</option>
+                    <option value="Python">Python</option>
+                    <option value="React">React</option>
+                    <option value="SQL">SQL</option>
+                </select>
             </div>
+            @* <div class="form-control">
+                <label asp-for="CourseModel.CategoryId"></label>
+                <input asp-for="CourseModel.CategoryId" required />
+                </div> *@
 
             <div class="buttons">
                 <button type="submit" class="btn">Save</button>
