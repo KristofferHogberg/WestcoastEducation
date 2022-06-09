@@ -10,12 +10,8 @@ using Westcoast_Education_Api.Repositories.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// builder.Services.AddDbContext<ApplicationContext>(options =>
-//     options.UseSqlite(builder.Configuration.GetConnectionString("sqlite"))
-// );
-
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlserver"))
+    options.UseSqlite(builder.Configuration.GetConnectionString("sqlite"))
 );
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(

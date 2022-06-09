@@ -31,9 +31,9 @@ namespace AdminApp.Pages.Teacher
             var http = _client.CreateClient("WestEduApi");
             Teachers = await http.GetFromJsonAsync<List<TeacherViewModel>>(http.BaseAddress + "/teachers/list");
 
-            foreach (var student in Teachers)
+            foreach (var teacher in Teachers)
             {
-                if (student.Email == TeacherModel.Email)
+                if (teacher.Email == TeacherModel.Email)
                 {
                     ErrorMessage = $"{TeacherModel.Email} allready exist in the system";
                     return Page();

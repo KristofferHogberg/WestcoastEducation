@@ -34,14 +34,14 @@ namespace AdminApp.Pages.Teacher
             var categoryNames = new List<string>();
             foreach (var category in Categories)
             {
-                categoryNames.Add(category.CategoryName.ToLower());
+                categoryNames.Add(category.CategoryName);
             }
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                Result = SearchString.TrimStart().TrimEnd().ToLower();
+                Result = SearchString.TrimStart().TrimEnd().ToUpper();
 
-                if (!categoryNames.Contains(Result))
+                if (!categoryNames.Contains(Result.ToUpper()))
                 {
                     ErrorMessage = "No matches";
                 }

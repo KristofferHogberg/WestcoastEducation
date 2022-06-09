@@ -37,6 +37,7 @@ namespace AdminApp.Pages.Student
                     return Page();
                 }
             }
+
             var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
             if (!response.IsSuccessStatusCode)
             {

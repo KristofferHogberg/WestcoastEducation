@@ -202,11 +202,13 @@ textarea {
 
 .styled_table tr.alt td {
     background-color: #f3e3c9;
+    min-height: fit-content;
 }
 
 .styled_table tr.alt:hover td {
     background-color: #f3e3c9;
     color: #373d3f;
+    min-height: fit-content;
 }
 
 #altColumn {
