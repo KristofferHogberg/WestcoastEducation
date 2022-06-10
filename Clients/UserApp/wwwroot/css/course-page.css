@@ -16,19 +16,20 @@
     gap: 0.8rem;
     align-items: center;
     justify-content: center;
-    min-width: 40vw;
+    min-width: 10vw;
     height: auto;
     background: #f3ece3;
     color: #555f61;
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 0.8rem;
     border: var(--border-color) solid 1px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.6);
 }
 
 .course-card img {
     max-width: 45vw;
     border-radius: 4px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.6);
 }
 
 .course-card a {

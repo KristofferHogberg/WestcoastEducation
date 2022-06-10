@@ -112,6 +112,8 @@ textarea {
 .btn:hover {
     font-weight: bold;
     box-shadow: 0 0 0 0;
+    background: var(--secondary-color);
+    opacity: 0.8;
 }
 
 .page-button {

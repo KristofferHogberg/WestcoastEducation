@@ -42,7 +42,7 @@ namespace Westcoast_Education_Api.Controllers
         [HttpGet("courses/limited/{id}")]
         public async Task<ActionResult> ListCategoryWithLimitedCoursesAsync(int id)
         {
-            return Ok(await _repository.GetCategoryWithCoursesAsync(id));
+            return Ok(await _repository.GetCategoryWithLimitedCoursesAsync(id));
         }
 
         [HttpPost("add")]

@@ -8,6 +8,7 @@ namespace Westcoast_Education_Api.Repositories.Interfaces
         public Task<List<CategoryWithCoursesViewModel>> GetCategoriesWithCoursesAsync();
         public Task<List<CategoryWithLimitedCourseViewModel>> GetCategoriesWithLimitedCoursesAsync();
         public Task<CategoryWithCoursesViewModel> GetCategoryWithCoursesAsync(int id);
+        public Task<CategoryWithLimitedCourseViewModel> GetCategoryWithLimitedCoursesAsync(int id);
         public Task CreateCategoryAsync(PostCategoryViewModel model);
         public Task DeleteCategoryAsync(int id);
         public Task<bool> ExistById(int id);

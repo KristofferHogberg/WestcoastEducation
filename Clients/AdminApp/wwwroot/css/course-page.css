@@ -1,9 +1,6 @@
 .course-wrapper {
-    /* CSS Grid */
     display: flex;
     justify-content: center;
-    /* grid-template-columns: repeat(4, 1fr);
-    gap: 2rem; */
 }
 
 .course-card {
@@ -12,18 +9,20 @@
     gap: 0.8rem;
     align-items: center;
     justify-content: center;
-    min-width: 40vw;
+    min-width: 10vw;
     height: auto;
-    background: var(--secondary-color);
-    padding: 1rem 1.5rem;
+    background: #f3ece3;
+    color: #555f61;
+    padding: 0.8rem 0.8rem;
     border: var(--border-color) solid 1px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.6);
 }
 
 .course-card img {
     max-width: 45vw;
     border-radius: 4px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.6);
 }
 
 .course-card a {
@@ -31,9 +30,9 @@
     text-decoration: none;
 }
 
-@media (max-width: 500px) {
+
+/* @media (max-width: 500px) {
     .course-wrapper {
-        grid-template-columns: repeat(1, 1fr);
         max-width: 500px;
     }
     .course-card {
@@ -43,7 +42,7 @@
 
 @media (min-width: 501px) and (max-width: 666px) {
     .course-wrapper {
-        grid-template-columns: repeat(1, 1fr);
+        display: flex;
     }
 }
 
@@ -57,4 +56,4 @@
     .course-wrapper {
         grid-template-columns: repeat(3, 1fr);
     }
-}
+} */

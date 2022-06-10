@@ -40,16 +40,11 @@ namespace UserApp.Pages.Register
             }
 
             var response = await http.PostAsJsonAsync(http.BaseAddress + "/students/register", StudentModel);
-            // if (!response.IsSuccessStatusCode)
-            // {
-            //     string reason = await response.Content.ReadAsStringAsync();
-            //     Console.WriteLine(reason);
-            // }
 
             if (response.IsSuccessStatusCode)
             {
                 ErrorMessage = "";
-                Verification = "Succsess, welcome to Kris's Courses!";
+                Verification = "Succsess, welcome to Westcoast Education!";
             }
 
         }
