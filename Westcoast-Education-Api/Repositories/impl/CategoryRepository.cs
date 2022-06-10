@@ -33,12 +33,34 @@ namespace Westcoast_Education_Api.Repositories.impl
                 .ProjectTo<CategoryWithCoursesViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<List<CategoryWithLimitedCourseViewModel>> GetCategoriesWithLimitedCoursesAsync()
+        {
+            return await _context.Categories
+                .Include(ca => ca.Courses)
+                .ProjectTo<CategoryWithLimitedCourseViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
         public async Task<CategoryWithCoursesViewModel> GetCategoryWithCoursesAsync(int id)
         {
             var category = await _context.Categories
                 .Include(ca => ca.Courses)
                 .Where(c => c.Id == id)
                 .ProjectTo<CategoryWithCoursesViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+
+            if (category is null)
+            {
+                throw new Exception($"Could not find category with id: {id} in the system");
+            }
+
+            return category;
+        }
+
+        public async Task<CategoryWithLimitedCourseViewModel> GetCategoryWithLimitedCoursesAsync(int id)
+        {
+            var category = await _context.Categories
+                .Include(ca => ca.Courses)
+                .Where(c => c.Id == id)
+                .ProjectTo<CategoryWithLimitedCourseViewModel>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
 
             if (category is null)
             {

@@ -27,9 +27,20 @@ namespace Westcoast_Education_Api.Controllers
         {
             return Ok(await _repository.GetCategoriesWithCoursesAsync());
         }
+        [HttpGet("courses/limited")]
+        public async Task<ActionResult> ListCategoriesWithLimitedCourses()
+        {
+            return Ok(await _repository.GetCategoriesWithLimitedCoursesAsync());
+        }
 
         [HttpGet("courses/{id}")]
         public async Task<ActionResult> ListCategoryWithCoursesAsync(int id)
+        {
+            return Ok(await _repository.GetCategoryWithCoursesAsync(id));
+        }
+
+        [HttpGet("courses/limited/{id}")]
+        public async Task<ActionResult> ListCategoryWithLimitedCoursesAsync(int id)
         {
             return Ok(await _repository.GetCategoryWithCoursesAsync(id));
         }

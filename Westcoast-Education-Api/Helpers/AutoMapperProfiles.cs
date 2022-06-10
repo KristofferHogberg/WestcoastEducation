@@ -28,11 +28,17 @@ namespace Westcoast_Education_Api.Helpers
             CreateMap<Category, CategoryWithCoursesViewModel>()
                 .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
 
+            CreateMap<Category, CategoryWithLimitedCourseViewModel>()
+                .ForMember(dest => dest.CategoryId, options => options.MapFrom(src => src.Id));
+
             CreateMap<Course, CourseViewModel>()
                 .ForMember(dest => dest.CourseId, options => options.MapFrom(src => src.Id));
             CreateMap<Course, CourseWithCategoryViewModel>()
                 .ForMember(dest => dest.CourseId, options => options.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CategoryName, options => options.MapFrom(src => src.Category!.CategoryName));
+
+            CreateMap<Course, CourseLimitedViewModel>()
+                .ForMember(dest => dest.CourseId, options => options.MapFrom(src => src.Id));
 
             CreateMap<CourseStudents, StudentWithCoursesViewModel>()
                .ForMember(dest => dest.FirstName, options => options.MapFrom(src => src.Student!.ApplicationUser!.FirstName))
