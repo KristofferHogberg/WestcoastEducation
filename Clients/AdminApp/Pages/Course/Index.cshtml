@@ -9,66 +9,67 @@
     ViewData["Title"] = "Courses";
 }
 
-<h1 class="page-title">All Courses</h1>
-
-<div class="page-button">
-    <a asp-page="Create"><button class="btn">Create New Course</button></a>
-</div>
 <article>
-    <section class="course-wrapper">
-        <table class="styled_table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Courses[0].CourseNo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Courses[0].Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Courses[0].Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Courses[0].Length)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Courses[0].Details)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Courses[0].CategoryName)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Courses)
-                {
+    <section class="course-container">
+        <h1 class="page-title">All Courses</h1>
+        <div class="page-button">
+            <a asp-page="Create"><button class="btn">Create New Course</button></a>
+        </div>
+        <section class="course-wrapper">
+            <table class="styled_table">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseNo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Length)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Details)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CategoryName)
-                        </td>
-                        <td>
-                            <a asp-page="Edit" asp-route-id="@item.CourseId"><button class="btn">Edit</button></a>
-                            <a asp-page="Delete" asp-route-id="@item.CourseId"><button class="btn">Delete</button></a>
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Courses[0].CourseNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Courses[0].Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Courses[0].Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Courses[0].Length)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Courses[0].Details)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Courses[0].CategoryName)
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Courses)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Length)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Details)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                <a asp-page="Edit" asp-route-id="@item.CourseId"><button class="btn">Edit</button></a>
+                                <a asp-page="Delete" asp-route-id="@item.CourseId"><button class="btn">Delete</button></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
     </section>
 </article>

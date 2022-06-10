@@ -48,7 +48,6 @@ textarea {
     justify-content: space-between;
     align-items: center;
     background: var(--secondary-color);
-    opacity: 0.9;
     position: fixed;
     top: 0;
     left: 0;
@@ -192,6 +191,7 @@ textarea {
 .styled_table td {
     background-color: #f3ece3;
     padding: 10px;
+    border: 1px solid var(--border-color);
 }
 
 .styled_table tr:hover td {
